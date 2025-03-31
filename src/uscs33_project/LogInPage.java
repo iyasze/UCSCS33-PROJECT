@@ -339,6 +339,8 @@ public class LogInPage extends javax.swing.JFrame {
                 logIn.setVisible(true);
                 logIn.setLocationRelativeTo(null);
                 
+                //test
+                
                 
             }
         });
