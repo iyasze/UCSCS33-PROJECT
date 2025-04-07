@@ -6,9 +6,10 @@ package uscs33_project;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.JOptionPane;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  *
@@ -414,17 +415,29 @@ public class SignUpPage extends javax.swing.JFrame {
         
     }
     
-    private static void modifyAddress(StringBuilder address){
-        
-        //NOTE: Modification can work on object (StringBuilder) just like a pass-by-reference
-        //      it is still considered as pass by value but it still works
-        //      only primitive data type(int, double, ...) can't be modified
-        
-        for(int x = 0; x < address.length() ; x++){ //replace white space with underscore
-            if(address.charAt(x) == ' '){
-                address.setCharAt(x, '_');
+    private static boolean checkEmail(String email){
+        try{
+                File readFile = new File("CUSTOMER_DATA.txt");
+                Scanner reader = new Scanner(readFile);
+                ArrayList<String> emailList = new ArrayList<>();
+                
+                while(reader.hasNextLine()){
+                    String tempEmail = reader.nextLine().split("\\*\\*\\*")[1];
+                    emailList.add(tempEmail);
+                }
+                
+                if(!(emailList.contains(email))){
+                    return false;
+                }
+                
+                
+                
             }
-        }
+            catch(IOException e){
+                System.out.print("An error has occured");
+            }
+        
+        return true;
     }
     
     private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
@@ -476,6 +489,10 @@ public class SignUpPage extends javax.swing.JFrame {
         - Alert user about email field & username field cannot be empty NOT YET
         */
         
+        //Obtain email and username
+        String email = EmailField.getText();
+        String username = UsernameField.getText();
+        
        
         //Obtain password from both password field
         String firstPassword = PasswordField.getText(); //first password from user
@@ -483,9 +500,16 @@ public class SignUpPage extends javax.swing.JFrame {
         
         char[] splitPassword = firstPassword.toCharArray();
         
-        //PASSSWORD CHECKER SECTION
-
-        if(!firstPassword.equals(secondPassword)){ //check if both password are not the same
+        
+        //PASSSWORD, EMAIL, ADDRESS CHECKER SECTION
+        
+        if(email.equals("") || username.equals("")){ //indicates username and email cannot be empty
+            JOptionPane.showMessageDialog(this, "Email or Username cannot be empty!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(checkEmail(email)){
+            JOptionPane.showMessageDialog(this, "Email has already been used!\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(!firstPassword.equals(secondPassword)){ //check if both password are not the same
             //Display error message
             JOptionPane.showMessageDialog(this, "Your password are not the same.\n Please retry", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
 
@@ -495,28 +519,33 @@ public class SignUpPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Your password is weak!.\n Please retry", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
             JOptionPane.showMessageDialog(this, "You must have:\n1. 2 Upper case\n2. 3 Lower case\n3. 1 digit", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
+        else if(addressLine_1.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Address cannot be empty!\nPlease retry!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        }
         else{
 
-            //obtain username and email
-            String username = UsernameField.getText();
-            String email = EmailField.getText();
+            //obtain username,email & password
             String password = PasswordField.getText();
 
 
             //MODIFY ADDRESS WHITE SPACE TO UNDERSCORES
-            StringBuilder address1 = new StringBuilder(addressLine_1.getText());
-            StringBuilder address2 = new StringBuilder(addressLine_2.getText());
-            StringBuilder address3 = new StringBuilder(addressLine_3.getText());
+            String address1 = addressLine_1.getText();
+            String address2 = addressLine_2.getText();
+            String address3 = addressLine_3.getText();
             
-            //calling the method for modification
-            modifyAddress(address1);
-            modifyAddress(address2);
-            modifyAddress(address3);
+            if(address2.equals("")){
+                address2 = "-";
+            }
+            else if(address3.equals("")){
+                address3 = "-";
+            }
+            else{}
+            
             
             
             try{
-                FileWriter writer = new FileWriter("CUSTOMER_DATA.txt", true);
-                writer.write(username + " " + email + " " + password + " " + address1 + " " + address2 + " " + address3 + "\n");
+                FileWriter writer = new FileWriter("CUSTOMER_DATA.txt", true); //true allows append
+                writer.write(username + "***" + email + "***" + password + "***" + address1 + "***" + address2 + "***" + address3 + "\n");
 
                 writer.close();
 
