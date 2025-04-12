@@ -86,6 +86,7 @@ public class WishlistForm extends javax.swing.JFrame {
                 wishlist.setVisible(true);
                 
                 System.out.println(screenWidth + " " + screenHeight);
+                System.out.println("Hello world!");
                 
             }
         
