@@ -58,7 +58,6 @@ public class ShoppingCart extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
@@ -188,14 +187,6 @@ public class ShoppingCart extends javax.swing.JFrame {
 
         jLabel6.setText("PAYMENT METHOD");
 
-        jRadioButton1.setForeground(new java.awt.Color(204, 204, 255));
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/gpay.jpg"))); // NOI18N
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
         jRadioButton2.setText("jRadioButton1");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,12 +219,10 @@ public class ShoppingCart extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                             .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(92, 92, 92)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(140, 140, 140))
         );
@@ -242,11 +231,8 @@ public class ShoppingCart extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton2)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton3)
                     .addComponent(jRadioButton4))
@@ -336,10 +322,6 @@ public class ShoppingCart extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-       JOptionPane.showConfirmDialog(null, "Press 1 Button");
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
@@ -419,9 +401,9 @@ public class ShoppingCart extends javax.swing.JFrame {
     itemPanel.setBounds(20, y, 1200, 140);
 
         // Create a label with the image
-    JLabel imageLabel = new JLabel();
-    imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/gloss 3.jpg")));
-    imageLabel.setPreferredSize(new Dimension(300,300));
+    /*JLabel imageLabel = new JLabel();
+    imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uscs33_project/gloss 3.jpg")));
+    imageLabel.setPreferredSize(new Dimension(300,300));*/
 
     JButton editButton = new JButton("Edit");
     editButton.setBounds(850,90,80,25);
@@ -482,7 +464,7 @@ public class ShoppingCart extends javax.swing.JFrame {
     itemPanel.add(totalLabel);
     itemPanel.add(editButton);
     itemPanel.add(deleteButton);
-    ProductPanel.add(imageLabel);
+    //ProductPanel.add(imageLabel);
     
     ProductPanel.revalidate();
     ProductPanel.repaint();
@@ -566,7 +548,6 @@ public class ShoppingCart extends javax.swing.JFrame {
     public javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
     public javax.swing.JPanel jPanel5;
-    public javax.swing.JRadioButton jRadioButton1;
     public javax.swing.JRadioButton jRadioButton2;
     public javax.swing.JRadioButton jRadioButton3;
     public javax.swing.JRadioButton jRadioButton4;
