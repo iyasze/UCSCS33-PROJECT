@@ -5,6 +5,9 @@
 package uscs33_project;
 
 import java.io.*;
+import java.util.Scanner;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +49,7 @@ public class LogInPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         PasswordField = new javax.swing.JPasswordField();
         LogIn_Button = new javax.swing.JButton();
+        unhidePassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -53,7 +57,7 @@ public class LogInPage extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("/Users/iyasnaufalnazlim/Downloads/MAKLUV (2).png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uscs33_project/LOGIN_DECO.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +127,7 @@ public class LogInPage extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(436, 166));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("/Users/iyasnaufalnazlim/Downloads/TEST (1).png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uscs33_project/LOGIN_TITLE.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -131,7 +135,7 @@ public class LogInPage extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -207,6 +211,13 @@ public class LogInPage extends javax.swing.JFrame {
             }
         });
 
+        unhidePassword.setText("Unhide");
+        unhidePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unhidePasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -218,7 +229,9 @@ public class LogInPage extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(unhidePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,8 +239,13 @@ public class LogInPage extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(unhidePassword)
+                        .addGap(38, 38, 38)))
                 .addComponent(LogIn_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -297,12 +315,59 @@ public class LogInPage extends javax.swing.JFrame {
     }//GEN-LAST:event_Skip_ButtonActionPerformed
 
     private void LogIn_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ButtonActionPerformed
-        String email = EmailField.getText();
-        String password = PasswordField.getText();
         
-        System.out.println(email + password);
+        
+        try{
+            
+            String email = EmailField.getText();
+            String password = PasswordField.getText();
+            
+            File myFile = new File("CUSTOMER_DATA.txt");
+            Scanner input = new Scanner(myFile);
+            
+            HashMap<String,String> userInfos = new HashMap<String, String>();
+            
+            while(input.hasNextLine()){
+                String[] line = input.nextLine().split("\\*\\*\\*");
+                String tempUser = line[1];
+                String tempPassword = line[2];
+                
+                userInfos.put(tempUser, tempPassword); //add key and values to HashMap
+            }
+            
+            if(userInfos.containsKey(email)){
+                if(!userInfos.get(email).equals(password)){
+                    JOptionPane.showMessageDialog(this, "Password or username might be incorrect.\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    userInfos.clear();
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Username not found, please try again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        }
+        catch(IndexOutOfBoundsException e){
+            System.out.println("ERROR HAS OCCURED: INDEX OUT OF BOUND");
+        }
+        catch(IOException e){
+            System.out.println("ERROR HAS OCCURED");
+            e.printStackTrace();
+        }
        
     }//GEN-LAST:event_LogIn_ButtonActionPerformed
+
+    private void unhidePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unhidePasswordActionPerformed
+        // TODO add your handling code here:
+        if(unhidePassword.isSelected()){
+            PasswordField.setEchoChar((char)0); //unhide the password
+        }
+        else{
+            PasswordField.setEchoChar('*');
+        }
+        
+    }//GEN-LAST:event_unhidePasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,5 +430,6 @@ public class LogInPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JCheckBox unhidePassword;
     // End of variables declaration//GEN-END:variables
 }
