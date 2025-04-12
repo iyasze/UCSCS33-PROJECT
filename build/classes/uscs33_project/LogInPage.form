@@ -379,7 +379,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="unhidePassword">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Unhide"/>
+                <Property name="text" type="java.lang.String" value="Show password"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unhidePasswordActionPerformed"/>
