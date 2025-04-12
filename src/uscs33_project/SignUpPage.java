@@ -504,7 +504,7 @@ public class SignUpPage extends javax.swing.JFrame {
         }
         else if(!firstPassword.equals(secondPassword)){ //check if both password are not the same
             //Display error message
-            JOptionPane.showMessageDialog(this, "Your password are not the same.\n Please retry", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Your passwords are not the same.\n Please retry", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
 
         }
         else if(!(passwordStrength(splitPassword))){
@@ -551,7 +551,7 @@ public class SignUpPage extends javax.swing.JFrame {
                 addressLine_2.setText("");
                 addressLine_3.setText("");
 
-             
+                //changed a bit la
 
                 JOptionPane.showMessageDialog(this, "You successfully created an account!\n Please LOG IN!");
                 

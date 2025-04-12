@@ -1,5 +1,4 @@
-/*SLAY
-/* i want to say YESSSSSS
+/* i want to say YASS QUEEN
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -212,7 +211,7 @@ public class LogInPage extends javax.swing.JFrame {
             }
         });
 
-        unhidePassword.setText("Unhide");
+        unhidePassword.setText("Show password");
         unhidePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unhidePasswordActionPerformed(evt);
