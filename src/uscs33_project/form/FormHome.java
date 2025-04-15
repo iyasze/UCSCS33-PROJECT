@@ -125,44 +125,18 @@ public class FormHome extends javax.swing.JPanel {
 
         layeredPane = new javax.swing.JLayeredPane();
         container = new javax.swing.JPanel();
-        sidebar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         scroll = new javax.swing.JScrollPane();
         panelItem = new uscs33_project.swing.PanelItem();
-        banner = new javax.swing.JPanel();
 
         setOpaque(false);
         setLayout(new java.awt.BorderLayout());
 
         container.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("HOME PAGE");
-        jLabel1.setToolTipText("");
-
-        javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
-        sidebar.setLayout(sidebarLayout);
-        sidebarLayout.setHorizontalGroup(
-            sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        sidebarLayout.setVerticalGroup(
-            sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addContainerGap(204, Short.MAX_VALUE))
-        );
-
-        container.add(sidebar, java.awt.BorderLayout.WEST);
-
         scroll.setBorder(null);
         scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        panelItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelItem.setPreferredSize(new java.awt.Dimension(1290, 750));
         scroll.setViewportView(panelItem);
 
@@ -180,40 +154,20 @@ public class FormHome extends javax.swing.JPanel {
         );
         layeredPaneLayout.setVerticalGroup(
             layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 356, Short.MAX_VALUE)
             .addGroup(layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
         );
 
         add(layeredPane, java.awt.BorderLayout.CENTER);
-
-        banner.setBackground(new java.awt.Color(255, 153, 51));
-        banner.setMaximumSize(new java.awt.Dimension(150, 100));
-        banner.setPreferredSize(new java.awt.Dimension(100, 100));
-
-        javax.swing.GroupLayout bannerLayout = new javax.swing.GroupLayout(banner);
-        banner.setLayout(bannerLayout);
-        bannerLayout.setHorizontalGroup(
-            bannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
-        );
-        bannerLayout.setVerticalGroup(
-            bannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        add(banner, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel banner;
     private javax.swing.JPanel container;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane layeredPane;
     private uscs33_project.swing.PanelItem panelItem;
     private javax.swing.JScrollPane scroll;
-    private javax.swing.JPanel sidebar;
     // End of variables declaration//GEN-END:variables
 
         

@@ -5,6 +5,7 @@
 package uscs33_project;
 import java.awt.*;
 import javax.swing.*;
+import uscs33_project.main.StoreFront;
 
 /**
  *
@@ -21,10 +22,17 @@ public class MainInterface extends javax.swing.JFrame {
     public MainInterface() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
         cardLayout = new CardLayout();
         menuPanel.setLayout(cardLayout); // ✅ Set layout instead of overwriting the panel
+        
         TestPanel testPanel = new TestPanel();
         TestPanel_2 testPanel2 = new TestPanel_2();
+        StoreFront storeFront = new StoreFront();
+        
+        JPanel storePanel = storeFront.getPanel();
+        
+        menuPanel.add(storePanel, "STORE");
         menuPanel.add(testPanel, "TESTING");
         menuPanel.add(testPanel2, "TESTING 2");
         
@@ -62,8 +70,6 @@ public class MainInterface extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         leftPanel = new javax.swing.JPanel();
         menuPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -352,31 +358,6 @@ public class MainInterface extends javax.swing.JFrame {
         menuPanel.setPreferredSize(new java.awt.Dimension(1190, 750));
         menuPanel.setLayout(new java.awt.CardLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 196)); // NOI18N
-        jLabel4.setText("TESTING...");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(246, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222))
-        );
-
-        menuPanel.add(jPanel1, "card2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -410,11 +391,11 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void wishlistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wishlistButtonActionPerformed
-        jLabel4.setText("WISH");
+        
     }//GEN-LAST:event_wishlistButtonActionPerformed
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
-        jLabel4.setText("CACART<3");
+        
     }//GEN-LAST:event_cartButtonActionPerformed
 
     private void loginPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginPanelMouseClicked
@@ -480,11 +461,9 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JPanel cartwishPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel loginPanel;
