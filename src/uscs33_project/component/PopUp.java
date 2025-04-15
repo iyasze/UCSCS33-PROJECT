@@ -9,6 +9,8 @@ import uscs33_project.model.ModelItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -46,10 +48,18 @@ public class PopUp extends javax.swing.JPanel {
         
         image.setImage(data.getImage());
         
-        
+//        System.out.println(data.getOptions());
         
         if (data.getOptions().length != 0) {
+            ComboBoxShade.setModel(new DefaultComboBoxModel<>(data.getOptions()));
             
+//            ComboBoxShade = new JComboBox (data.getOptions());
+//            ComboBoxShade.setPrototypeDisplayValue("Select Shade");
+//            ComboBoxShade.setSelectedIndex(-1);
+//            ComboBoxShade.setRenderer( new PromptComboBoxRenderer("Select Color") );
+                for (String shade : data.getOptions()) {
+                System.out.println(shade);
+            }
         }
         else {
             PERMshade.setVisible(false);

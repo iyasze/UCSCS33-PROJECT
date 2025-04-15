@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 import java.nio.file.*;
 import java.io.*;
+import javax.swing.JFrame;
 
 public class StoreFront extends javax.swing.JFrame {
 
@@ -19,6 +20,8 @@ public class StoreFront extends javax.swing.JFrame {
     }
     
     private void init() {
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        
         home = new FormHome();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(home);
