@@ -8,6 +8,7 @@ import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.model.ModelItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -33,6 +34,9 @@ public class PopUp extends javax.swing.JPanel {
                 eventDestroy.PopUpDestroy();
             }
         });
+        
+        
+        jPanel1.setBackground(new Color(204,204,255,170));
        
     }
     
@@ -95,7 +99,7 @@ public class PopUp extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 153));
         setToolTipText("");
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         image.setImage(new javax.swing.ImageIcon(getClass().getResource("/uscs33_project/image/elephant1.png"))); // NOI18N
 
@@ -247,7 +251,6 @@ public class PopUp extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private uscs33_project.swing.PictureBox image;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbBrand;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;

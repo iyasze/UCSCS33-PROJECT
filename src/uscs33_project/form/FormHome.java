@@ -83,7 +83,7 @@ public class FormHome extends javax.swing.JPanel {
         popup.setBackground(new Color(213, 134, 145, 123));
         
         popup.setData(item);
-        popup.setBounds(0,0,container.getWidth(), container.getHeight());
+        popup.setBounds(0,0,this.getWidth(), this.getHeight());
         
         layeredPane.addComponentListener(new ComponentAdapter() {
             @Override
