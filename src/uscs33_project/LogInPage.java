@@ -1,4 +1,4 @@
-/* i want to say YASS QUEEN
+/* i want to say no
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -20,6 +20,7 @@ public class LogInPage extends javax.swing.JFrame {
      */
     public LogInPage() { //DEFAULT CONSTRUCTOR
         initComponents(); //method that contains all of the GUI COMPONENTS
+        
     }
 
     /**
@@ -311,10 +312,15 @@ public class LogInPage extends javax.swing.JFrame {
     }//GEN-LAST:event_SignUp_ButtonActionPerformed
 
     private void Skip_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Skip_ButtonActionPerformed
-        // TODO add your handling code here:
+        MainInterface MAIN = new MainInterface();
+        MAIN.setVisible(true);
+        MAIN.setLocationRelativeTo(null);
+        
+        this.setVisible(false);
     }//GEN-LAST:event_Skip_ButtonActionPerformed
 
     private void LogIn_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ButtonActionPerformed
+        
         
         
         try{
