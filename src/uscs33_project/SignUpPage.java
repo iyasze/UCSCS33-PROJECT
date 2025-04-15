@@ -538,7 +538,7 @@ public class SignUpPage extends javax.swing.JFrame {
             
             try{
                 FileWriter writer = new FileWriter("CUSTOMER_DATA.txt", true); //true allows append
-                writer.write(username + "***" + email + "***" + password + "***" + address1 + "***" + address2 + "***" + address3 + "\n");
+                writer.write(email + "***" + username + "***" + password + "***" + address1 + "***" + address2 + "***" + address3 + "\n");
 
                 writer.close();
 
