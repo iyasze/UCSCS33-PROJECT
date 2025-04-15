@@ -6,6 +6,7 @@ import uscs33_project.model.ModelItem;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import java.nio.file.*;
 import java.io.*;
@@ -74,6 +75,10 @@ public class StoreFront extends javax.swing.JFrame {
 //        home.addItem(new ModelItem(ID++, "4DFWD PULSE", "Desc Sampel", 120.88, "The Ordinary", new ImageIcon(getClass().getResource("/com/raven/image/ordinary1.png"))));
 //        home.addItem(new ModelItem(ID++, "4DFWD PULSE", "Desc Sampel", 120.88, "Drunk Elephant", new ImageIcon(getClass().getResource("/com/raven/image/elephant1.png"))));
 //        home.addItem(new ModelItem(ID++, "4DFWD PULSE", "Desc Sampel", 120.88, "Blush?", new ImageIcon(getClass().getResource("/com/raven/image/makeup1.png"))));
+    }
+    
+    public JPanel getPanel(){
+        return mainPanel;
     }
     
     
