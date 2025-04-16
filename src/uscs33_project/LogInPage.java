@@ -313,6 +313,9 @@ public class LogInPage extends javax.swing.JFrame {
 
     private void Skip_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Skip_ButtonActionPerformed
         MainInterface MAIN = new MainInterface();
+        
+        RealTime_User realTime = new RealTime_User(false, "");        
+        
         MAIN.setVisible(true);
         MAIN.setLocationRelativeTo(null);
         
@@ -335,7 +338,7 @@ public class LogInPage extends javax.swing.JFrame {
             
             while(input.hasNextLine()){
                 String[] line = input.nextLine().split("\\*\\*\\*");
-                String tempUser = line[1];
+                String tempUser = line[0];
                 String tempPassword = line[2];
                 
                 userInfos.put(tempUser, tempPassword); //add key and values to HashMap
@@ -346,7 +349,15 @@ public class LogInPage extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Password or username might be incorrect.\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
+                    RealTime_User realTime = new RealTime_User(true, email);                 
                     userInfos.clear();
+                    
+                    MainInterface mainface = new MainInterface();
+                    mainface.setVisible(true);
+                    mainface.setLocationRelativeTo(null);
+                    
+                    this.setVisible(false);
+                    
                 }
             }
             else{
