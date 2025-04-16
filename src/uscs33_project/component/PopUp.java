@@ -45,6 +45,7 @@ public class PopUp extends javax.swing.JPanel {
         lbPrice.setText(df.format(data.getPrice()));
         
         TextAreaDesc.setText(data.getDescription());
+        TextAreaDesc.setEditable(false);
         
         image.setImage(data.getImage());
         
@@ -217,7 +218,7 @@ public class PopUp extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -247,7 +248,6 @@ public class PopUp extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private uscs33_project.swing.PictureBox image;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbBrand;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;
