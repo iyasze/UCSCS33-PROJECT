@@ -314,6 +314,8 @@ public class LogInPage extends javax.swing.JFrame {
     private void Skip_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Skip_ButtonActionPerformed
         MainInterface MAIN = new MainInterface();
         
+        JOptionPane.showMessageDialog(this, "You will browse as a guest.\n You may not have access to some features!");
+        
         RealTime_User realTime = new RealTime_User(false, "");        
         
         MAIN.setVisible(true);
@@ -351,6 +353,8 @@ public class LogInPage extends javax.swing.JFrame {
                 else{
                     RealTime_User realTime = new RealTime_User(true, email);                 
                     userInfos.clear();
+                    
+                    JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
                     
                     MainInterface mainface = new MainInterface();
                     mainface.setVisible(true);

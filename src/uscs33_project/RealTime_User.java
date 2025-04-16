@@ -81,7 +81,11 @@ public class RealTime_User { //this class stores real-time user information
                 File file = new File("REALTIME_CUSTOMER.txt");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 writer.write("null@gmail.com\n");
-                writer.write("GUEST");
+                writer.write("GUEST\n");
+                writer.write("-\n");
+                writer.write("-\n");
+                writer.write("-\n");
+                writer.write("-\n");
                 writer.flush();
                 writer.close();
             }
