@@ -49,6 +49,7 @@ public class PopUp extends javax.swing.JPanel {
         lbPrice.setText(df.format(data.getPrice()));
         
         TextAreaDesc.setText(data.getDescription());
+        TextAreaDesc.setEditable(false);
         
         image.setImage(data.getImage());
         
