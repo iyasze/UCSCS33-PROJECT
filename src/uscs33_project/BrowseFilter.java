@@ -33,14 +33,6 @@ public class BrowseFilter extends javax.swing.JPanel {
         faceLabel = new javax.swing.JLabel();
         eyesLabel = new javax.swing.JLabel();
         lipsLabel = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        makeupTitle1 = new javax.swing.JLabel();
-        brandLabel1 = new javax.swing.JLabel();
-        brandLabel2 = new javax.swing.JLabel();
-        brandLabel3 = new javax.swing.JLabel();
-        brandLabel4 = new javax.swing.JLabel();
-        brandLabel5 = new javax.swing.JLabel();
-        brandLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -111,138 +103,21 @@ public class BrowseFilter extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel2.setOpaque(false);
-
-        makeupTitle1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        makeupTitle1.setText("B R A N D");
-
-        brandLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        brandLabel1.setText("RARE BEAUTY");
-        brandLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                brandLabel1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                brandLabel1MouseExited(evt);
-            }
-        });
-
-        brandLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        brandLabel2.setText("TARTE");
-        brandLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                brandLabel2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                brandLabel2MouseExited(evt);
-            }
-        });
-
-        brandLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        brandLabel3.setText("HUDA BEAUTY");
-        brandLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                brandLabel3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                brandLabel3MouseExited(evt);
-            }
-        });
-
-        brandLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        brandLabel4.setText("MAC");
-        brandLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                brandLabel4MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                brandLabel4MouseExited(evt);
-            }
-        });
-
-        brandLabel5.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        brandLabel5.setText("ESTÉE LAUDER");
-        brandLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                brandLabel5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                brandLabel5MouseExited(evt);
-            }
-        });
-
-        brandLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        brandLabel6.setText("ONE SIZE");
-        brandLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                brandLabel6MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                brandLabel6MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(brandLabel6)
-                    .addComponent(brandLabel2)
-                    .addComponent(brandLabel4)
-                    .addComponent(brandLabel5)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(brandLabel1)
-                        .addComponent(brandLabel3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(makeupTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(makeupTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(brandLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(brandLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(brandLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(brandLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(brandLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(brandLabel4)
-                .addContainerGap(116, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(580, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -270,68 +145,12 @@ public class BrowseFilter extends javax.swing.JPanel {
         lipsLabel.setForeground(new Color(0,0,0));// TODO add your handling code here:
     }//GEN-LAST:event_lipsLabelMouseExited
 
-    private void brandLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel1MouseEntered
-        brandLabel1.setForeground(new Color(255,102,102));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel1MouseEntered
-
-    private void brandLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel1MouseExited
-        brandLabel1.setForeground(new Color(0,0,0));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel1MouseExited
-
-    private void brandLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel2MouseEntered
-        brandLabel2.setForeground(new Color(255,102,102));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel2MouseEntered
-
-    private void brandLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel2MouseExited
-        brandLabel2.setForeground(new Color(0,0,0));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel2MouseExited
-
-    private void brandLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel3MouseEntered
-        brandLabel3.setForeground(new Color(255,102,102));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel3MouseEntered
-
-    private void brandLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel3MouseExited
-        brandLabel3.setForeground(new Color(0,0,0));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel3MouseExited
-
-    private void brandLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel4MouseEntered
-        brandLabel4.setForeground(new Color(255,102,102));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel4MouseEntered
-
-    private void brandLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel4MouseExited
-        brandLabel4.setForeground(new Color(0,0,0));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel4MouseExited
-
-    private void brandLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel5MouseEntered
-        brandLabel5.setForeground(new Color(255,102,102));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel5MouseEntered
-
-    private void brandLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel5MouseExited
-        brandLabel5.setForeground(new Color(0,0,0));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel5MouseExited
-
-    private void brandLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel6MouseEntered
-        brandLabel6.setForeground(new Color(255,102,102));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel6MouseEntered
-
-    private void brandLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabel6MouseExited
-        brandLabel6.setForeground(new Color(0,0,0));// TODO add your handling code here:
-    }//GEN-LAST:event_brandLabel6MouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel brandLabel1;
-    private javax.swing.JLabel brandLabel2;
-    private javax.swing.JLabel brandLabel3;
-    private javax.swing.JLabel brandLabel4;
-    private javax.swing.JLabel brandLabel5;
-    private javax.swing.JLabel brandLabel6;
     private javax.swing.JLabel eyesLabel;
     private javax.swing.JLabel faceLabel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lipsLabel;
     private javax.swing.JLabel makeupTitle;
-    private javax.swing.JLabel makeupTitle1;
     // End of variables declaration//GEN-END:variables
 }
