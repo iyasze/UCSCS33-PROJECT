@@ -6,6 +6,7 @@ package uscs33_project.component;
 
 import uscs33_project.main.MainInterface;
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ public class LogInPage extends javax.swing.JFrame {
         
 //        Path path = Paths.get("src/uscs33_project/component/CUSTOMER_DATA.txt");
         
-        File file = new File("src/ucsc33_project/component/CUSTOMER_DATA.txt");
+        File file = new File("CUSTOMER_DATA.txt");
         System.out.println("Absolute path: " + file.getAbsolutePath());
         System.out.println("Exists: " + file.exists());
         
@@ -345,8 +346,10 @@ public class LogInPage extends javax.swing.JFrame {
             String email = EmailField.getText();
             String password = PasswordField.getText();
             
-            File myFile = new File("CUSTOMER_DATA.txt");
-            Scanner input = new Scanner(myFile);
+                    
+            
+            
+            Scanner input = new Scanner(Paths.get("src/uscs33_project/component/CUSTOMER_DATA.txt"));
             
             HashMap<String,String> userInfos = new HashMap<String, String>();
             
