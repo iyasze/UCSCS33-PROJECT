@@ -129,7 +129,7 @@ public class MainInterface extends javax.swing.JFrame {
         displayUser();
     }
     
-    private void displayUser(){
+    private void displayUser(){      
         usernameDisplay.setText(userInfo.get(1));
     }
 
