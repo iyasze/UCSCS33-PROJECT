@@ -4,16 +4,25 @@
  */
 package uscs33_project.form;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Container;
+import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import uscs33_project.component.BrowseFilter;
 import uscs33_project.component.LogInPage;
@@ -36,9 +45,104 @@ public class StoreInterface extends javax.swing.JPanel {
         
     public StoreInterface() {
         
+        initComponents();
+        
+        // 1. First get references to all components and their constraints
+        Map<Component, GridBagConstraints> componentsMap = new HashMap<>();
+        GridBagLayout gbl = (GridBagLayout) upperPanel.getLayout();
+
+        // Store all components and constraints
+        for (Component comp : upperPanel.getComponents()) {
+            componentsMap.put(comp, gbl.getConstraints(comp));
+        }
+        
+        // 2. Create a new panel with background image support
+        JPanel newUpperPanel = new JPanel(new GridBagLayout()) {
+            private Image backgroundImage;
+    
+            {
+                // Load the image
+                try {
+                    backgroundImage = ImageIO.read(getClass().getResource("/uscs33_project/image/MAIN_PANELDECO .png"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+    
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (backgroundImage != null) {
+                    int imgWidth = backgroundImage.getWidth(this);
+                    int imgHeight = backgroundImage.getHeight(this);
+        
+                    if (imgWidth > 0 && imgHeight > 0) {
+                        double imgRatio = (double) imgWidth / imgHeight;
+                        double panelRatio = (double) getWidth() / getHeight();
+            
+                        int drawWidth, drawHeight;
+                        int x = 0, y = 0;
+            
+                        // Modified logic to prioritize width coverage
+                        if (panelRatio >= imgRatio) {
+                            // When panel is wider than image (relative to height)
+                            // OR when equal aspect ratios
+                            drawWidth = getWidth(); // Always match panel width
+                            drawHeight = (int) (getWidth() / imgRatio);
+                            y = (getHeight() - drawHeight) / 2; // Center vertically
+                        } else {
+                            // When panel is taller than image (relative to width)
+                            drawWidth = getWidth(); // Still match panel width first
+                            drawHeight = (int) (getWidth() / imgRatio);
+                
+                            // If this doesn't cover height, then scale to height
+                            if (drawHeight < getHeight()) {
+                                drawHeight = getHeight();
+                                drawWidth = (int) (getHeight() * imgRatio);
+                                x = (getWidth() - drawWidth) / 2; // Center horizontally
+                            } else {
+                                y = (getHeight() - drawHeight) / 2; // Center vertically
+                            }
+                        }
+            
+                        // High-quality rendering
+                        Graphics2D g2d = (Graphics2D) g;
+                        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                               RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                        g2d.drawImage(backgroundImage, x, y, drawWidth, drawHeight, this);
+                    }
+                }
+            }
+        };
+        
+        // 3. Make the panel non-opaque to show background
+        newUpperPanel.setOpaque(false);
+
+        // 4. Transfer all components with their original constraints
+        for (Map.Entry<Component, GridBagConstraints> entry : componentsMap.entrySet()) {
+            Component comp = entry.getKey();
+            GridBagConstraints gbc = entry.getValue();
+    
+            // Make each component non-opaque (transparent)
+            if (comp instanceof JComponent) {
+                ((JComponent) comp).setOpaque(false);
+            }
+    
+            newUpperPanel.add(comp, gbc);
+        }
+        
+        // 5. Replace the old panel with the new one
+        this.remove(upperPanel);
+        this.add(newUpperPanel, BorderLayout.NORTH);
+        upperPanel = newUpperPanel; // Update reference if needed
+
+        // 6. Refresh the UI
+        revalidate();
+        repaint();
+        
         
 
-        initComponents();
+        
         
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHBUTTON.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_CARTICON.png"));
