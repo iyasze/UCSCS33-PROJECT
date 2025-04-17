@@ -137,7 +137,7 @@ public class FormHome extends javax.swing.JPanel {
         scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         panelItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelItem.setPreferredSize(new java.awt.Dimension(1290, 750));
+        panelItem.setPreferredSize(new java.awt.Dimension(1290, 500));
         scroll.setViewportView(panelItem);
 
         container.add(scroll, java.awt.BorderLayout.CENTER);
