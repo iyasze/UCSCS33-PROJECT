@@ -105,7 +105,10 @@ public class MainInterface extends javax.swing.JFrame {
         userInfo.clear();
         
         try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/uscs33_project/component/REALTIME_CUSTOMER.txt")));
+            
+            userInfo.clear();
+            
+            BufferedReader reader = new BufferedReader(new FileReader("src/uscs33_project/component/REALTIME_CUSTOMER.txt"));
             int i = 0;
             String line;
             while((line = reader.readLine()) != null){
@@ -113,9 +116,14 @@ public class MainInterface extends javax.swing.JFrame {
                 i++;
             }
             
+            System.out.println("STORING USER DATA");
+            
+            Thread.sleep(500);
+            
+            
             reader.close();
             
-            System.out.println("ARRAY CONTENT " + userInfo.toString());
+            System.out.println("ARRAY CONTENT " + userInfo);
             
         }
         catch(ArrayIndexOutOfBoundsException e){
@@ -129,7 +137,8 @@ public class MainInterface extends javax.swing.JFrame {
         displayUser();
     }
     
-    private void displayUser(){
+    private void displayUser(){  
+        System.out.println("USERNAME TO SET: " + userInfo.get(1));
         usernameDisplay.setText(userInfo.get(1));
     }
 
@@ -493,8 +502,8 @@ public class MainInterface extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         
         try{
-                File file = new File("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+             
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/uscs33_project/component/REALTIME_CUSTOMER.txt")));
                 writer.write("null@gmail.com\n");
                 writer.write("GUEST\n");
                 writer.write("-\n");
@@ -508,7 +517,9 @@ public class MainInterface extends javax.swing.JFrame {
                 System.out.println("Message: " + e);
             }
         
-        LogInPage login = new LogInPage();
+       LogInPage login = new LogInPage();
+       
+       userInfo.clear();
        
        login.setVisible(true);
        login.setLocationRelativeTo(null);
@@ -519,8 +530,8 @@ public class MainInterface extends javax.swing.JFrame {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         
         try{
-                File file = new File("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/uscs33_project/component/REALTIME_CUSTOMER.txt")));
                 writer.write("null@gmail.com\n");
                 writer.write("GUEST\n");
                 writer.write("-\n");
@@ -534,7 +545,9 @@ public class MainInterface extends javax.swing.JFrame {
                 System.out.println("Message: " + e);
             }
         
-        SignUpPage signup = new SignUpPage();
+       SignUpPage signup = new SignUpPage();
+       
+       userInfo.clear();
        
        signup.setVisible(true);
        signup.setLocationRelativeTo(null);
