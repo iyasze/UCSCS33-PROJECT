@@ -22,8 +22,8 @@ public class RealTime_User { //this class stores real-time user information
         if(guestStatus == true){
            
             
-            File file1 = new File("CUSTOMER_DATA.txt");
-            File file2 = new File("REALTIME_CUSTOMER.txt");
+            File file1 = new File("src/uscs33_project/component/CUSTOMER_DATA.txt");
+            File file2 = new File("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
             
             if(!file1.exists() && !file2.exists()){
                 System.out.println("File not found at: " + file1.getAbsolutePath());
@@ -49,15 +49,20 @@ public class RealTime_User { //this class stores real-time user information
                     if(email.trim().equals(splitLine[0])){
                         System.out.print("LINE FOUND");
                         String[] foundLine = line.split("\\*\\*\\*");
-
-                        writer.write(foundLine[0] + "\n");
-                        writer.write(foundLine[1] + "\n");
-                        writer.write(foundLine[2] + "\n");
-                        writer.write(foundLine[3] + "\n");
-                        writer.write(foundLine[4] + "\n");
-                        writer.write(foundLine[5] + "\n");
+                        
+                        System.out.println("WRITING IN PROCESS...");
+                        writer.write(foundLine[0] + System.lineSeparator());
+                        writer.write(foundLine[1] + System.lineSeparator());
+                        writer.write(foundLine[2] + System.lineSeparator());
+                        writer.write(foundLine[3] + System.lineSeparator());
+                        writer.write(foundLine[4] + System.lineSeparator());
+                        writer.write(foundLine[5] + System.lineSeparator());
                         writer.flush();
                         writer.close();
+                        Thread.sleep(1000);
+                        System.out.println("WRITING DONE!");
+                        
+                        break;
                     
 
                     }
@@ -78,7 +83,7 @@ public class RealTime_User { //this class stores real-time user information
         }
         else{ //this will indicate user as guest
             try{
-                File file = new File("REALTIME_CUSTOMER.txt");
+                File file = new File("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 writer.write("null@gmail.com\n");
                 writer.write("GUEST\n");

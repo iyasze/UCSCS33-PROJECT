@@ -9,9 +9,11 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import uscs33_project.event.RealTime_User;
+
 
 /**
  *
@@ -323,7 +325,7 @@ public class LogInPage extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_SignUp_ButtonActionPerformed
-
+    
     private void Skip_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Skip_ButtonActionPerformed
         MainInterface MAIN = new MainInterface();
         
@@ -345,18 +347,23 @@ public class LogInPage extends javax.swing.JFrame {
             
             String email = EmailField.getText();
             String password = PasswordField.getText();
+            String foundLine;
             
-                    
+                     
             
             
             Scanner input = new Scanner(Paths.get("src/uscs33_project/component/CUSTOMER_DATA.txt"));
+            Scanner input2 = new Scanner(Paths.get("src/uscs33_project/component/CUSTOMER_DATA.txt"));
             
             HashMap<String,String> userInfos = new HashMap<String, String>();
             
             while(input.hasNextLine()){
                 String[] line = input.nextLine().split("\\*\\*\\*");
+                System.out.println("CONTENT: " + line.toString());
                 String tempUser = line[0];
                 String tempPassword = line[2];
+                
+                System.out.println(tempUser + " " + tempPassword);
                 
                 userInfos.put(tempUser, tempPassword); //add key and values to HashMap
             }
@@ -366,8 +373,45 @@ public class LogInPage extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Password or username might be incorrect.\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
+                    
+                    while(input2.hasNextLine()){
+                        String line = input2.nextLine();
+                   
+                        
+                        if(line.trim().toLowerCase().startsWith(email.trim().toLowerCase())){ 
+                            
+                            
+                            System.out.println("THE LINE: " + line);
+                            
+                            String[] important = line.trim().split("\\*\\*\\*");
+                            System.out.println("FOUND ITT: " + important.toString()); //NO STRING RETURNED
+                            
+                            try{
+                                                                                                                         
+                                FileWriter writer = new FileWriter("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
+                                for(int i = 0; i < important.length ; ++i){
+                                    System.out.println("LENGTH: " + important.length);
+                                    System.out.println("WRITING: " + important[i]);
+                                    writer.write(important[i] + System.lineSeparator());
+                                }
+                                
+                                writer.close();
+                                
+                            }
+                            catch(Exception e){
+                                System.out.println("HERE IS:" + e);
+                            }
+                                
+                            }
+                            
+                    }
+                    
+                    Thread.sleep(2000);
+                    
                     RealTime_User realTime = new RealTime_User(true, email);                 
                     userInfos.clear();
+                    
+                    Thread.sleep(2000);
                     
                     JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
                     
