@@ -35,7 +35,7 @@ public class WishList extends javax.swing.JFrame {
     private void FileExtraction(String username){
         ArrayList<String> full = new ArrayList<String>();
         //ArrayList<String> each = new ArrayList<String>();
-        Path file = Paths.get("C:\\Users\\USER\\Documents\\NetBeansProjects\\ShoppingCart\\src\\shoppingcart\\WishListInfo.txt\\");
+        Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt");
         InputStream input = null;
         int x = 10, y = 10,i = 0;
         try{
