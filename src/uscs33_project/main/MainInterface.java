@@ -16,6 +16,7 @@ import uscs33_project.component.BrowseFilter;
 import uscs33_project.component.LogInPage;
 import uscs33_project.component.ShoppingCart;
 import uscs33_project.component.SignUpPage;
+import uscs33_project.component.WishList;
 
 
 
@@ -85,13 +86,17 @@ public class MainInterface extends javax.swing.JFrame {
         
         StoreFront storeFront = new StoreFront();
         ShoppingCart cart = new ShoppingCart(product);
+        WishList wishlist = new WishList();
 
         JPanel cartPanel = cart.getPanel();
         JPanel storePanel = storeFront.getPanel();
+        JPanel wishPanel = wishlist.getPanel();
         
         
         menuPanel.add(storePanel, "STORE");
         menuPanel.add(cartPanel, "CART");
+        menuPanel.add(wishPanel, "WISHLIST");
+        
         
         
         BrowseFilter filter = new BrowseFilter();
@@ -276,6 +281,11 @@ public class MainInterface extends javax.swing.JFrame {
         cartwishPanel.setBackground(new java.awt.Color(204, 204, 255));
         cartwishPanel.setOpaque(false);
 
+        wishlistButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                wishlistButtonMouseClicked(evt);
+            }
+        });
         wishlistButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wishlistButtonActionPerformed(evt);
@@ -496,7 +506,7 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void wishlistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wishlistButtonActionPerformed
-        
+        cardLayout.show(menuPanel, "WISHLIST");
     }//GEN-LAST:event_wishlistButtonActionPerformed
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
@@ -553,6 +563,10 @@ public class MainInterface extends javax.swing.JFrame {
        
        this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void wishlistButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wishlistButtonMouseClicked
+              // TODO add your handling code here:
+    }//GEN-LAST:event_wishlistButtonMouseClicked
     
     private void backtoLogIn(){
         try{

@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -136,6 +137,10 @@ public class WishList extends javax.swing.JFrame {
         ItemPanel.add(CartButton);
         ItemPanel.add(deleteButton);
         WishPanel.add(ItemPanel);
+    }
+    
+    public JPanel getPanel(){
+        return jPanel3;
     }
 
     /**
