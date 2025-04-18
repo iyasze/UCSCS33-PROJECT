@@ -406,12 +406,17 @@ public class LogInPage extends javax.swing.JFrame {
                             
                     }
                     
-                    Thread.sleep(2000);
+                    /*loadingWindow loading = new loadingWindow();
+                    loading.setVisible(true);
+                    loading.setLocationRelativeTo(this);*/
+                    
+                    Thread.sleep(3000);
+                    
                     
                     RealTime_User realTime = new RealTime_User(true, email);                 
                     userInfos.clear();
                     
-                    Thread.sleep(2000);
+                    
                     
                     JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
                     

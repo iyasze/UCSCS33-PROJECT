@@ -19,6 +19,7 @@ import uscs33_project.component.SignUpPage;
 
 
 
+
 //mk
 /**
  *
@@ -138,8 +139,17 @@ public class MainInterface extends javax.swing.JFrame {
     }
     
     private void displayUser(){  
-        System.out.println("USERNAME TO SET: " + userInfo.get(1));
+        System.out.println("USERNAME TO SET: " + userInfo.get(1));       
         usernameDisplay.setText(userInfo.get(1));
+        
+        if(!(usernameDisplay.getText().equals("GUEST"))){
+            System.out.println("LOG IN CHANGE TO LOG OUT");
+            System.out.println("SIGN UP DISABLED");
+            jLabel1.setText("LOG OUT");
+            jLabel5.setText("");
+            jLabel5.setEnabled(false);
+        }
+        
     }
 
     /**
@@ -501,30 +511,19 @@ public class MainInterface extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         
-        try{
-             
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/uscs33_project/component/REALTIME_CUSTOMER.txt")));
-                writer.write("null@gmail.com\n");
-                writer.write("GUEST\n");
-                writer.write("-\n");
-                writer.write("-\n");
-                writer.write("-\n");
-                writer.write("-\n");
-                writer.flush();
-                writer.close();
-            }
-            catch(Exception e){
-                System.out.println("Message: " + e);
-            }
         
-       LogInPage login = new LogInPage();
-       
-       userInfo.clear();
-       
-       login.setVisible(true);
-       login.setLocationRelativeTo(null);
-
-       this.setVisible(false); 
+        //TESTING POP UP AND BLOCK BACKGROUND ACTIVITIES               
+        if(jLabel1.getText().equals("LOG OUT")){
+            System.out.println("ATTEMPT POP UP!!!");
+            setupPopup();
+        }
+        else{
+            backtoLogIn();
+        }
+        
+        //TESTING POP UP AND BLOCK BACKGROUND ACTIVITIES
+        
+        
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -554,7 +553,94 @@ public class MainInterface extends javax.swing.JFrame {
        
        this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
+    
+    private void backtoLogIn(){
+        try{
+             
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/uscs33_project/component/REALTIME_CUSTOMER.txt")));
+                writer.write("null@gmail.com\n");
+                writer.write("GUEST\n");
+                writer.write("-\n");
+                writer.write("-\n");
+                writer.write("-\n");
+                writer.write("-\n");
+                writer.flush();
+                writer.close();
+            }
+            catch(Exception e){
+                System.out.println("Message: " + e);
+            }
+        
+       LogInPage login = new LogInPage();
+       
+       userInfo.clear();
+       
+       login.setVisible(true);
+       login.setLocationRelativeTo(null);
 
+       this.setVisible(false); 
+    }
+    
+    private void setupPopup(){
+        System.out.println("POP UP IS RUNNING!!!");
+        
+        JDialog popup = new JDialog(this, "MESSAGE", true);
+        popup.setSize(250,150);
+        popup.setLocationRelativeTo(this);
+        popup.setLayout(new BorderLayout());
+        
+        JPanel overlay = new JPanel(){
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.setColor(new Color(204,204,255,150));
+                g.fillRect(0,0, getWidth(), getHeight());
+            }
+        };
+        
+        overlay.setOpaque(false);
+        overlay.setBounds(0,0, this.getWidth(), this.getWidth());
+        overlay.setLayout(null);
+        this.setGlassPane(overlay);
+        
+        
+        JLabel label = new JLabel(("Do you want to proceed"),SwingConstants.CENTER);
+        JButton proceed = new JButton("PROCEED");
+        JButton back = new JButton("BACK");
+        
+        proceed.addActionListener(e ->{
+            backtoLogIn();
+            overlay.setVisible(false);
+            popup.dispose();
+        });
+        
+        back.addActionListener(e -> {
+            overlay.setVisible(false);
+            popup.dispose();
+        });
+        
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(proceed);
+        buttonPanel.add(back);
+        
+        popup.add(label, BorderLayout.CENTER);
+        popup.add(buttonPanel, BorderLayout.SOUTH);
+        
+        
+        
+        
+        
+        try{
+            overlay.setVisible(true);
+            popup.setVisible(true);
+        }
+        catch(Exception e){
+            System.out.println("POPUP FAILED TO RUN");
+        }
+        
+        
+        System.out.println("POP UP APPEARS!");
+    }
+    
     /**
      * @param args the command line arguments
      */
