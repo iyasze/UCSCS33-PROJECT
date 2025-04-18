@@ -88,7 +88,10 @@ public class FormHome extends javax.swing.JPanel {
         layeredPane.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                popup.setBounds(0, 0, layeredPane.getWidth(), layeredPane.getHeight());
+//                popup.setBounds(0, 0, layeredPane.getParent().getWidth(), layeredPane.getParent().getHeight());
+                popup.setBounds(0, 0, scroll.getWidth(), scroll.getHeight());
+//                System.out.println("Width: " + layeredPane.getParent().getWidth());
+//                System.out.println("Height: " + layeredPane.getParent().getHeight());
                 popup.revalidate();
                 popup.repaint();
             }
@@ -137,7 +140,7 @@ public class FormHome extends javax.swing.JPanel {
         scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         panelItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelItem.setPreferredSize(new java.awt.Dimension(1290, 750));
+        panelItem.setPreferredSize(new java.awt.Dimension(1290, 500));
         scroll.setViewportView(panelItem);
 
         container.add(scroll, java.awt.BorderLayout.CENTER);

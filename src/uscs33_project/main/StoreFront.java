@@ -21,7 +21,7 @@ public class StoreFront extends javax.swing.JFrame {
     }
     
     private void init() {
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
         home = new FormHome();
         mainPanel.setLayout(new BorderLayout());

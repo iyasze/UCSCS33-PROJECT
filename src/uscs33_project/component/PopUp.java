@@ -36,7 +36,7 @@ public class PopUp extends javax.swing.JPanel {
         });
         
         
-        jPanel1.setBackground(new Color(204,204,255,170));
+        jPanel1.setBackground(new Color(204,204,255,230));
        
     }
     
@@ -223,7 +223,7 @@ public class PopUp extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -251,7 +251,6 @@ public class PopUp extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private uscs33_project.swing.PictureBox image;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbBrand;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;
