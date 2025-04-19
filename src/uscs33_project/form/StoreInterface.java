@@ -33,7 +33,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import uscs33_project.component.BrowseFilter;
 import uscs33_project.component.LogInPage;
-import uscs33_project.component.ShoppingCart;
 import uscs33_project.component.SignUpPage;
 import uscs33_project.event.EventItem;
 import uscs33_project.event.addToCartBtnClicked;
@@ -54,6 +53,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private ArrayList<String> userInfo;
     private FormHome menu;
     private ShoppingCart cart;
+    private ArrayList<ModelItemChoice> itemInCart;
         
     public StoreInterface() {
         
@@ -62,8 +62,9 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         setImage();
         
         ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
-        cart = new ShoppingCart(product);
+//        cart = new ShoppingCart(product);
         menu = new FormHome(this);
+        cart = new ShoppingCart(product);
         
         importData();
         
@@ -93,6 +94,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     @Override
     public void buy(ModelItemChoice item) {
         System.out.println(item.getQuantity());
+        itemInCart.add(item);
     }
     
     private void importData() {
@@ -288,6 +290,11 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         TITLE.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         TITLE.setFont(new java.awt.Font("ITF Devanagari Marathi", 0, 50)); // NOI18N
         TITLE.setText(" M  A  K  L  U  V");
+        TITLE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TITLEMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -498,7 +505,15 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     }//GEN-LAST:event_wishlistButtonActionPerformed
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
+        if (cart != null) {
+            menuPanel.remove(cart);
+            cart = null;
+//            cart = new ShoppingCart(product);
+            menuPanel.add(cart, "CART");
+        }
         cardLayout.show(menuPanel, "CART");
+        
+        
     }//GEN-LAST:event_cartButtonActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -552,6 +567,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
 
         this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void TITLEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TITLEMouseClicked
+        cardLayout.show(menuPanel, "STORE");
+    }//GEN-LAST:event_TITLEMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
