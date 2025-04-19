@@ -33,6 +33,7 @@ public class WishList extends javax.swing.JFrame {
     }
     private void Username(){
         Path file = Paths.get("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
+        
         InputStream input = null;
         String username = null;
         try{
