@@ -13,10 +13,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,13 +35,16 @@ import uscs33_project.component.BrowseFilter;
 import uscs33_project.component.LogInPage;
 import uscs33_project.component.ShoppingCart;
 import uscs33_project.component.SignUpPage;
-import uscs33_project.main.StoreFront;
+import uscs33_project.event.EventItem;
+import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.model.ModelItem;
+import uscs33_project.model.ModelItemChoice;
 
 /**
  *
  * @author amani
  */
-public class StoreInterface extends javax.swing.JPanel {
+public class StoreInterface extends javax.swing.JPanel implements addToCartBtnClicked {
 
     /**
      * Creates new form StoreInterface
@@ -42,11 +52,108 @@ public class StoreInterface extends javax.swing.JPanel {
     
     private CardLayout cardLayout;
     private ArrayList<String> userInfo;
+    private FormHome menu;
+    private ShoppingCart cart;
         
     public StoreInterface() {
         
         initComponents();
+        paintBg();
+        setImage();
         
+        ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
+        cart = new ShoppingCart(product);
+        menu = new FormHome(this);
+        
+        importData();
+        
+        menu.setClickEvent(new EventItem() {
+            @Override
+            public void itemClick(Component com, ModelItem item) {
+                menu.setSelected(com);
+                System.out.println(item.getItemID());
+                menu.createPopup(item);
+            }
+        });
+   
+        JPanel cartPanel = cart.getPanel();
+        JPanel storePanel = menu;
+
+        menuPanel.add(storePanel, "STORE");
+        menuPanel.add(cartPanel, "CART");
+        
+        BrowseFilter filter = new BrowseFilter();
+        leftPanel.add(filter, "FILTER");
+    }
+   
+    public JPanel getUpperPanel() {
+        return upperPanel;
+    }
+    
+    @Override
+    public void buy(ModelItemChoice item) {
+        System.out.println(item.getQuantity());
+    }
+    
+    private void importData() {
+        int ID = 1;
+        Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
+        System.out.println(file);
+        try {
+            InputStream input = new BufferedInputStream(Files.newInputStream(file));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            String s = reader.readLine();
+            
+            while(s != null) {
+                String[] parts = s.split("\\|");
+                
+                String imgLink = "/uscs33_project/image/" + parts[3];
+                
+                // File array order
+                // 0 = Item Name, 
+                // 1 = Item Brand, 
+                // 2 = Item Price, 
+                // 3 = Image file name, 
+                // 4 = Choices
+                // 5 = Desc
+                String[] choices = {};
+                
+                if (!parts[4].equals("")) {
+                    choices = parts[4].split(",");
+                }
+//                System.out.println("Arr len: " + choices.length);
+                
+                System.out.println(imgLink);
+                ModelItem itemTemp = new ModelItem(ID++, parts[0], parts[1], Double.parseDouble(parts[2]), new ImageIcon(getClass().getResource(imgLink)), choices, parts[5]);
+                menu.addItem(itemTemp);
+                s = reader.readLine();
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+//        home.addItem(new ModelItem(ID++, "4DFWD PULSE", "Desc Sampel", 120.88, "The Ordinary", new ImageIcon(getClass().getResource("/com/raven/image/ordinary1.png"))));
+//        home.addItem(new ModelItem(ID++, "4DFWD PULSE", "Desc Sampel", 120.88, "Drunk Elephant", new ImageIcon(getClass().getResource("/com/raven/image/elephant1.png"))));
+//        home.addItem(new ModelItem(ID++, "4DFWD PULSE", "Desc Sampel", 120.88, "Blush?", new ImageIcon(getClass().getResource("/com/raven/image/makeup1.png"))));
+    }
+    
+    private void setImage() {
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHBUTTON.png"));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_CARTICON.png"));
+        ImageIcon icon3 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_WISHICON.png"));
+        ImageIcon icon4 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PANELDECO .png"));
+        ImageIcon icon5 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PROFILE PIC.png"));
+        
+//        jLabel2.setIcon(icon4);
+        searchButton.setIcon(icon1);
+        cartButton.setIcon(icon2);
+        wishlistButton.setIcon(icon3);      
+        userIcon.setIcon(icon5);
+        cardLayout = new CardLayout();
+        menuPanel.setLayout(cardLayout); // ✅ Set layout instead of overwriting the panel
+    }
+    
+    private void paintBg() {
         // 1. First get references to all components and their constraints
         Map<Component, GridBagConstraints> componentsMap = new HashMap<>();
         GridBagLayout gbl = (GridBagLayout) upperPanel.getLayout();
@@ -139,44 +246,6 @@ public class StoreInterface extends javax.swing.JPanel {
         // 6. Refresh the UI
         revalidate();
         repaint();
-        
-        
-
-        
-        
-        ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHBUTTON.png"));
-        ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_CARTICON.png"));
-        ImageIcon icon3 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_WISHICON.png"));
-        ImageIcon icon4 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PANELDECO .png"));
-        ImageIcon icon5 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PROFILE PIC.png"));
-        
-//        jLabel2.setIcon(icon4);
-        searchButton.setIcon(icon1);
-        cartButton.setIcon(icon2);
-        wishlistButton.setIcon(icon3);      
-        userIcon.setIcon(icon5);
-        cardLayout = new CardLayout();
-        menuPanel.setLayout(cardLayout); // ✅ Set layout instead of overwriting the panel
-        
-        StoreFront storeFront = new StoreFront();
-        
-        ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
-        ShoppingCart cart = new ShoppingCart(product);
-
-        JPanel cartPanel = cart.getPanel();
-        JPanel storePanel = storeFront.getPanel();
-        
-        
-        menuPanel.add(storePanel, "STORE");
-        menuPanel.add(cartPanel, "CART");
-        
-        
-        BrowseFilter filter = new BrowseFilter();
-        leftPanel.add(filter, "FILTER");
-    }
-   
-    public JPanel getUpperPanel() {
-        return upperPanel;
     }
 
     /**

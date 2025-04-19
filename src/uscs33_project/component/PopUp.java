@@ -9,9 +9,11 @@ import uscs33_project.model.ModelItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.awt.Container;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import uscs33_project.model.ModelItemChoice;
+import uscs33_project.event.addToCartBtnClicked;
 
 /**
  *
@@ -23,11 +25,18 @@ public class PopUp extends javax.swing.JPanel {
         this.eventDestroy = event;
     }
     
+    public void setBuyingEvent(addToCartBtnClicked event) {
+        this.eventBuy = event;
+    }
+    
     private BackBtnPopUp eventDestroy;
+    private addToCartBtnClicked eventBuy;
     private ModelItem data;
 
-    public PopUp() {
+    public PopUp(addToCartBtnClicked eventBuy) {
         initComponents();
+        
+        this.eventBuy = eventBuy;
         btnBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,7 +46,22 @@ public class PopUp extends javax.swing.JPanel {
         
         
         jPanel1.setBackground(new Color(204,204,255,230));
-       
+        
+        addToCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int quantity = (Integer) jSpinnerQuantity.getValue();
+                String selectedVariant = (String) ComboBoxShade.getSelectedItem();
+                ModelItemChoice itemBought = new ModelItemChoice(data, quantity, selectedVariant);
+                
+                eventBuy.buy(itemBought);
+                
+                Container parent = getParent();
+                parent.remove(PopUp.this);
+                parent.revalidate();
+                parent.repaint();
+            }
+        });     
     }
     
     public void setData(ModelItem data) {
@@ -56,14 +80,9 @@ public class PopUp extends javax.swing.JPanel {
         
         if (data.getOptions().length != 0) {
             ComboBoxShade.setModel(new DefaultComboBoxModel<>(data.getOptions()));
-            
-//            ComboBoxShade = new JComboBox (data.getOptions());
-//            ComboBoxShade.setPrototypeDisplayValue("Select Shade");
-//            ComboBoxShade.setSelectedIndex(-1);
-//            ComboBoxShade.setRenderer( new PromptComboBoxRenderer("Select Color") );
-                for (String shade : data.getOptions()) {
-                System.out.println(shade);
-            }
+//            for (String shade : data.getOptions()) {
+//                System.out.println(shade);
+//            }
         }
         else {
             PERMshade.setVisible(false);
@@ -95,6 +114,8 @@ public class PopUp extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         ScrollPaneDesc = new javax.swing.JScrollPane();
         TextAreaDesc = new javax.swing.JTextArea();
+        PERMquantity = new javax.swing.JLabel();
+        jSpinnerQuantity = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(255, 255, 153));
         setToolTipText("");
@@ -119,6 +140,16 @@ public class PopUp extends javax.swing.JPanel {
         PERMdesc.setText("Description: ");
 
         addToCart.setText("Add to Cart");
+        addToCart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addToCartMouseClicked(evt);
+            }
+        });
+        addToCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToCartActionPerformed(evt);
+            }
+        });
 
         addToWishlist.setText("Add to Wishlist");
         addToWishlist.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +178,8 @@ public class PopUp extends javax.swing.JPanel {
         TextAreaDesc.setWrapStyleWord(true);
         ScrollPaneDesc.setViewportView(TextAreaDesc);
 
+        PERMquantity.setText("Quantity");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,7 +204,11 @@ public class PopUp extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(PERMshade)
                                 .addGap(18, 18, 18)
-                                .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(PERMquantity)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(PERMdesc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -197,7 +234,9 @@ public class PopUp extends javax.swing.JPanel {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PERMshade)
-                            .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PERMquantity)
+                            .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addToWishlist)
@@ -239,10 +278,19 @@ public class PopUp extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackMouseClicked
 
+    private void addToCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addToCartMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addToCartMouseClicked
+
+    private void addToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addToCartActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBoxShade;
     private javax.swing.JLabel PERMdesc;
+    private javax.swing.JLabel PERMquantity;
     private javax.swing.JLabel PERMshade;
     private javax.swing.JScrollPane ScrollPaneDesc;
     private javax.swing.JTextArea TextAreaDesc;
@@ -251,6 +299,7 @@ public class PopUp extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private uscs33_project.swing.PictureBox image;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinnerQuantity;
     private javax.swing.JLabel lbBrand;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;

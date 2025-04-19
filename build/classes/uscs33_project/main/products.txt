@@ -1,6 +1,0 @@
-Lala Retro™ Whipped Cream|Drunk Elephant|310.00|elephant1.png||For Ageing, Dryness, Dullness, Fine Lines & Wrinkles.
-Soft Pinch Matte Bouncy Blush|Rare Beauty|140.00|makeup1.png||A cushiony cream-to-powder blush that gives the dreamiest flush of colour with a lasting, blurred matte finish.
-Multi-Peptide + Copper Peptides|The Ordinary|253.00|ordinary1.png||Ideal for any skin type, especially recommended for anyone with aging concerns.
-Lip & Cheek Blurry Pudding Pot|Fwee|81.00|lipstick1.png|Ambitious,D-Day,Chill'N|A soft colour gradient that blooms on your face with just one finger, from lip to cheek.
-
-Name|Brand|Price|Image|Choices|Description

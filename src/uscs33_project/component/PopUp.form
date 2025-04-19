@@ -73,6 +73,10 @@
                                   <Component id="PERMshade" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="ComboBoxShade" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="PERMquantity" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jSpinnerQuantity" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -108,6 +112,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="PERMshade" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ComboBoxShade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PERMquantity" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSpinnerQuantity" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -182,6 +188,10 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Add to Cart"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addToCartMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToCartActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="addToWishlist">
           <Properties>
@@ -229,6 +239,13 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="PERMquantity">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantity"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jSpinnerQuantity">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
