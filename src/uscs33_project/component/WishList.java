@@ -27,13 +27,33 @@ public class WishList extends javax.swing.JFrame {
     
     public WishList() {
         initComponents();
-        String username = "iyasze";
-        FileExtraction(username);
+        Username();
         
+        
+    }
+    private void Username(){
+        Path file = Paths.get("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
+        System.out.print("MAsukkkk");
+        InputStream input = null;
+        String username = null;
+        try{
+            input = Files.newInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            
+            for (int i = 0;i < 2;i++){
+                username = reader.readLine();
+            }
+            System.out.print("W USERNAME: " + username);
+            
+        }catch(IOException e){
+            System.out.println(e);
+        }
+        FileExtraction(username);
         
     }
     
     private void FileExtraction(String username){
+        System.out.print("Masuk");
         ArrayList<String> full = new ArrayList<String>();
         //ArrayList<String> each = new ArrayList<String>();
         Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt");
@@ -46,8 +66,9 @@ public class WishList extends javax.swing.JFrame {
             while(true){
                 wl = reader.readLine();
                 if (wl.equals(username)){
-                do{
+                while(true){
                     wl = reader.readLine();
+                    if (!wl.equals("\\")){
                     String[] line = wl.split("\\|");
                     ArrayList<String> each = new ArrayList<>(Arrays.asList(line));
                     //System.out.println(each);
@@ -56,13 +77,19 @@ public class WishList extends javax.swing.JFrame {
                         y += 370;
                         x = 10;
                     }
+                    //System.out.println(each);
                     addWishPanel(each,x,y);
                     x +=  380;
                     i++;
-                  
-                }while(!wl.equals("\\"));
+                    }
+                    else
+                        break;
+                }
+                
+                input.close();
             }
-            input.close();   
+              
+               
         }}
         catch (IOException e){
             System.out.print(e);
@@ -71,8 +98,6 @@ public class WishList extends javax.swing.JFrame {
     }
     
     private void addWishPanel(ArrayList<String> data,int x, int y){
-        
-        //System.out.println(data[1]);
         count ++;
         JPanel ItemPanel = new JPanel();
         ItemPanel.setBounds(x,y,370, 348);
@@ -161,6 +186,7 @@ public class WishList extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1440, 900));
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(1290, 100));
