@@ -33,7 +33,6 @@ public class WishList extends javax.swing.JFrame {
     }
     private void Username(){
         Path file = Paths.get("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
-        System.out.print("MAsukkkk");
         InputStream input = null;
         String username = null;
         try{
@@ -43,7 +42,7 @@ public class WishList extends javax.swing.JFrame {
             for (int i = 0;i < 2;i++){
                 username = reader.readLine();
             }
-            System.out.print("W USERNAME: " + username);
+           
             
         }catch(IOException e){
             System.out.println(e);
@@ -53,7 +52,6 @@ public class WishList extends javax.swing.JFrame {
     }
     
     private void FileExtraction(String username){
-        System.out.print("Masuk");
         ArrayList<String> full = new ArrayList<String>();
         //ArrayList<String> each = new ArrayList<String>();
         Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt");
