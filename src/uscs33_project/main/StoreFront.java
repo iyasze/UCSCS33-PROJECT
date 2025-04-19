@@ -10,9 +10,10 @@ import javax.swing.JPanel;
 
 import java.nio.file.*;
 import java.io.*;
-import javax.swing.JFrame;
+import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.model.ModelItemChoice;
 
-public class StoreFront extends javax.swing.JFrame {
+public class StoreFront extends javax.swing.JFrame implements addToCartBtnClicked{
 
     private FormHome home;
     public StoreFront() {
@@ -23,7 +24,7 @@ public class StoreFront extends javax.swing.JFrame {
     private void init() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
-        home = new FormHome();
+        home = new FormHome(this);
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(home);
         importData();
@@ -83,6 +84,11 @@ public class StoreFront extends javax.swing.JFrame {
     public JPanel getPanel(){
         return mainPanel;
     }
+    
+    @Override
+    public void buy(ModelItemChoice item) {
+        System.out.print("");
+    };
     
     
 

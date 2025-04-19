@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package uscs33_project.component;
+package uscs33_project.form;
 
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import uscs33_project.model.ModelItemChoice;
 
 /**
  *
@@ -35,8 +36,6 @@ public class ShoppingCart extends javax.swing.JFrame {
             y += 150;
         }
         Additional();
-        
-      
     }
     /**
      * This method is called from within the constructor to initialize the form.

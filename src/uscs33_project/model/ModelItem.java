@@ -62,8 +62,25 @@ public class ModelItem {
         if (options.length == 0) {
             this.options = new String[0];
         }
-        this.options = options;
+        else {
+            this.options = options;
+        }
         this.image = image;
+    }
+    
+    public ModelItem(ModelItem base) {
+        this.itemID = base.getItemID();
+        this.itemName = base.getItemName();
+        this.description = base.getDescription();
+        this.price = base.getPrice();
+        this.brandName = base.getBrandName();
+        if (base.getOptions().length == 0) {
+            this.options = new String[0];
+        }
+        else {
+            this.options = base.getOptions();
+        }
+        this.image = base.getImage();
     }
     
     

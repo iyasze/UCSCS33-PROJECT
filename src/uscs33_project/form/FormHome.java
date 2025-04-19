@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
+import uscs33_project.event.addToCartBtnClicked;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -35,11 +36,13 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     private EventItem eventClick;
+    private addToCartBtnClicked eventBuy;
 
-    public FormHome() {
+    public FormHome(addToCartBtnClicked listener) {
         initComponents();
         scroll.setVerticalScrollBar(new ScrollBar());
         
+        this.eventBuy = listener;
     }
     
     public void addItem(ModelItem data) {
@@ -69,7 +72,7 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     public void createPopup(ModelItem item) {
-        PopUp popup = new PopUp()
+        PopUp popup = new PopUp(eventBuy)
         {
             @Override
             protected void paintComponent(Graphics g)

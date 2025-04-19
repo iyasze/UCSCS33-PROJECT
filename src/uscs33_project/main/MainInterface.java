@@ -6,7 +6,7 @@ package uscs33_project.main;
 import java.awt.*;
 import javax.swing.*;
 import uscs33_project.main.StoreFront;
-import uscs33_project.component.ShoppingCart;
+import uscs33_project.form.ShoppingCart;
 import java.io.*;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 import java.nio.*;
 import uscs33_project.component.BrowseFilter;
 import uscs33_project.component.LogInPage;
-import uscs33_project.component.ShoppingCart;
+import uscs33_project.form.ShoppingCart;
 import uscs33_project.component.SignUpPage;
 import uscs33_project.component.WishList;
 
