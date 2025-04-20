@@ -81,15 +81,17 @@ public class WishList extends javax.swing.JFrame {
                     x +=  380;
                     i++;
                     }
-                    else
-                        break;
+                    input.close();
                 }
+               
+                }
+                else
+                    break;
                 
-                input.close();
             }
               
                
-        }}
+        }
         catch (IOException e){
             System.out.print(e);
         }       
