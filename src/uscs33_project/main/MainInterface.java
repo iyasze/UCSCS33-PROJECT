@@ -17,6 +17,7 @@ import uscs33_project.component.LogInPage;
 import uscs33_project.form.ShoppingCart;
 import uscs33_project.component.SignUpPage;
 import uscs33_project.component.WishList;
+import uscs33_project.component.promoBanner;
 
 
 
@@ -33,10 +34,11 @@ public class MainInterface extends javax.swing.JFrame {
      */
     
     ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHBUTTON.png"));
-    ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_CARTICON.png"));
+    ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_CARTICONpng.png"));
     ImageIcon icon3 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_WISHICON.png"));
     ImageIcon icon4 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PANELDECO .png"));
     ImageIcon icon5 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PROFILE PIC.png"));
+    
     
     private CardLayout cardLayout;
     private ArrayList<String> userInfo;
@@ -45,11 +47,17 @@ public class MainInterface extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);  
         
+        promoBanner promo = new promoBanner();
+        searchPanel.add(promo,"Center");
+        
         jLabel2.setIcon(icon4);
-        searchButton.setIcon(icon1);
-        cartButton.setIcon(icon2);
-        wishlistButton.setIcon(icon3);      
+        //searchButton.setIcon(icon1);
+        cartIcon.setIcon(icon2);
+        wishIcon.setIcon(icon3);      
         userIcon.setIcon(icon5);
+        jLabel3.setText("CART");
+        jLabel4.setText("WISHLIST");
+        
         
         userInfo = new ArrayList<>();
         
@@ -169,19 +177,20 @@ public class MainInterface extends javax.swing.JFrame {
         upperPanel = new javax.swing.JPanel();
         TITLE = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
-        searchField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
         profilePanel = new javax.swing.JPanel();
         usernameDisplay = new javax.swing.JLabel();
         userIcon = new javax.swing.JLabel();
         cartwishPanel = new javax.swing.JPanel();
-        wishlistButton = new javax.swing.JButton();
-        cartButton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        cartIcon = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        wishIcon = new javax.swing.JLabel();
         loginPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         leftPanel = new javax.swing.JPanel();
@@ -199,51 +208,7 @@ public class MainInterface extends javax.swing.JFrame {
 
         searchPanel.setBackground(new java.awt.Color(204, 204, 255));
         searchPanel.setOpaque(false);
-
-        searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        searchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchFieldActionPerformed(evt);
-            }
-        });
-
-        searchButton.setBorderPainted(false);
-        searchButton.setMaximumSize(new java.awt.Dimension(72, 52));
-        searchButton.setMinimumSize(new java.awt.Dimension(72, 52));
-        searchButton.setOpaque(true);
-        searchButton.setPreferredSize(new java.awt.Dimension(72, 50));
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
-        searchPanel.setLayout(searchPanelLayout);
-        searchPanelLayout.setHorizontalGroup(
-            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(searchPanelLayout.createSequentialGroup()
-                    .addGap(17, 17, 17)
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(497, Short.MAX_VALUE)))
-        );
-        searchPanelLayout.setVerticalGroup(
-            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                .addGap(16, 16, 16))
-            .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(searchPanelLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(16, 16, 16)))
-        );
+        searchPanel.setLayout(new java.awt.BorderLayout());
 
         profilePanel.setBackground(new java.awt.Color(204, 204, 255));
         profilePanel.setOpaque(false);
@@ -281,41 +246,80 @@ public class MainInterface extends javax.swing.JFrame {
         cartwishPanel.setBackground(new java.awt.Color(204, 204, 255));
         cartwishPanel.setOpaque(false);
 
-        wishlistButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                wishlistButtonMouseClicked(evt);
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(55, 55));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
             }
-        });
-        wishlistButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wishlistButtonActionPerformed(evt);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel1MouseExited(evt);
             }
         });
 
-        cartButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cartButtonActionPerformed(evt);
+        cartIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartIconMouseClicked(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cartIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cartIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+        );
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(55, 55));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel2MouseExited(evt);
+            }
+        });
+
+        wishIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                wishIconMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(wishIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(wishIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout cartwishPanelLayout = new javax.swing.GroupLayout(cartwishPanel);
         cartwishPanel.setLayout(cartwishPanelLayout);
         cartwishPanelLayout.setHorizontalGroup(
             cartwishPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartwishPanelLayout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
-                .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(wishlistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+            .addGroup(cartwishPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         cartwishPanelLayout.setVerticalGroup(
             cartwishPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cartwishPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(cartwishPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wishlistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(cartwishPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         loginPanel.setOpaque(false);
@@ -365,26 +369,30 @@ public class MainInterface extends javax.swing.JFrame {
 
         jPanel3.setOpaque(false);
 
-        jLabel3.setText(" CART       WISHLIST");
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel3.setText(" CART");
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel4.setText("WISHLIST");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 125, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 29, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel7.setText("C O S M E T I C S  &  B E A U T Y");
@@ -407,12 +415,12 @@ public class MainInterface extends javax.swing.JFrame {
                         .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)))
                 .addComponent(cartwishPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
-                    .addContainerGap(395, Short.MAX_VALUE)
+                    .addContainerGap(392, Short.MAX_VALUE)
                     .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(465, Short.MAX_VALUE)))
+                    .addContainerGap(454, Short.MAX_VALUE)))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
                     .addContainerGap(1007, Short.MAX_VALUE)
@@ -422,7 +430,7 @@ public class MainInterface extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
                     .addContainerGap(1223, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(92, Short.MAX_VALUE)))
+                    .addContainerGap(67, Short.MAX_VALUE)))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(upperPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -446,9 +454,9 @@ public class MainInterface extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
-                    .addContainerGap(25, Short.MAX_VALUE)
+                    .addContainerGap(22, Short.MAX_VALUE)
                     .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(25, Short.MAX_VALUE)))
+                    .addContainerGap(22, Short.MAX_VALUE)))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
                     .addContainerGap(22, Short.MAX_VALUE)
@@ -456,9 +464,9 @@ public class MainInterface extends javax.swing.JFrame {
                     .addContainerGap(44, Short.MAX_VALUE)))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
-                    .addContainerGap(106, Short.MAX_VALUE)
+                    .addContainerGap(103, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addContainerGap(18, Short.MAX_VALUE)))
             .addGroup(upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(upperPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -496,22 +504,6 @@ public class MainInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchFieldActionPerformed
-
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchButtonActionPerformed
-
-    private void wishlistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wishlistButtonActionPerformed
-        cardLayout.show(menuPanel, "WISHLIST");
-    }//GEN-LAST:event_wishlistButtonActionPerformed
-
-    private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
-        cardLayout.show(menuPanel, "CART");
-    }//GEN-LAST:event_cartButtonActionPerformed
 
     private void loginPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginPanelMouseClicked
         if(jLabel1.getText().equals("LOG IN")){
@@ -564,9 +556,50 @@ public class MainInterface extends javax.swing.JFrame {
        this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void wishlistButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wishlistButtonMouseClicked
-              // TODO add your handling code here:
-    }//GEN-LAST:event_wishlistButtonMouseClicked
+    private void wishIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wishIconMouseClicked
+       if(jLabel4.getText().equals("WISHLIST")){
+           cardLayout.show(menuPanel, "WISHLIST");
+           jLabel4.setText("RETURN");
+       }
+       else{
+           cardLayout.show(menuPanel, "STORE");
+           jLabel4.setText("WISHLIST");
+       }
+    }//GEN-LAST:event_wishIconMouseClicked
+
+    private void cartIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartIconMouseClicked
+        if(jLabel3.getText().equals("CART")){
+            cardLayout.show(menuPanel, "CART");
+            jLabel3.setText("RETURN");
+            if(jLabel4.getText().equals("RETURN")){
+                jLabel3.setText("CART");
+            }
+        }
+        else{
+            cardLayout.show(menuPanel, "STORE");
+            jLabel3.setText("CART");
+            if(jLabel3.getText().equals("RETURN")){
+                jLabel4.setText("WISHLIST");
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartIconMouseClicked
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        jPanel1.setBackground(new Color(144, 238, 144));
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
+        jPanel1.setBackground(new Color(204,204,255));        
+    }//GEN-LAST:event_jPanel1MouseExited
+
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        jPanel2.setBackground(new Color(144, 238, 144));
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseExited
+        jPanel2.setBackground(new Color(204,204,255)); 
+    }//GEN-LAST:event_jPanel2MouseExited
     
     private void backtoLogIn(){
         try{
@@ -692,24 +725,25 @@ public class MainInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TITLE;
-    private javax.swing.JButton cartButton;
+    private javax.swing.JLabel cartIcon;
     private javax.swing.JPanel cartwishPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel profilePanel;
-    private javax.swing.JButton searchButton;
-    private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel upperPanel;
     private javax.swing.JLabel userIcon;
     private javax.swing.JLabel usernameDisplay;
-    private javax.swing.JButton wishlistButton;
+    private javax.swing.JLabel wishIcon;
     // End of variables declaration//GEN-END:variables
 }
