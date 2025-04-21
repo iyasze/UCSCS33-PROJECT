@@ -10,9 +10,13 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Arrays;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import uscs33_project.event.RealTime_User;
+import uscs33_project.component.loadingWindow;
 
 
 /**
@@ -374,6 +378,10 @@ public class LogInPage extends javax.swing.JFrame {
                 }
                 else{
                     
+                    
+                    
+                    
+                    
                     while(input2.hasNextLine()){
                         String line = input2.nextLine();
                    
@@ -405,14 +413,8 @@ public class LogInPage extends javax.swing.JFrame {
                             }
                             
                     }
-                    
-                    /*loadingWindow loading = new loadingWindow();
-                    loading.setVisible(true);
-                    loading.setLocationRelativeTo(this);*/
-                    
-                    Thread.sleep(3000);
-                    
-                    
+                                      
+                                     
                     RealTime_User realTime = new RealTime_User(true, email);                 
                     userInfos.clear();
                     
@@ -420,11 +422,23 @@ public class LogInPage extends javax.swing.JFrame {
                     
                     JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
                     
-                    MainInterface mainface = new MainInterface();
-                    mainface.setVisible(true);
-                    mainface.setLocationRelativeTo(null);
+                    MainInterface main = new MainInterface();
+                        main.setVisible(true);
+                        System.out.println("FLICKER FLICKER");
+                        main.setLocationRelativeTo(this);
                     
                     this.setVisible(false);
+                                                                                                                                                      
+                    /*new loadingWindow(() -> {
+                        MainInterface main = new MainInterface();
+                        main.setVisible(true);
+                        System.out.println("FLICKER FLICKER");
+                        main.setLocationRelativeTo(this);
+                    }).setVisible(true);*/
+                 
+                    
+           
+                    
                     
                 }
             }
