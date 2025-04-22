@@ -4,7 +4,7 @@
  */
 package uscs33_project.component;
 
-import uscs33_project.main.MainInterface;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
