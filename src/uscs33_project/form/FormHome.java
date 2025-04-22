@@ -88,34 +88,34 @@ public class FormHome extends javax.swing.JPanel {
         popup.setData(item);
         popup.setBounds(0,0,this.getWidth(), this.getHeight());
         
-        layeredPane.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-//                popup.setBounds(0, 0, layeredPane.getParent().getWidth(), layeredPane.getParent().getHeight());
-                popup.setBounds(0, 0, scroll.getWidth(), scroll.getHeight());
-//                System.out.println("Width: " + layeredPane.getParent().getWidth());
-//                System.out.println("Height: " + layeredPane.getParent().getHeight());
-                popup.revalidate();
-                popup.repaint();
-            }
-        });
+//        layeredPane.addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentResized(ComponentEvent e) {
+////                popup.setBounds(0, 0, layeredPane.getParent().getWidth(), layeredPane.getParent().getHeight());
+//                popup.setBounds(0, 0, scroll.getWidth(), scroll.getHeight());
+////                System.out.println("Width: " + layeredPane.getParent().getWidth());
+////                System.out.println("Height: " + layeredPane.getParent().getHeight());
+//                popup.revalidate();
+//                popup.repaint();
+//            }
+//        });
         
         
-        layeredPane.add(popup, JLayeredPane.PALETTE_LAYER);
+//        layeredPane.add(popup, JLayeredPane.PALETTE_LAYER);
         
 //        sidebar.setVisible(false);
 //        scroll.setVisible(false);
         
-        popup.setDestroyEvent(new BackBtnPopUp() {
-            @Override
-            public void PopUpDestroy() {
-                layeredPane.remove(layeredPane.getIndexOf(popup));
-                layeredPane.revalidate();
-                layeredPane.repaint();
-//                sidebar.setVisible(true);
-//                scroll.setVisible(true);
-            }
-        });
+//        popup.setDestroyEvent(new BackBtnPopUp() {
+//            @Override
+//            public void PopUpDestroy() {
+//                layeredPane.remove(layeredPane.getIndexOf(popup));
+//                layeredPane.revalidate();
+//                layeredPane.repaint();
+////                sidebar.setVisible(true);
+////                scroll.setVisible(true);
+//            }
+//        });
     }
     
 
@@ -129,50 +129,34 @@ public class FormHome extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        layeredPane = new javax.swing.JLayeredPane();
-        container = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
-        panelItem = new uscs33_project.swing.PanelItem();
+        panelItem = new com.raven.swing.PanelItem();
 
         setOpaque(false);
-        setLayout(new java.awt.BorderLayout());
 
-        container.setLayout(new java.awt.BorderLayout());
-
-        scroll.setBorder(null);
-        scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        panelItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelItem.setPreferredSize(new java.awt.Dimension(1290, 500));
         scroll.setViewportView(panelItem);
 
-        container.add(scroll, java.awt.BorderLayout.CENTER);
-
-        layeredPane.setLayer(container, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout layeredPaneLayout = new javax.swing.GroupLayout(layeredPane);
-        layeredPane.setLayout(layeredPaneLayout);
-        layeredPaneLayout.setHorizontalGroup(
-            layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
-            .addGroup(layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(container, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
-        layeredPaneLayout.setVerticalGroup(
-            layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 356, Short.MAX_VALUE)
-            .addGroup(layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
-
-        add(layeredPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel container;
-    private javax.swing.JLayeredPane layeredPane;
-    private uscs33_project.swing.PanelItem panelItem;
+    private com.raven.swing.PanelItem panelItem;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 
