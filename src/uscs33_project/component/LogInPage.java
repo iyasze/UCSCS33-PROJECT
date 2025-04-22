@@ -4,7 +4,7 @@
  */
 package uscs33_project.component;
 
-import uscs33_project.main.MainInterface;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -331,7 +331,7 @@ public class LogInPage extends javax.swing.JFrame {
     }//GEN-LAST:event_SignUp_ButtonActionPerformed
     
     private void Skip_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Skip_ButtonActionPerformed
-        MainInterface MAIN = new MainInterface();
+        MainInterface_NEW MAIN = new MainInterface_NEW();
         
         JOptionPane.showMessageDialog(this, "You'll browse as a guest.\n You may not have access to some features!");
         
