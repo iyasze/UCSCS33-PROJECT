@@ -52,7 +52,7 @@ public class Item extends javax.swing.JPanel {
         img.setImage(data.getImage());
         lbItemName.setText("<html><body style='width: " + labelWidth + "px'>" + data.getItemName() + "</body></html>");
         lbBrand.setText("<html><body style='width: " + labelWidth + "px'>" + data.getBrandName() + "</body></html>");
-        DecimalFormat df = new DecimalFormat("$#,###.00");
+        DecimalFormat df = new DecimalFormat("RM#,###.00");
         lbPrice.setText(df.format(data.getPrice()));
     }
 

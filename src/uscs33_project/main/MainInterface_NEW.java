@@ -11,6 +11,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JFrame;
 import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.model.ModelItemChoice;
+import uscs33_project.form.StoreInterface;
 
 /**
  *
@@ -49,23 +50,7 @@ public class MainInterface_NEW extends javax.swing.JFrame {
         storeInterface1 = new uscs33_project.form.StoreInterface();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(storeInterface1, javax.swing.GroupLayout.PREFERRED_SIZE, 984, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(storeInterface1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(206, 206, 206))
-        );
+        getContentPane().add(storeInterface1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
