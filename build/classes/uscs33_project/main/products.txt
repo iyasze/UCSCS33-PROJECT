@@ -21,7 +21,24 @@ M004|999|Watermelon Glow Ultra-Fine Mist|Glow Recipe|150.00|M004.png||Mosturiser
 S001|999|Daily UV Defense Mineral Sunscreen SPF50|Innisfree|103.00|S001.png||Sunscreen|A green tinted mineral sunscreen with 8 types of hydrating hyaluronic acid and soothing cica that shields against UVA & UVB rays while neutralising redness.
 S002|999|Atmosphere Airy Light UV Cream SPF 50+ PA++++|SK-II|350.00|S002.png||Sunscreen|An airy-light texture sunscreen with powerful SPF50+ PA++++ protection for beautiful glowing skin.
 S003|999|Hydra Vizor Invisible Broad Spectrum SPF 30 Sunscreen With Niacinamide And Kalahari Melon Refill|Fenty Skin|175.00|S003.png||Sunscreen|An invisible SPF 30 moisturizer that locks in fresh hydration, fades the look of dark spots, smooths the look of pores and defends against pollution..
-
+H001|999|Detox Shampoo|Ouai|168.00|H001.png||Shampoo|This clarifying shampoo deeply cleanses away dirt, oil and product buildup with apple cider vinegar while keratin helps strengthen hair.
+H002|999|Anti Dandruff Shampoo|Ouai|999.00|H002.png||Shampoo|A gentle shampoo with salicylic acid that helps reduce the flaking, itching and irritation associated with dandruff while leaving hair feeling clean and soft.
+H003|999|Chroma Absolu Hydrating Protective Shampoo|Kérastase|140.00|H003.png||Shampoo|A gentle hydrating protective shampoo for all types of sensitised or damaged colour-treated hair, mostly adapted for fine to medium fibre and respecting and preserving hair colour.
+H004|999|Hydrating Shampoo - With Aloe Vera|Christophe Robin|158.00|H004.png||Shampoo|A shampoo composed of 94% natural-origin ingredients.
+T001|999|Genesis Anti-Hair Fall Conditioner|Kérastase|159.00|T001.png||Hair Treatment|This formula conditions with anti-breakage action and supports hair to reduce fall due to breakage from brushing. It provides immediate strength and softness, detangles, and adds body.
+T002|999|Fine To Medium Hair Treatment Masque|Ouai|195.00|T002.png||Hair Treatment|A mask that helps restore hydration, repair damage, and add shine to fine/medium hair with shea butter, panthenol, and hydrolyzed keratin.
+T003|999|Hair Sleeping Masks|Sephora Collection|24.00|T003.png||Hair Treatment|A collection of hair sleeping masks formulated with Ingredients from natural origin which target specific hair problems.
+T004|999|Destined For Density™ Megastrength + Caffeine + Biotin Peptide Density Serum"|Briogeo|295|T004.png||Hair Treatment|A concentrated leave-on daily serum, clinically shown to increase hair density by up to 3 times.
+T005|999|Like A Virgin Miracle Hair Elixir Serum|Coco & Eve|144.00|T005.png||Hair Treatment|A hair serum that delivers instant shine, silkiness and zero frizz, with added heat protection.
+T006|999|Rosemary Scalp Treatment Kit (Limited Edition)|AROMATICA|158.00|T006.png||Hair Treatment|A limited-edition all-in-one ritual essential kit features two products from the Rosemary line and includes the Dual Scalp Care Shampoo Brush, designed to address your hair concerns from root to tip
+P001|999|Cheirosa 62 Perfume Mist|Sol de Janeiro|999.00|P001.png||Fragrance|A warm and delicious perfume mist bursting with an alluring pistachio and salted caramel scent.
+P002|999|Y Eau de Parfum|Yves Saint Laurent|260.00|P002.png||Fragrance|Y is a modern fragrance for a modern man.
+P003|999|EA Stronger With You Absolutely Parfum|Armani|485.00|P003.png||Fragrance|An addictive fragrance for men, inspired by the power of absolute love.
+P004|999|CK One Eau De Toilette Spray|Calvin Klein|399.00|P004.png||Fragrance|A naturally clean, pure, and contemporary fragrance with a refreshingly new point of view.
+P005|999|Eilish Eau De Parfum|Billie Eilish|295.00|P005.png||Fragrance|The debut fragrance from Billie Eilish, a scent for everyone that exposes you to raw feelings, emotions and memories.
+P006|999|Libre Eau De Parfum|Yves Saint Laurent|720.00|P006.png||Fragrance|LIBRE by Yves Saint Laurent represents the freedom to live everything to excess. Your boundless creativity, your complete emancipation, your ever-evolving femininity.
+P007|999|Goddess Eau De Parfum|Burberry Beauty|525.00|P007.png||Fragrance|Burberry Goddess perfume tells a story of self-discovery, following Emma Mackey and a pride of lionesses. Radiating confidence, strength and kindness, Emma embodies the spirit of Burberry Goddess Eau de Parfum.
+P008|999|New Miss Dior Blooming Bouquet Eau De Toilette|DIOR|695.00|P008.png||Fragrance|A fresh and sparkling eau de toilette fashioned like a dress embroidered with flowers.
 
 
 ItemID|Stock|Name|Brand|Price|Image|ShadeOptions|Category|Description
