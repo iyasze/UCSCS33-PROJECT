@@ -5,19 +5,45 @@
 package uscs33_project.component;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  *
  * @author iyasnaufalnazlim
  */
-public class BrowseFilter extends javax.swing.JPanel {
+public class BrowseFilterDisabled extends javax.swing.JPanel {
 
     /**
      * Creates new form BrowseFilter
      */
-    public BrowseFilter() {
+    public BrowseFilterDisabled() {
         
         initComponents();
+        openOverlay();
+    }
+    
+    public void openOverlay(){
+         JPanel overlay = new JPanel(){
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.setColor(new Color(204,204,255,150));
+                g.fillRect(0,0, this.getWidth(), this.getHeight());
+            }
+        };
+        
+        overlay.setOpaque(true);
+        overlay.setBounds(0,0, this.getWidth(), this.getHeight());
+        overlay.setLayout(null);
+        
+        overlay.addMouseListener(new MouseAdapter() {});
+        overlay.addMouseMotionListener(new MouseMotionAdapter() {});
+        overlay.setFocusable(true);
+
+        this.setLayout(null); // so we can freely position overlay
+        this.add(overlay, Integer.valueOf(Integer.MAX_VALUE)); // make sure it’s on top
+        overlay.setVisible(true);
+        overlay.repaint();
+        
     }
     
 
@@ -231,12 +257,12 @@ public class BrowseFilter extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
