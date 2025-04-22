@@ -102,6 +102,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         
         loadUser();
         displayUser();
+        wishDisabled();
         
         JPanel cartPanel = cart.getPanel();
         JPanel wishPanel = wishlist.getPanel();
@@ -191,6 +192,19 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         menuPanel.setLayout(cardLayout);
         leftPanel.setLayout(cardLayout2);
         jLabel3.setText("CART");
+        jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel3.setVerticalAlignment(SwingConstants.CENTER);
+    }
+    
+    private void wishDisabled(){
+        ImageIcon icon6 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_WISHGUEST.png"));
+        icon6 = ImageUtils.getCircularIcon(icon6, 55);
+        
+        if(usernameDisplay.getText().equals("GUEST")){
+            wishIcon.setIcon(null);
+            wishIcon.setEnabled(false);
+            jLabel8.setText("");
+        }
     }
     
     private void paintBg() {
@@ -460,9 +474,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                         .addGap(18, 18, 18)
                         .addComponent(wishIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartwishPanelLayout.createSequentialGroup()
+                    .addGroup(cartwishPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         cartwishPanelLayout.setVerticalGroup(
@@ -688,11 +703,15 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
             changeLeftPanel();
             if(jLabel8.getText().equals("RETURN")){
                 jLabel3.setText("CART");
+                jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+                jLabel3.setVerticalAlignment(SwingConstants.CENTER);
             }
         }
         else{
             cardLayout.show(menuPanel, "STORE");
             jLabel3.setText("CART");
+            jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+            jLabel3.setVerticalAlignment(SwingConstants.CENTER);
             cardPage = 0;
             changeLeftPanel();
             if(jLabel3.getText().equals("RETURN")){
@@ -732,6 +751,8 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
            changeLeftPanel();
            if(jLabel8.getText().equals("RETURN")){
                 jLabel3.setText("CART");
+                jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+                jLabel3.setVerticalAlignment(SwingConstants.CENTER);
             }
        }
     }//GEN-LAST:event_wishIconMouseClicked
