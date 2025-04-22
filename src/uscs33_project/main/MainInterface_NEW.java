@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package uscs33_project.form;
+package uscs33_project.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +16,12 @@ import uscs33_project.model.ModelItemChoice;
  *
  * @author amani
  */
-public class test extends javax.swing.JFrame {
+public class MainInterface_NEW extends javax.swing.JFrame {
 
     /**
      * Creates new form test
      */
-    public test() {
+    public MainInterface_NEW() {
         initComponents();
         
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -49,7 +49,6 @@ public class test extends javax.swing.JFrame {
         storeInterface1 = new uscs33_project.form.StoreInterface();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 906));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,20 +87,21 @@ public class test extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainInterface_NEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainInterface_NEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainInterface_NEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(test.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainInterface_NEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new test().setVisible(true);
+                new MainInterface_NEW().setVisible(true);
             }
         });
     }

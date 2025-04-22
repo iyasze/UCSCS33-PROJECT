@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import uscs33_project.event.RealTime_User;
-import uscs33_project.component.loadingWindow;
+import uscs33_project.main.MainInterface_NEW;
 
 
 /**
@@ -422,10 +422,10 @@ public class LogInPage extends javax.swing.JFrame {
                     
                     JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
                     
-                    MainInterface main = new MainInterface();
-                        main.setVisible(true);
-                        System.out.println("FLICKER FLICKER");
-                        main.setLocationRelativeTo(this);
+                    MainInterface_NEW main = new MainInterface_NEW();
+                    main.setVisible(true);
+                    System.out.println("FLICKER FLICKER");
+                    main.setLocationRelativeTo(this);
                     
                     this.setVisible(false);
                                                                                                                                                       
