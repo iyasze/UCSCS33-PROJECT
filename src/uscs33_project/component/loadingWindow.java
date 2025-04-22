@@ -16,18 +16,18 @@ public class loadingWindow extends javax.swing.JFrame {
     /**
      * Creates new form loadingWindow
      */
-    public loadingWindow(Runnable afterLoading) {
+    public loadingWindow() {
         
         
         initComponents();
-        setUpLoading(afterLoading);
+        setUpLoading();
         
         
         
         
     }
     
-    public void setUpLoading(Runnable afterLoading){
+    public void setUpLoading(){
         
         Timer timer = new Timer(500, null);
         String base = "LOADING";
@@ -49,7 +49,7 @@ public class loadingWindow extends javax.swing.JFrame {
                timer.stop();                             
                dispose();
                System.out.println("MISTAKE!");
-               afterLoading.run();
+      
            }
         }).start();
         
