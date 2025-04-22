@@ -9,12 +9,10 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.Arrays;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import uscs33_project.event.LoginSignupCloseListener;
 import uscs33_project.event.RealTime_User;
 import uscs33_project.main.MainInterface_NEW;
 
@@ -32,10 +30,13 @@ public class LogInPage extends javax.swing.JFrame {
     ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/LOGIN_TITLE.png"));
     ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/LOGIN_DECO.png"));
     
+    
     public LogInPage() { //DEFAULT CONSTRUCTOR
         initComponents(); //method that contains all of the GUI COMPONENTS
         jLabel5.setIcon(icon1);
         jLabel6.setIcon(icon2);
+        
+        setLocationRelativeTo(null);
         
 //        Path path = Paths.get("src/uscs33_project/component/CUSTOMER_DATA.txt");
         
@@ -331,7 +332,8 @@ public class LogInPage extends javax.swing.JFrame {
     }//GEN-LAST:event_SignUp_ButtonActionPerformed
     
     private void Skip_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Skip_ButtonActionPerformed
-        MainInterface MAIN = new MainInterface();
+        
+        MainInterface_NEW MAIN = new MainInterface_NEW();
         
         JOptionPane.showMessageDialog(this, "You'll browse as a guest.\n You may not have access to some features!");
         
@@ -339,8 +341,9 @@ public class LogInPage extends javax.swing.JFrame {
        
         MAIN.setVisible(true);
         MAIN.setLocationRelativeTo(null);
+        MAIN.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_Skip_ButtonActionPerformed
 
     private void LogIn_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ButtonActionPerformed

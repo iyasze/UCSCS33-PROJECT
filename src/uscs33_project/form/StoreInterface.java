@@ -143,24 +143,27 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
             while(s != null) {
                 String[] parts = s.split("\\|");
                 
-                String imgLink = "/uscs33_project/image/" + parts[3];
+                String imgLink = "/uscs33_project/image/" + parts[5];
                 
                 // File array order
-                // 0 = Item Name, 
-                // 1 = Item Brand, 
-                // 2 = Item Price, 
-                // 3 = Image file name, 
-                // 4 = Choices
-                // 5 = Desc
+                // 0 = ItemID,
+                // 1 = Stock,
+                // 2 = Item Name,
+                // 3 = Item Brand, 
+                // 4 = Item Price, 
+                // 5 = Image file name, 
+                // 6 = ShadeOptions
+                // 7 = Category
+                // 8 = Desc
                 String[] choices = {};
                 
-                if (!parts[4].equals("")) {
-                    choices = parts[4].split(",");
+                if (!parts[6].equals("")) {
+                    choices = parts[6].split(",");
                 }
 //                System.out.println("Arr len: " + choices.length);
                 
                 System.out.println(imgLink);
-                ModelItem itemTemp = new ModelItem(ID++, parts[0], parts[1], Double.parseDouble(parts[2]), new ImageIcon(getClass().getResource(imgLink)), choices, parts[5]);
+                ModelItem itemTemp = new ModelItem(parts[0], Integer.parseInt(parts[1]), parts[2], parts[3], Double.parseDouble(parts[4]), new ImageIcon(getClass().getResource(imgLink)), choices, parts[7], parts[8]);
                 menu.addItem(itemTemp);
                 s = reader.readLine();
             }
@@ -476,8 +479,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(usernameDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(userIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(userIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -658,13 +660,15 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         catch(Exception e){
             System.out.println("Message: " + e);
         }
+        
 
         LogInPage login = new LogInPage();
 
         login.setVisible(true);
         login.setLocationRelativeTo(null);
 
-        this.setVisible(false);
+        JFrame c = (JFrame) this.getRootPane().getParent();
+        c.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -690,7 +694,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         signup.setVisible(true);
         signup.setLocationRelativeTo(null);
 
-        this.setVisible(false);
+//        this.setVisible(false);
+
+        JFrame c = (JFrame) this.getRootPane().getParent();
+        c.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void TITLEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TITLEMouseClicked
@@ -788,8 +795,9 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
        
        login.setVisible(true);
        login.setLocationRelativeTo(null);
-
-       this.setVisible(false); 
+       
+       JFrame c = (JFrame) this.getRootPane().getParent();
+       c.dispose();
     }
     
     private void setupPopup(){

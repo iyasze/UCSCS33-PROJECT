@@ -40,7 +40,6 @@ public class StoreFront extends javax.swing.JFrame implements addToCartBtnClicke
     }
     
     private void importData() {
-        int ID = 1;
         Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
         System.out.println(file);
         try {
@@ -51,15 +50,18 @@ public class StoreFront extends javax.swing.JFrame implements addToCartBtnClicke
             while(s != null) {
                 String[] parts = s.split("\\|");
                 
-                String imgLink = "/uscs33_project/image/" + parts[3];
+                String imgLink = "/uscs33_project/image/" + parts[5];
                 
                 // File array order
-                // 0 = Item Name, 
-                // 1 = Item Brand, 
-                // 2 = Item Price, 
-                // 3 = Image file name, 
-                // 4 = Choices
-                // 5 = Desc
+                // 0 = ItemID,
+                // 1 = Stock,
+                // 2 = Item Name,
+                // 3 = Item Brand, 
+                // 4 = Item Price, 
+                // 5 = Image file name, 
+                // 6 = ShadeOptions
+                // 7 = Category
+                // 8 = Desc
                 String[] choices = {};
                 
                 if (!parts[4].equals("")) {
@@ -67,8 +69,9 @@ public class StoreFront extends javax.swing.JFrame implements addToCartBtnClicke
                 }
 //                System.out.println("Arr len: " + choices.length);
                 
+                
+                ModelItem itemTemp = new ModelItem(parts[0], Integer.parseInt(parts[1]), parts[2], parts[3], Double.parseDouble(parts[4]), new ImageIcon(getClass().getResource(imgLink)), choices, parts[7], parts[8]);
                 System.out.println(imgLink);
-                ModelItem itemTemp = new ModelItem(ID++, parts[0], parts[1], Double.parseDouble(parts[2]), new ImageIcon(getClass().getResource(imgLink)), choices, parts[5]);
                 home.addItem(itemTemp);
                 s = reader.readLine();
             }

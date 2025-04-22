@@ -1,6 +1,27 @@
-Lala Retro™ Whipped Cream|Drunk Elephant|310.00|elephant1.png||For Ageing, Dryness, Dullness, Fine Lines & Wrinkles.
-Soft Pinch Matte Bouncy Blush|Rare Beauty|140.00|makeup1.png||A cushiony cream-to-powder blush that gives the dreamiest flush of colour with a lasting, blurred matte finish.
-Multi-Peptide + Copper Peptides|The Ordinary|253.00|ordinary1.png||Ideal for any skin type, especially recommended for anyone with aging concerns.
-Lip & Cheek Blurry Pudding Pot|Fwee|81.00|lipstick1.png|Ambitious,D-Day,Chill'N|A soft colour gradient that blooms on your face with just one finger, from lip to cheek.
+E001|999|Tartelette™ Toasted Mini Amazonian Clay Palette|Tarte|125.00|E001.png||Eyes|Tartelette™ Toasted Mini Amazonian Clay Palette from Tarte™ with 6 warm and toasty eyeshadow shades on the go!
+E002|999|Creamy Kohl Longwear Eye Pencil|Huda Beauty|101.00|E002.png|Very Vanta,Very Brown|Eyes|A retractable kohl pencil with a gel-like texture that glides on so smoothly and lasts all day long.
+E003|999|Pro Brow Definer Pencil|MAC Cosmetics|117.00|E003.png|Brunette,Omega|Eyes|A pin-thin 24-hour brow definer that delivers natural, hair-like strokes with a water- and smudge-proof formula.
+E004|999|Tartelette™ XL Tubing Mascara|Tarte|120.00|E004.png||Eyes|Revolutionary XL tubing mascara with a 24-hr flake-free and smudge-proof formula with lengthening “tubes” that wrap lashes for XL length, lift and lash love.
+F001|999|Soft Pinch Liquid Blush|Rare Beauty|100.00|F001.png|Believe,Bliss,Grace,Faith|Face|A weightless, long-lasting liquid blush that blends and builds beautifully for a soft, healthy flush, available in matte and dewy finishes.
+F002|999|Mini Shape Tape Contour Concealer|Tarte|64.00|F002.png|Fair Natural,Natural,Light Sand,Tan Sand|Face|A super-blendable concealer that instantly helps brighten, smoothen and give the skin a firmer, more lifted look – now in take-me-with-you travel size.
+F003|999|Match Stix Matte Contour Skinstick|Fenty Beauty|165.00|F003.png|Amber,Suedish,Ebony|Face|A matte contour stick in a range of shades for all skin tones. The buildable cream-to-powder long-wear formula is lightweight and blendable.
+F004|999|On Til Dawn Setting Spray|One Size|160.00|F004.png||Face|A waterproof, transfer-proof, 16-hour mattifying performance setting spray with skincare benefits for an all-day matte finish - no touch-ups needed.
+F005|999|Double Wear Stay-In-Place Makeup SPF 10 Foundation|Estée Lauder|240.00|F005.png|1C1 Cool Bone,1W0 Warm Porcelain,3W0 Warm Crème,3W2 Cashew,5C1 Rich Chestnut|Face|Double Wear is a long wearing foundation that keeps up -no matter where your day takes you. Apply once and don't think twice.
+L001|999|Gloss Bomb Heat Lip Luminizer + Plumper|Fenty Beauty|130.00|L001.png|Hot Cherry,Fenty Glow Heat|Lips|A lip luminizer and plumper that delivers a hint of tint and fuller-looking lip
+L002|999|M·A·Cximal Sleek Satin Lipstick|MAC Cosmetics|130.00|L002.png|Amora,Brave Red,Creme Cup,Paramount,Peachstock|Lips|Our signature satin lipstick has been maxed out to give lips more with a sleek satin finish and good-for-lips formula that looks richer, feels creamier, glides smoother and hydrates lips for eight whole hours. 
+L003|999|Velvet Liquid Lipstick & Lip Liner Kit|Kylie Cosmetics|175.00|L003.png|100 Posie K,305 Harmony,700 Bare,203 Party Girl|Lips|A Velvet Kylie Lip Kit, the perfect duo for creating a smudge-free, velvety, demi-matte lip look. Each kit includes the highly pigmented Velvet Liquid Lipstick and fan-favourite, long-lasting lip liner pencil.
+C001|999|Saccharomyces Ferment 30% Milky Toner|The Ordinary|90.00|C001.png||Cleanser & Exfoliator|A gentle exfoliating toner that promotes smoother, brighter skin while boosting hydration. Suitable for sensitive skin.
+C002|999|Avocado Ceramide Moisture Barrier Cleanser|Glow Recipe|145.00|C002.png||Cleanser & Exfoliator|A gentle hydrating cleanser packed with ceramides and colloidal oatmeal to nourish skin while effectively melting away make-up, SPF and excess oil.
+C003|999|Water Bank Blue Hyaluronic Cleansing Foam|Laneige|110.00|C003.png||Cleanser & Exfoliator|This creamy cleanser helps melt down makeup, SPF and impurities whilst softening rough skin. Infused with Blue Hyaluronic Acid™ to hydrate and wild mint to soothe, this deep-cleansing foam leaves skin feeling soft and refreshed.
+C004|999|Salicylic Acid 2% Masque|The Ordinary|155.00|C004.png||Cleanser & Exfoliator|A formula, infused with charcoal and clays that aims to enhance the appearance of smoothness and clarity, leaving the skin feeling refreshed.
+M001|999|Moisture Surge 100H Auto-Replenishing Hydrator Moisturiser|Clinique|169.00|M001.png||Mosturiser|An oil-free gel-cream moisturiser with exclusive aloe bio-ferment and hyaluronic acid that penetrates deep into skin’s surface.
+M002|999|Revitalizing Supreme+ Youth Power Soft Creme Moisturizer|Estée Lauder|630.00|M002.png||Mosturiser|This creme is ideal for multiple signs of ageing, lifting, loss of firmness, toning, lines and wrinkles. Enjoy a supremely indulgent texture.I gnite skin’s collagen power to reveal more sculpted, defined-looking contours with exclusive Moringa Extract and Hibiscus-8 Fraction.
+M003|999|Water Bank Blue Hyaluronic Moisture Cream Refillable|Laneige|180.00|M003.png||Mosturiser|An upgraded lush cream that strengthens the skin's moisture barrier with Pepta-panthenol Complex and delivers replenishing, long-lasting hydration for up to 100-hours with micro-sized Blue Hyaluronic Acid.
+M004|999|Watermelon Glow Ultra-Fine Mist|Glow Recipe|150.00|M004.png||Mosturiser|An ultra-fine, hydrating mist formulated with a juicy blend of 84% watermelon, hyaluronic acid, and hibiscus to refresh skin and enhance makeup.
+S001|999|Daily UV Defense Mineral Sunscreen SPF50|Innisfree|103.00|S001.png||Sunscreen|A green tinted mineral sunscreen with 8 types of hydrating hyaluronic acid and soothing cica that shields against UVA & UVB rays while neutralising redness.
+S002|999|Atmosphere Airy Light UV Cream SPF 50+ PA++++|SK-II|350.00|S002.png||Sunscreen|An airy-light texture sunscreen with powerful SPF50+ PA++++ protection for beautiful glowing skin.
+S003|999|Hydra Vizor Invisible Broad Spectrum SPF 30 Sunscreen With Niacinamide And Kalahari Melon Refill|Fenty Skin|175.00|S003.png||Sunscreen|An invisible SPF 30 moisturizer that locks in fresh hydration, fades the look of dark spots, smooths the look of pores and defends against pollution..
 
-Name|Brand|Price|Image|Choices|Description
+
+
+ItemID|Stock|Name|Brand|Price|Image|ShadeOptions|Category|Description

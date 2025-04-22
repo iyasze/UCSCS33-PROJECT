@@ -1,20 +1,21 @@
 package uscs33_project.form;
 
+import java.awt.Color;
 import uscs33_project.model.ModelItem;
 import uscs33_project.component.Item;
 import uscs33_project.component.PopUp;
-import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.event.EventItem;
 import uscs33_project.swing.ScrollBar;
-import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLayeredPane;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.event.addToCartBtnClicked;
 
 /*
@@ -43,6 +44,7 @@ public class FormHome extends javax.swing.JPanel {
         scroll.setVerticalScrollBar(new ScrollBar());
         
         this.eventBuy = listener;
+//        layeredPane.setVisible(false);
     }
     
     public void addItem(ModelItem data) {
@@ -72,50 +74,79 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     public void createPopup(ModelItem item) {
+        
+        JFrame frame = (JFrame) this.getRootPane().getParent();
+        
+        frame.setGlassPane(new JComponent() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(213, 134, 145, 200));
+                g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+            }
+        });
+        
+        Container glassPane = (Container) frame.getGlassPane();
+        
+        glassPane.setVisible(true);
+        glassPane.setBackground(new Color(213, 134, 145, 123));
+        glassPane.setLayout(new GridBagLayout());
+        
+        
         PopUp popup = new PopUp(eventBuy)
         {
             @Override
             protected void paintComponent(Graphics g)
             {
                 g.setColor( getBackground() );
-                g.fillRect(0, 0, getWidth(), getHeight());
+                g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
                 super.paintComponent(g);
             }
         };
         popup.setOpaque(false);
-        popup.setBackground(new Color(213, 134, 145, 123));
-        
+        popup.setBackground(new Color(0, 0, 0, 0));
         popup.setData(item);
-        popup.setBounds(0,0,this.getWidth(), this.getHeight());
+        popup.setBounds(0,0, frame.getWidth(), frame.getHeight());
         
-        layeredPane.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-//                popup.setBounds(0, 0, layeredPane.getParent().getWidth(), layeredPane.getParent().getHeight());
-                popup.setBounds(0, 0, scroll.getWidth(), scroll.getHeight());
-//                System.out.println("Width: " + layeredPane.getParent().getWidth());
-//                System.out.println("Height: " + layeredPane.getParent().getHeight());
-                popup.revalidate();
-                popup.repaint();
-            }
-        });
-        
-        
-        layeredPane.add(popup, JLayeredPane.PALETTE_LAYER);
-        
-//        sidebar.setVisible(false);
-//        scroll.setVisible(false);
+        glassPane.add(popup);
         
         popup.setDestroyEvent(new BackBtnPopUp() {
             @Override
             public void PopUpDestroy() {
-                layeredPane.remove(layeredPane.getIndexOf(popup));
-                layeredPane.revalidate();
-                layeredPane.repaint();
-//                sidebar.setVisible(true);
-//                scroll.setVisible(true);
+                glassPane.remove(popup);
+                glassPane.setVisible(false);
             }
         });
+       
+        
+        
+//        layeredPane.addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentResized(ComponentEvent e) {
+////                popup.setBounds(0, 0, layeredPane.getParent().getWidth(), layeredPane.getParent().getHeight());
+//                popup.setBounds(0, 0, scroll.getWidth(), scroll.getHeight());
+////                System.out.println("Width: " + layeredPane.getParent().getWidth());
+////                System.out.println("Height: " + layeredPane.getParent().getHeight());
+//                popup.revalidate();
+//                popup.repaint();
+//            }
+//        });
+        
+        
+//        layeredPane.add(popup, JLayeredPane.PALETTE_LAYER);
+        
+//        sidebar.setVisible(false);
+//        scroll.setVisible(false);
+        
+//        popup.setDestroyEvent(new BackBtnPopUp() {
+//            @Override
+//            public void PopUpDestroy() {
+//                layeredPane.remove(layeredPane.getIndexOf(popup));
+//                layeredPane.revalidate();
+//                layeredPane.repaint();
+////                sidebar.setVisible(true);
+////                scroll.setVisible(true);
+//            }
+//        });
     }
     
 
@@ -129,50 +160,34 @@ public class FormHome extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        layeredPane = new javax.swing.JLayeredPane();
-        container = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
-        panelItem = new uscs33_project.swing.PanelItem();
+        panelItem = new com.raven.swing.PanelItem();
 
         setOpaque(false);
-        setLayout(new java.awt.BorderLayout());
 
-        container.setLayout(new java.awt.BorderLayout());
-
-        scroll.setBorder(null);
-        scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        panelItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelItem.setPreferredSize(new java.awt.Dimension(1290, 500));
         scroll.setViewportView(panelItem);
 
-        container.add(scroll, java.awt.BorderLayout.CENTER);
-
-        layeredPane.setLayer(container, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout layeredPaneLayout = new javax.swing.GroupLayout(layeredPane);
-        layeredPane.setLayout(layeredPaneLayout);
-        layeredPaneLayout.setHorizontalGroup(
-            layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
-            .addGroup(layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(container, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
-        layeredPaneLayout.setVerticalGroup(
-            layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 356, Short.MAX_VALUE)
-            .addGroup(layeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
-
-        add(layeredPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel container;
-    private javax.swing.JLayeredPane layeredPane;
-    private uscs33_project.swing.PanelItem panelItem;
+    private com.raven.swing.PanelItem panelItem;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 

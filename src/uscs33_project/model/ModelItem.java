@@ -4,13 +4,69 @@ import javax.swing.Icon;
 
 
 public class ModelItem {
+    
+    String itemID;
+    int itemStock;
+    String itemName;
+    String brandName;
+    double price;
+    Icon image;
+    String[] options;
+    String category;
+    String description;
+    
+    public ModelItem() {
+    }
 
-    public int getItemID() {
+    public ModelItem(String itemID, int stock, String itemName, String brandName, double price, Icon image, String[] options, String category, String description) {
+        this.itemID = itemID;
+        this.itemStock = stock;
+        this.itemName = itemName;
+        this.brandName = brandName;
+        this.price = price;
+        this.image = image;
+        if (options.length == 0) {
+            this.options = new String[0];
+        }
+        else {
+            this.options = options;
+        }
+        this.category = category;
+        this.description = description;
+    }
+    
+    public ModelItem(ModelItem base) {
+        this.itemID = base.getItemID();
+        this.itemStock = base.getItemStock();
+        this.itemName = base.getItemName();
+        this.brandName = base.getBrandName();
+        this.price = base.getPrice();
+        this.image = base.getImage();
+        if (base.getOptions().length == 0) {
+            this.options = new String[0];
+        }
+        else {
+            this.options = base.getOptions();
+        }
+        this.category = base.getCategory();
+        this.description = base.getDescription();
+        
+    }
+
+    public String getItemID() {
         return itemID;
     }
 
-    public void setItemID(int itemID) {
+    public void setItemID(String itemID) {
         this.itemID = itemID;
+    }
+    
+    public int getItemStock() {
+        return itemStock;
+    }
+
+    public void setItemStock(int itemStock) {
+        this.itemStock = itemStock;
     }
 
     public String getItemName() {
@@ -52,51 +108,15 @@ public class ModelItem {
     public void setImage(Icon image) {
         this.image = image;
     }
+    
+    public String getCategory() {
+        return category;
+    }
 
-    public ModelItem(int itemID, String itemName, String brandName, double price, Icon image, String[] options, String description) {
-        this.itemID = itemID;
-        this.itemName = itemName;
-        this.description = description;
-        this.price = price;
-        this.brandName = brandName;
-        if (options.length == 0) {
-            this.options = new String[0];
-        }
-        else {
-            this.options = options;
-        }
-        this.image = image;
+    public void setCategory(String category) {
+        this.category = category;
     }
     
-    public ModelItem(ModelItem base) {
-        this.itemID = base.getItemID();
-        this.itemName = base.getItemName();
-        this.description = base.getDescription();
-        this.price = base.getPrice();
-        this.brandName = base.getBrandName();
-        if (base.getOptions().length == 0) {
-            this.options = new String[0];
-        }
-        else {
-            this.options = base.getOptions();
-        }
-        this.image = base.getImage();
-    }
-    
-    
-
-    public ModelItem() {
-    }
-    
-  
-    int itemID;
-    String itemName;
-    String description;
-    double price;
-    String brandName;
-    Icon image;
-    String[] options;
-
     public String[] getOptions() {
         return options;
     }
