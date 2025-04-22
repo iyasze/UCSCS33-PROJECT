@@ -43,6 +43,7 @@ import uscs33_project.component.LogInPage;
 import uscs33_project.component.SignUpPage;
 import uscs33_project.event.EventItem;
 import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.event.LeftPanelFilter;
 import uscs33_project.model.ModelItem;
 import uscs33_project.model.ModelItemChoice;
 import uscs33_project.component.WishList;
@@ -68,6 +69,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private WishList wishlist;
     private ArrayList<ModelItemChoice> itemInCart;
     private int cardPage;
+    private LeftPanelFilter eventFilter;
     
         
     public StoreInterface() {
@@ -95,6 +97,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                 menu.createPopup(item);
             }
         });
+//        menu.filterBy();
         
         //AQIL THINGS
         
@@ -116,7 +119,9 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         menuPanel.add(cartPanel, "CART");
         menuPanel.add(wishPanel, "WISHLIST");
         
-        BrowseFilter filter = new BrowseFilter();
+        BrowseFilter filter = new BrowseFilter((attributeName, keyword) -> {
+            menu.filterBy(attributeName, keyword);
+        });
         BrowseFilterDisabled disabledFilter = new BrowseFilterDisabled();
         leftPanel.add(filter, "FILTER");
         leftPanel.add(disabledFilter, "DISABLED");
@@ -329,7 +334,6 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         catch(Exception e){
             System.out.println("Message 2: " + e);
         }
-        
         
         displayUser();
     }
@@ -869,10 +873,6 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         //popup.add(label, BorderLayout.CENTER);
         //popup.add(buttonPanel, BorderLayout.SOUTH);
         
-        
-        
-        
-        
         try{
             overlay.setVisible(true);
             //popup.setVisible(true);
@@ -918,4 +918,5 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private javax.swing.JLabel usernameDisplay;
     private javax.swing.JLabel wishIcon;
     // End of variables declaration//GEN-END:variables
+
 }

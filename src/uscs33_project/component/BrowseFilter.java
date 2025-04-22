@@ -3,8 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package uscs33_project.component;
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import uscs33_project.event.LeftPanelFilter;
 
 /**
  *
@@ -15,8 +22,70 @@ public class BrowseFilter extends javax.swing.JPanel {
     /**
      * Creates new form BrowseFilter
      */
-    public BrowseFilter() {
+    
+    private LeftPanelFilter eventFilter;
+    
+    public BrowseFilter(LeftPanelFilter event) {
+        this.eventFilter = event;
         
+        initComponents();
+        allProducts.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(SwingUtilities.isLeftMouseButton(e))
+                    eventFilter.filterBy("ID", "");
+            }
+        });
+//        faceLabel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if(SwingUtilities.isLeftMouseButton(e))
+//                    eventFilter.filterBy("ID", "F");
+//            }
+//        });
+//        eyesLabel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if(SwingUtilities.isLeftMouseButton(e))
+//                    eventFilter.filterBy("ID", "E");
+//            }
+//        });
+//        lipsLabel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if(SwingUtilities.isLeftMouseButton(e))
+//                    eventFilter.filterBy("ID", "L");
+//            }
+//        });
+        
+        for (Component com : jPanel1.getComponents()) {
+            if (com instanceof JLabel label) {
+                String idType = Character.toString(label.getText().charAt(0));
+                label.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                    if(SwingUtilities.isLeftMouseButton(e))
+                        eventFilter.filterBy("ID", idType.toLowerCase());
+                    }
+                });
+            }
+        }
+        
+        for (Component com : jPanel2.getComponents()) {
+            if (com instanceof JLabel label) {
+                String brand = label.getText();
+                label.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                    if(SwingUtilities.isLeftMouseButton(e))
+                        eventFilter.filterBy("Brand", brand.toLowerCase());
+                    }
+                });
+            }
+        }
+    }
+    
+    public BrowseFilter() { 
         initComponents();
     }
     
@@ -43,6 +112,7 @@ public class BrowseFilter extends javax.swing.JPanel {
         brandLabel4 = new javax.swing.JLabel();
         brandLabel5 = new javax.swing.JLabel();
         brandLabel6 = new javax.swing.JLabel();
+        allProducts = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -90,7 +160,7 @@ public class BrowseFilter extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(makeupTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(makeupTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,28 +294,39 @@ public class BrowseFilter extends javax.swing.JPanel {
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
+        allProducts.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        allProducts.setText("A L L");
+        allProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                allProductsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                allProductsMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(allProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(42, 42, 42)
+                .addComponent(allProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,8 +402,17 @@ public class BrowseFilter extends javax.swing.JPanel {
         brandLabel6.setForeground(new Color(0,0,0));// TODO add your handling code here:
     }//GEN-LAST:event_brandLabel6MouseExited
 
+    private void allProductsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allProductsMouseEntered
+        allProducts.setForeground(new Color(255,102,102));
+    }//GEN-LAST:event_allProductsMouseEntered
+
+    private void allProductsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allProductsMouseExited
+        allProducts.setForeground(new Color(0,0,0));
+    }//GEN-LAST:event_allProductsMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel allProducts;
     private javax.swing.JLabel brandLabel1;
     private javax.swing.JLabel brandLabel2;
     private javax.swing.JLabel brandLabel3;

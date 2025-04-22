@@ -41,7 +41,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="com.raven.swing.PanelItem" name="panelItem">
+        <Container class="uscs33_project.swing.PanelItem" name="panelItem">
         </Container>
       </SubComponents>
     </Container>
