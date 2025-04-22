@@ -8,12 +8,13 @@ import uscs33_project.event.EventItem;
 import uscs33_project.swing.ScrollBar;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLayeredPane;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import uscs33_project.event.addToCartBtnClicked;
 
@@ -72,21 +73,50 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     public void createPopup(ModelItem item) {
+        
+        JFrame frame = (JFrame) this.getRootPane().getParent();
+        
+        frame.setGlassPane(new JComponent() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(213, 134, 145, 200));
+                g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+            }
+        });
+        
+        Container glassPane = (Container) frame.getGlassPane();
+        
+        glassPane.setVisible(true);
+        glassPane.setBackground(new Color(213, 134, 145, 123));
+        glassPane.setLayout(new GridBagLayout());
+        
+        
         PopUp popup = new PopUp(eventBuy)
         {
             @Override
             protected void paintComponent(Graphics g)
             {
                 g.setColor( getBackground() );
-                g.fillRect(0, 0, getWidth(), getHeight());
+                g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
                 super.paintComponent(g);
             }
         };
         popup.setOpaque(false);
-        popup.setBackground(new Color(213, 134, 145, 123));
-        
+        popup.setBackground(new Color(0, 0, 0, 0));
         popup.setData(item);
-        popup.setBounds(0,0,this.getWidth(), this.getHeight());
+        popup.setBounds(0,0, frame.getWidth(), frame.getHeight());
+        
+        glassPane.add(popup);
+        
+        popup.setDestroyEvent(new BackBtnPopUp() {
+            @Override
+            public void PopUpDestroy() {
+                glassPane.remove(popup);
+                glassPane.setVisible(false);
+            }
+        });
+       
+        
         
 //        layeredPane.addComponentListener(new ComponentAdapter() {
 //            @Override
