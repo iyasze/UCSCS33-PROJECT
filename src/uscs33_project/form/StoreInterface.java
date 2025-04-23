@@ -39,6 +39,8 @@ import javax.swing.JPanel;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.StandardOpenOption;
 import javax.swing.*;
 import uscs33_project.component.BrowseFilter;
 import uscs33_project.component.LogInPage;
@@ -50,6 +52,7 @@ import uscs33_project.model.ModelItem;
 import uscs33_project.model.ModelItemChoice;
 import uscs33_project.component.WishList;
 import uscs33_project.component.BrowseFilterDisabled;
+import uscs33_project.component.Item;
 import uscs33_project.event.ImageUtils;
 
 /**
@@ -70,13 +73,17 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private ShoppingCart cart;
     private WishList wishlist;
     private ArrayList<ModelItemChoice> itemInCart;
+    private ArrayList<ModelItem> itemInWishlist;
     private int cardPage;
     private LeftPanelFilter eventFilter;
+    private JFrame parentFrame;
+    
     
         
-    public StoreInterface() {
+    public StoreInterface(JFrame parentFrame) {
         
         initComponents();
+        this.parentFrame = parentFrame;
         
         
         //AQIL THINGS
@@ -84,21 +91,12 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         setImage();
         
         itemInCart = new ArrayList<ModelItemChoice>();
+        itemInWishlist = new ArrayList<ModelItem>();
+        
+        
+        
 //        cart = new ShoppingCart(product);
-        menu = new FormHome(this);
-        cart = new ShoppingCart(this, itemInCart);
-        wishlist = new WishList();
         
-        importData();
-        
-        menu.setClickEvent(new EventItem() {
-            @Override
-            public void itemClick(Component com, ModelItem item) {
-                menu.setSelected(com);
-                System.out.println(item.getItemID());
-                menu.createPopup(item);
-            }
-        });
 //        menu.filterBy();
         
         //AQIL THINGS
@@ -111,6 +109,35 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         }
         
         wishDisabled();
+        
+        menu = new FormHome(this);
+        importData();
+        
+        
+        cart = new ShoppingCart(this, itemInCart);
+        wishlist = new WishList(parentFrame, this, itemInWishlist, usernameDisplay.getText(), menu);
+        
+        
+        
+        
+        
+        menu.setClickEvent(new EventItem() {
+            @Override
+            public void itemClick(Component com, ModelItem item) {
+                menu.setSelected(com);
+                System.out.println(item.getItemID());
+                menu.createPopup(item);
+            }
+        });
+        
+        wishlist.setClickEvent(new EventItem() {
+            @Override
+            public void itemClick(Component com, ModelItem item) {
+                wishlist.setSelected(com);
+                System.out.println(item.getItemID());
+                wishlist.createPopup(item);
+            }
+        });
         
         
         JPanel cartPanel = cart.getPanel();
@@ -139,6 +166,33 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                     menu.filterBy("Search", searchField.getText().trim().toLowerCase());
             }
         });
+        
+//        JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
+//        
+//        frame.addWindowListener(new WindowAdapter() {
+//            public void windowClosing(WindowEvent e) {
+//                exportData();
+//            }
+//        });
+
+//        this.addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentShown(ComponentEvent e) {
+//                JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(StoreInterface.this);
+//                if (frame != null) {
+//                    frame.addWindowListener(new WindowAdapter() {
+//                        @Override
+//                        public void windowClosing(WindowEvent e) {
+//                            exportData();
+//                            JOptionPane.showMessageDialog(null, "Whaa");
+//                            System.out.println("yy");
+//                        }
+//                    });
+//                    // Remove this listener after setup
+//                    StoreInterface.this.removeComponentListener(this);
+//                }
+//            }
+//        });
         
     }
    
@@ -174,10 +228,55 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         
     }
     
+    // yy
+    
+    
+    public void exportData() {
+        Path file = Paths.get("src/uscs33_project/main/products1.txt").toAbsolutePath();
+        try{
+            
+            BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+            for (Item item : menu.getItems()) {
+                ModelItem data = item.getData();
+               
+                writer.write(data.getItemID());
+                writer.write("|");
+                writer.write(Integer.toString(data.getItemStock()));
+                writer.write("|");
+                writer.write(data.getItemName());
+                writer.write("|");
+                writer.write(data.getBrandName());
+                writer.write("|");
+                writer.write(Double.toString(data.getPrice()));
+                writer.write("|");
+                writer.write(data.getItemID()+".png");
+                writer.write("|");
+                if (data.getOptions().length != 0) {
+                    String[] arr = data.getOptions();
+                    String shades = String.join(",", arr);
+                    writer.write(shades);
+                }
+                else {
+                    writer.write("");
+                }
+                writer.write("|");
+                writer.write(data.getCategory());
+                writer.write("|");
+                writer.write(data.getDescription());
+                writer.newLine();
+                writer.flush();
+            }
+            writer.close();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     private void importData() {
         int ID = 1;
-        Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
-        System.out.println(file);
+        Path file = Paths.get("src/uscs33_project/main/products1.txt").toAbsolutePath();
+//        System.out.println(file);
         try {
             InputStream input = new BufferedInputStream(Files.newInputStream(file));
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -205,9 +304,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                 }
 //                System.out.println("Arr len: " + choices.length);
                 
-                System.out.println(imgLink);
+                
                 ModelItem itemTemp = new ModelItem(parts[0], Integer.parseInt(parts[1]), parts[2], parts[3], Double.parseDouble(parts[4]), new ImageIcon(getClass().getResource(imgLink)), choices, parts[7], parts[8]);
                 menu.addItem(itemTemp);
+//                System.out.println(imgLink);
                 s = reader.readLine();
             }
         }
@@ -995,6 +1095,13 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
             System.out.println("FILTER PANEL DISABLED");
             cardLayout2.show(leftPanel, "DISABLED");
         }
+    }
+    
+    public JFrame getParentFrame() {
+        if (parentFrame == null) {
+            parentFrame = (JFrame)SwingUtilities.getWindowAncestor(this);
+        }
+        return parentFrame;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TITLE;
