@@ -82,7 +82,10 @@ public class FormHome extends javax.swing.JPanel {
 //            System.out.print(keyword);
             for (Component com : panelItem.getComponents()) {
                 ModelItem item = ((Item) com).getData();
-                if (item.getItemName().toLowerCase().contains(keyword) || item.getBrandName().toLowerCase().contains(keyword) || item.getDescription().toLowerCase().contains(keyword)) {
+                if (item.getItemName().trim().toLowerCase().contains(keyword) 
+                        || item.getBrandName().trim().toLowerCase().contains(keyword) 
+                        || item.getDescription().trim().toLowerCase().contains(keyword)
+                        || item.getCategory().toLowerCase().contains(keyword)) {
                     com.setVisible(true);
                 }
                 else {
