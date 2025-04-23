@@ -404,7 +404,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         TaxLabel.setFont(new Font("Verdana",Font.PLAIN,12));
        // TaxLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         
-        TotalLabel.setBounds(180, 155, 60, 20);
+        TotalLabel.setBounds(180, 155, 100, 20);
         TotalLabel.setFont(new Font("Verdana",Font.BOLD,14));
        // TotalLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         
@@ -450,10 +450,6 @@ public class ShoppingCart extends javax.swing.JFrame {
         JLabel totalLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice() * product.get(itemIndex).getQuantity()));
         totalLabel.setBounds(670, 20, 60, 20);
         totalLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-       
-        /*JLabel detailLabel = new JLabel(product.get(itemIndex).get(2));
-        detailLabel.setBounds(20, 70, 300, 20);
-        detailLabel.setFont(new Font("Verdana",Font.PLAIN,12));*/
         
         
         JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
@@ -461,6 +457,7 @@ public class ShoppingCart extends javax.swing.JFrame {
             dropdown.setFont(new Font("Verdana",Font.PLAIN,12));
             dropdown.addActionListener(e ->{
             String selected = (String)dropdown.getSelectedItem();
+            product.get(itemIndex).setSelectedVariant(selected);
         });
            
     
@@ -469,8 +466,11 @@ public class ShoppingCart extends javax.swing.JFrame {
         spinner.setValue(product.get(itemIndex).getQuantity());
         spinner.setBounds(530, 20, 60, 25);
         
-        
-        stotal += Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice() * product.get(itemIndex).getQuantity()));
+        stotal = 0; // Reset stotal first to avoid accumulating previous values
+        for (int i = 0; i < product.size(); i++) {
+        stotal += product.get(i).getPrice() * product.get(i).getQuantity();
+        }
+        //stotal += Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice() * product.get(itemIndex).getQuantity()));
         SubTotalLabel.setText(String.format("%.2f",stotal));
         
         stax = (0.06 * stotal);
@@ -494,13 +494,14 @@ public class ShoppingCart extends javax.swing.JFrame {
             double price = Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
             double total = quantity * price;
             totalLabel.setText(String.format("%.2f", total));
+            product.get(itemIndex).setQuantity(quantity);
             
             double SubTotal = 0;
             double tax = 0;
             double Total = 0;
             for(int i = 0; i < product.size();i++){
                 int quantitySub = (Integer) SpinnerList.get(i).getValue();
-                double priceSub = Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
+                double priceSub = product.get(i).getPrice();
                 SubTotal += (priceSub*quantitySub);
                 
             }
@@ -523,29 +524,33 @@ public class ShoppingCart extends javax.swing.JFrame {
      
     JButton deleteButton = new JButton("Delete");
     deleteButton.setBounds(750,50,80,25);
+    deleteButton.putClientProperty("itemIndex", itemIndex);
     deleteButton.addActionListener(e -> {
         int result = JOptionPane.showConfirmDialog(ItemPanel, "Are you sure to delete the product?", "Delete Item",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION){
+            int indexToRemove = (int) ((JButton) e.getSource()).getClientProperty("itemIndex");
+             if (indexToRemove >= 0 && indexToRemove < product.size()) {
+            // Remove from all collections
+            product.remove(indexToRemove);
+            SpinnerList.remove(indexToRemove);
+            
+            // Remove the panel
             CartPanel.remove(itemPanel);
             CartPanel.revalidate();
             CartPanel.repaint();
-            int indexToRemove = (int) ((JButton) e.getSource()).getClientProperty("itemIndex");
-            if (indexToRemove >= 0 && indexToRemove < product.size()) {
-                product.remove(indexToRemove);
-                SpinnerList.remove(indexToRemove); // Also remove from SpinnerList if needed
+            }// Also remove from SpinnerList if needed
                 
-            }
-            
         }
-    });
+        });
+
     int i;
     for (i = 0; i < (product.get(itemIndex).getOptions().length); i++){
         if (product.get(itemIndex).getOptions()[i].equals(product.get(itemIndex).getSelectedVariant())){
             break;
         }
     }
-    if (choices != null && choices.length != 0){
+    if (product.get(itemIndex).getOptions() != null && product.get(itemIndex).getOptions().length != 0){
         dropdown.setSelectedIndex(i);
         itemPanel.add(dropdown);
     }
