@@ -24,11 +24,13 @@ import uscs33_project.component.SignUpPage;
 import uscs33_project.component.WishList;
 import uscs33_project.component.promoBanner;
 import uscs33_project.event.ImageUtils;
+import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.model.ModelItemChoice;
 /**
  *
  * @author iyasnaufalnazlim
  */
-public class MainInterface extends javax.swing.JFrame {
+public class MainInterface extends javax.swing.JFrame implements addToCartBtnClicked{
 
     /**
      * Creates new form MainInterface
@@ -77,25 +79,25 @@ public class MainInterface extends javax.swing.JFrame {
         
         //THIS IS FOR TESTING CART ONLY
         
-        ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
-        ArrayList<String> item = new ArrayList<String>();
-        item.add("Fenty Beauty");
-        item.add("Gloss Bomb");
-        item.add("Champ Color");
-        item.add("79.00");
-        product.add(new ArrayList<>(item));
-        item.clear();
-        item.add("Dior");
-        item.add("Matte Blusher");
-        item.add("Lovely Pink");
-        item.add("59.00");
-        product.add(new ArrayList<>(item));
-        item.clear();
-        item.add("Dior");
-        item.add("Lipstick Glaze");
-        item.add("Charmer Nude");
-        item.add("69.00");
-        product.add(new ArrayList<>(item));
+        ArrayList<ModelItemChoice> product = new ArrayList<ModelItemChoice>();
+//        ArrayList<String> item = new ArrayList<String>();
+//        item.add("Fenty Beauty");
+//        item.add("Gloss Bomb");
+//        item.add("Champ Color");
+//        item.add("79.00");
+//        product.add(new ArrayList<>(item));
+//        item.clear();
+//        item.add("Dior");
+//        item.add("Matte Blusher");
+//        item.add("Lovely Pink");
+//        item.add("59.00");
+//        product.add(new ArrayList<>(item));
+//        item.clear();
+//        item.add("Dior");
+//        item.add("Lipstick Glaze");
+//        item.add("Charmer Nude");
+//        item.add("69.00");
+//        product.add(new ArrayList<>(item));
         
         //THIS IS FOR TESTING CART ONLY
         
@@ -110,7 +112,7 @@ public class MainInterface extends javax.swing.JFrame {
         leftPanel.setLayout(cardLayout2);
         
         StoreFront storeFront = new StoreFront();
-        ShoppingCart cart = new ShoppingCart(product);
+        ShoppingCart cart = new ShoppingCart(this, product);
         WishList wishlist = new WishList();
 
         JPanel cartPanel = cart.getPanel();
@@ -835,4 +837,9 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JLabel usernameDisplay;
     private javax.swing.JLabel wishIcon;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void buy(ModelItemChoice item) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

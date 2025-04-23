@@ -10,6 +10,7 @@ import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.model.ModelItemChoice;
 
 /**
@@ -27,17 +28,15 @@ public class ShoppingCart extends javax.swing.JFrame {
     public double stotal;
     public double stax;
     public double SubTotal;
+    public addToCartBtnClicked listener;
     
-    public ShoppingCart(ArrayList<ModelItemChoice> product) {
+    public ShoppingCart(addToCartBtnClicked listener, ArrayList<ModelItemChoice> product) {
         this.product = product; 
         this.choices = choices;
+        this.listener = listener;
         this.QuantitySpinner = new ArrayList<>();
         initComponents();
-        int y = 0;
-        for (int i = 0; i < product.size();i++){
-            addProductPanel(i,y);
-            y += 150;
-        }
+        refreshCart();
         Additional();
     }
     /**
@@ -308,7 +307,23 @@ public class ShoppingCart extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        JOptionPane.showMessageDialog(null, "You Successfully Ordered!");        // TODO add your handling code here:
+       product.clear();
+       CartPanel.removeAll();
+       CartPanel.revalidate();
+       CartPanel.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void refreshCart() {
+        CartPanel.removeAll();
+        if (this.product != null && !this.product.isEmpty()) {
+            int y = 0;
+            for (int i = 0; i < product.size(); i++){
+                addProductPanel(i,y);
+                y += 150;
+            }
+        }
+        
+    }
     
     private void Additional(){
        
@@ -339,9 +354,9 @@ public class ShoppingCart extends javax.swing.JFrame {
     }
         
 
-      private void addProductPanel(int itemIndex,int y){
+    private void addProductPanel(int itemIndex,int y){
           
-         CartPanel.setLayout(new BoxLayout(CartPanel,BoxLayout.Y_AXIS));
+        CartPanel.setLayout(new BoxLayout(CartPanel,BoxLayout.Y_AXIS));
          
         
         JPanel itemPanel = new JPanel();
@@ -364,7 +379,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         priceLabel.setFont(new Font("Verdana",Font.PLAIN,12));
       
 
-        JLabel totalLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
+        JLabel totalLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice() * product.get(itemIndex).getQuantity()));
         totalLabel.setBounds(670, 20, 60, 20);
         totalLabel.setFont(new Font("Verdana",Font.PLAIN,12));
        
@@ -373,23 +388,21 @@ public class ShoppingCart extends javax.swing.JFrame {
         detailLabel.setFont(new Font("Verdana",Font.PLAIN,12));*/
         
         
-            JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
-        
+        JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
             dropdown.setBounds(20, 70, 100, 25);
             dropdown.setFont(new Font("Verdana",Font.PLAIN,12));
             dropdown.addActionListener(e ->{
             String selected = (String)dropdown.getSelectedItem();
-            
-            
         });
            
     
         SpinnerList.add(new JSpinner(new SpinnerNumberModel(1, 1, 100, 1)));
         JSpinner spinner = SpinnerList.get(itemIndex);
+        spinner.setValue(product.get(itemIndex).getQuantity());
         spinner.setBounds(530, 20, 60, 25);
         
         
-        stotal += Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
+        stotal += Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice() * product.get(itemIndex).getQuantity()));
         SubTotalLabel.setText(String.format("%.2f",stotal));
         
         stax = (0.06 * stotal);
@@ -460,7 +473,7 @@ public class ShoppingCart extends javax.swing.JFrame {
             break;
         }
     }
-    if (choices.length != 0){
+    if (choices != null && choices.length != 0){
         dropdown.setSelectedIndex(i);
         itemPanel.add(dropdown);
     }

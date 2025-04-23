@@ -3,7 +3,6 @@ package uscs33_project.form;
 import uscs33_project.model.ModelItem;
 import uscs33_project.component.Item;
 import uscs33_project.component.PopUp;
-import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.event.EventItem;
 import uscs33_project.swing.ScrollBar;
 import java.awt.Color;
@@ -11,8 +10,10 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -129,22 +130,7 @@ public class FormHome extends javax.swing.JPanel {
     
     public void createPopup(ModelItem item) {
         
-        JFrame frame = (JFrame) this.getRootPane().getParent();
-        
-        frame.setGlassPane(new JComponent() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.setColor(new Color(213, 134, 145, 200));
-                g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-            }
-        });
-        
-        Container glassPane = (Container) frame.getGlassPane();
-        
-        glassPane.setVisible(true);
-        glassPane.setBackground(new Color(213, 134, 145, 123));
-        glassPane.setLayout(new GridBagLayout());
-        
+        JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
         
         PopUp popup = new PopUp(eventBuy)
         {
@@ -156,10 +142,36 @@ public class FormHome extends javax.swing.JPanel {
                 super.paintComponent(g);
             }
         };
+//        
+        frame.setGlassPane(new JComponent() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(213, 134, 145, 200));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
+//        
+        Container glassPane = (Container) frame.getGlassPane();
+//        
+        glassPane.setVisible(true);
+        glassPane.setBackground(new Color(213, 134, 145, 123));
+        glassPane.setLayout(new GridBagLayout());
+        
+        
+        
         popup.setOpaque(false);
         popup.setBackground(new Color(0, 0, 0, 0));
         popup.setData(item);
         popup.setBounds(0,0, frame.getWidth(), frame.getHeight());
+        
+        // Request focus for the popup
+        popup.setFocusable(true);
+        popup.requestFocusInWindow();
+        
+        glassPane.addMouseListener(new MouseAdapter() {});
+        glassPane.addMouseMotionListener(new MouseMotionAdapter() {});
+        glassPane.addKeyListener(new KeyAdapter() {});
+        glassPane.setFocusTraversalKeysEnabled(false);
         
         glassPane.add(popup);
         

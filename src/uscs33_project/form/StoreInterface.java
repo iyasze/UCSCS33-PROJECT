@@ -81,10 +81,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         paintBg();
         setImage();
         
-        ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
+        itemInCart = new ArrayList<ModelItemChoice>();
 //        cart = new ShoppingCart(product);
         menu = new FormHome(this);
-        cart = new ShoppingCart(product);
+        cart = new ShoppingCart(this, itemInCart);
         wishlist = new WishList();
         
         importData();
@@ -122,6 +122,8 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         BrowseFilter filter = new BrowseFilter((attributeName, keyword) -> {
             menu.filterBy(attributeName, keyword);
         });
+        
+        
         BrowseFilterDisabled disabledFilter = new BrowseFilterDisabled();
         leftPanel.add(filter, "FILTER");
         leftPanel.add(disabledFilter, "DISABLED");
@@ -135,6 +137,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                     menu.filterBy("Search", searchField.getText().trim().toLowerCase());
             }
         });
+        
     }
    
     public JPanel getUpperPanel() {
@@ -143,8 +146,30 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     
     @Override
     public void buy(ModelItemChoice item) {
+        boolean flag = true;
         System.out.println(item.getQuantity());
-        itemInCart.add(item);
+        for (ModelItemChoice element : itemInCart) {
+            if (element.getItemID().equals(item.getItemID()) && element.getSelectedVariant().equals(item.getSelectedVariant())) {
+                flag = false;
+                int newQuantity = element.getQuantity() + item.getQuantity();
+                if (newQuantity > element.getItemStock()) {
+                    JOptionPane.showMessageDialog(null, "Error Adding to Cart" , "You already have the item in your cart. However, you cannot add more due to not enough stock available.", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    element.setQuantity(newQuantity);
+                    System.out.println(element.getQuantity());
+                }
+                
+            }
+            
+        }
+        
+        if (flag) {
+            itemInCart.add(item);
+        }
+        
+        cart.refreshCart();
+        
     }
     
     private void importData() {
@@ -809,7 +834,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     }//GEN-LAST:event_cartIconMouseExited
 
     private void cartIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartIconMouseClicked
-       if(jLabel3.getText().equals("CART")){
+        if(jLabel3.getText().equals("CART")){
             cardLayout.show(menuPanel, "CART");
             jLabel3.setText("RETURN");
             cardPage = 1;
@@ -831,6 +856,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                 jLabel8.setText("WISHLIST");
             }
         } 
+        
+        cart.refreshCart();
+       
+        
     }//GEN-LAST:event_cartIconMouseClicked
 
     private void wishIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wishIconMouseEntered

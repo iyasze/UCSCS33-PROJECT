@@ -9,9 +9,9 @@ import uscs33_project.model.ModelItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
-import java.awt.Container;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
 import uscs33_project.model.ModelItemChoice;
 import uscs33_project.event.addToCartBtnClicked;
 
@@ -45,21 +45,37 @@ public class PopUp extends javax.swing.JPanel {
         });
         
         
+        jSpinnerQuantity.setValue(1);
+        StockWarning.setVisible(false);
+//        SwingUtilities.invokeLater(() -> {
+//            ComboBoxShade.requestFocusInWindow();
+//            ComboBoxShade.showPopup();
+//        });
+        
+        System.out.println("ComboBox item count: " + ComboBoxShade.getModel().getSize());
+        
         jPanel1.setBackground(new Color(204,204,255,230));
         
         addToCart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int quantity = (Integer) jSpinnerQuantity.getValue();
-                String selectedVariant = (String) ComboBoxShade.getSelectedItem();
-                ModelItemChoice itemBought = new ModelItemChoice(data, quantity, selectedVariant);
+                if (quantity < data.getItemStock()) {
+                    if (StockWarning.isVisible()) {
+                        StockWarning.setVisible(false);
+                    }
+
+                    String selectedVariant = (String) ComboBoxShade.getSelectedItem();
+                    ModelItemChoice itemBought = new ModelItemChoice(data, quantity, selectedVariant);
                 
-                eventBuy.buy(itemBought);
+                    eventBuy.buy(itemBought);
                 
-                Container parent = getParent();
-                parent.remove(PopUp.this);
-                parent.revalidate();
-                parent.repaint();
+                    eventDestroy.PopUpDestroy();
+                }
+                else {
+                    StockWarning.setVisible(true);
+                }
+                
             }
         });     
     }
@@ -83,6 +99,7 @@ public class PopUp extends javax.swing.JPanel {
 //            for (String shade : data.getOptions()) {
 //                System.out.println(shade);
 //            }
+            ComboBoxShade.setLightWeightPopupEnabled (false);
         }
         else {
             PERMshade.setVisible(false);
@@ -116,6 +133,7 @@ public class PopUp extends javax.swing.JPanel {
         TextAreaDesc = new javax.swing.JTextArea();
         PERMquantity = new javax.swing.JLabel();
         jSpinnerQuantity = new javax.swing.JSpinner();
+        StockWarning = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 153));
         setToolTipText("");
@@ -178,7 +196,11 @@ public class PopUp extends javax.swing.JPanel {
         TextAreaDesc.setWrapStyleWord(true);
         ScrollPaneDesc.setViewportView(TextAreaDesc);
 
+        PERMquantity.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         PERMquantity.setText("Quantity");
+
+        StockWarning.setForeground(new java.awt.Color(255, 51, 51));
+        StockWarning.setText("Exceeded amount in stock. Please reduce quantity.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,45 +208,52 @@ public class PopUp extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(addToCart)
-                                .addGap(55, 55, 55)
-                                .addComponent(addToWishlist))
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbBrand)
+                                    .addComponent(lbName)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbBrand)
-                                .addGap(267, 267, 267)
-                                .addComponent(btnBack))
-                            .addComponent(lbName)
-                            .addComponent(lbPrice)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(PERMshade)
-                                .addGap(18, 18, 18)
-                                .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(PERMquantity)
-                                .addGap(18, 18, 18)
-                                .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbPrice)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(addToCart)
+                                        .addGap(77, 77, 77)
+                                        .addComponent(addToWishlist))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(62, 62, 62)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(StockWarning)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(btnBack)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(41, 41, 41)
+                                                    .addComponent(PERMshade)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(PERMquantity)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(PERMdesc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ScrollPaneDesc)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(ScrollPaneDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbBrand)
                             .addComponent(btnBack))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -234,13 +263,15 @@ public class PopUp extends javax.swing.JPanel {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PERMshade)
-                            .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PERMquantity)
-                            .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addToWishlist)
-                            .addComponent(addToCart))))
+                            .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ComboBoxShade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(StockWarning)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addToCart)
+                            .addComponent(addToWishlist))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PERMdesc)
@@ -252,7 +283,7 @@ public class PopUp extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -262,7 +293,7 @@ public class PopUp extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -293,6 +324,7 @@ public class PopUp extends javax.swing.JPanel {
     private javax.swing.JLabel PERMquantity;
     private javax.swing.JLabel PERMshade;
     private javax.swing.JScrollPane ScrollPaneDesc;
+    private javax.swing.JLabel StockWarning;
     private javax.swing.JTextArea TextAreaDesc;
     private javax.swing.JButton addToCart;
     private javax.swing.JButton addToWishlist;
