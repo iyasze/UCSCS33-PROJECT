@@ -16,7 +16,11 @@ import javax.swing.event.ChangeListener;
 import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.model.ModelItemChoice;
 import uscs33_project.form.FormReceipt;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 /**
  *
  * @author USER
@@ -37,6 +41,7 @@ public class ShoppingCart extends javax.swing.JFrame {
     public String tax;
     public String subtotal;
     public String ztotal;
+    public String paymentMethod;
     
     
     public ShoppingCart(addToCartBtnClicked listener, ArrayList<ModelItemChoice> product) {
@@ -163,7 +168,15 @@ public class ShoppingCart extends javax.swing.JFrame {
         CartPanel.setBackground(new java.awt.Color(255, 255, 255));
         CartPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         CartPanel.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        CartPanel.setPreferredSize(new java.awt.Dimension(870, 750));
+        CartPanel.setPreferredSize(new java.awt.Dimension(870, 100000000));
+        CartPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                CartPanelComponentMoved(evt);
+            }
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                CartPanelComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout CartPanelLayout = new javax.swing.GroupLayout(CartPanel);
         CartPanel.setLayout(CartPanelLayout);
@@ -173,7 +186,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         );
         CartPanelLayout.setVerticalGroup(
             CartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
+            .addGap(0, 99999996, 99999996)
         );
 
         jScrollPane1.setViewportView(CartPanel);
@@ -182,7 +195,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         ProductPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel1.setText("Tax (10%)");
+        jLabel1.setText("Tax (6%)");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel2.setText("Subtotal");
@@ -288,8 +301,8 @@ public class ShoppingCart extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(MiddlePanelLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -341,45 +354,23 @@ public class ShoppingCart extends javax.swing.JFrame {
         
        JOptionPane.showMessageDialog(null, "You Successfully Ordered!");        // TODO add your handling code here:
        
-       StringBuilder receipt = new StringBuilder();
 
-        // Header
-        receipt.append("                                MAKLUV\n");
-        receipt.append("-----------------------------------------------\n");
-        receipt.append("To:\n");
-        receipt.append(username + "\n");
-        receipt.append(address[0] + "\n");
-        receipt.append(address[0] + "\n");
-        receipt.append(address[0] + "\n");
-        receipt.append("-----------------------------------------------\n");
-        receipt.append("ITEMS                                                          PRICE\n");
+       FormReceipt receipt = new FormReceipt(product, username, address, subtotal);
 
-        
-        for(int i = 0 ; i < product.size() ; i++){
-            
-            String itemName = product.get(i).getItemName();
-            if (itemName.length() > 20) {
-                itemName = itemName.substring(0, 17) + "..."; // show only 47 characters + ellipsis
-            }
-            
-            receipt.append(String.format("%-50s %10s\n", itemName, product.get(i).getPrice()));
-        }
-        
-        receipt.append("                                               10% Tax:       " + tax + "\n");
-        receipt.append("                                               Shipping:        7.00\n");
-
-        // Footer
-        receipt.append("-----------------------------------------------\n");
-        receipt.append("THANK YOU!                              TOTAL: RM" + ztotal + "\n");
-        receipt.append("-----------------------------------------------\n");
-        
-        JOptionPane.showMessageDialog(this, receipt);
        
        product.clear();
        CartPanel.removeAll();
        CartPanel.revalidate();
        CartPanel.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void CartPanelComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_CartPanelComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CartPanelComponentMoved
+
+    private void CartPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_CartPanelComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CartPanelComponentResized
     
     public void refreshCart() {
         CartPanel.removeAll();
@@ -391,6 +382,10 @@ public class ShoppingCart extends javax.swing.JFrame {
             }
         }
         
+    }
+    
+    public String getSubtotal(){
+        return subtotal;
     }
     
     private void Additional(){
@@ -414,6 +409,39 @@ public class ShoppingCart extends javax.swing.JFrame {
         //ShippingLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         ShippingLabel.setText("7.00");
         
+       
+        String[] payment = {"Google Pay","Visa","MasterCard","Paypal","Touch&Go","American Express"};
+        
+        jPanel7.setLayout(new GridLayout(2,3,5,5));
+        JLabel[] labels = new JLabel[6];
+        for (int i = 0; i < labels.length; i++) {
+            // Create image label (replace with your actual image path)
+            labels[i] = new JLabel();
+            labels[i].setPreferredSize(new Dimension(30,30));
+             ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/uscs33_project/image/payment" + (i+1) + ".png")));
+            Image img1 = icon.getImage();
+            Image img2 = img1.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+            ImageIcon ic = new ImageIcon(img2);
+            
+            labels[i].setIcon(ic);
+            labels[i] = new JLabel(icon);
+            labels[i].setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            final int selected = i;
+            labels[i].addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    // Reset all borders
+                    for (JLabel label : labels) {
+                        label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                    }
+                    // Highlight clicked label
+                    ((JLabel)e.getSource()).setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+                    paymentMethod = payment[selected];
+                }
+            });
+            
+            jPanel7.add(labels[i]);
+        }
+        
         
         ProductPanel.add(TaxLabel);
         ProductPanel.add(SubTotalLabel);
@@ -424,6 +452,7 @@ public class ShoppingCart extends javax.swing.JFrame {
 
     private void addProductPanel(int itemIndex,int y){
           
+        //CartPanel.setPreferredSize(new Dimention(Integer.MAX_VALUE,10000));
         CartPanel.setLayout(new BoxLayout(CartPanel,BoxLayout.Y_AXIS));
          
         
@@ -437,9 +466,10 @@ public class ShoppingCart extends javax.swing.JFrame {
         brandLabel.setBounds(20, 20, 300, 20);
         brandLabel.setFont(new Font("Verdana",Font.BOLD,12));
         
-
-        JLabel nameLabel = new JLabel(product.get(itemIndex).getItemName());
-        nameLabel.setBounds(20, 45, 300, 20);
+        int labelWidth = 200;
+        JLabel nameLabel = new JLabel();
+        nameLabel.setText("<html><body style = 'width:" + labelWidth + "px'>" + product.get(itemIndex).getItemName() + "</body></html>");
+        nameLabel.setBounds(20, 35, 300, 50);
         nameLabel.setFont(new Font("Verdana",Font.PLAIN,12));
 
         JLabel priceLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
@@ -453,7 +483,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         
         
         JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
-            dropdown.setBounds(20, 70, 100, 25);
+            dropdown.setBounds(20, 80, 150, 25);
             dropdown.setFont(new Font("Verdana",Font.PLAIN,12));
             dropdown.addActionListener(e ->{
             String selected = (String)dropdown.getSelectedItem();
@@ -476,10 +506,11 @@ public class ShoppingCart extends javax.swing.JFrame {
         stax = (0.06 * stotal);
         TaxLabel.setText(String.format("%.2f",stax));
         
-        double total = stotal + stax;
+        double Shipping = 7.00;
+        double total = stotal + stax + Shipping;
         TotalLabel.setText(String.format("%.2f",total));
         
-        double Shipping = 7.00;
+        
         
         subtotal = SubTotalLabel.getText();
         tax = TaxLabel.getText();
@@ -516,6 +547,8 @@ public class ShoppingCart extends javax.swing.JFrame {
             TaxLabel.repaint();
             TotalLabel.revalidate();
             TotalLabel.repaint();
+            
+            subtotal = Double.toString(SubTotal);
 
         }
     });

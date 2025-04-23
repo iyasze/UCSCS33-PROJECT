@@ -434,7 +434,7 @@ public class SignUpPage extends javax.swing.JFrame {
                 ArrayList<String> emailList = new ArrayList<>();
                 
                 while(reader.hasNextLine()){
-                    String tempEmail = reader.nextLine().split("\\*\\*\\*")[1];
+                    String tempEmail = reader.nextLine().split("\\*\\*\\*")[0];
                     emailList.add(tempEmail);
                 }
                 
@@ -491,15 +491,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
         
-        /*
-        TO DO:
-        - Password strength check DONE
-        - Reconfirm password check DONE
-        - Replace address white space to underscore for data storage DONE
-        - Check availability of username NOT YET 
-        - Check availability of email NOT YET
-        - Alert user about email field & username field cannot be empty NOT YET
-        */
+        
         
         //Obtain email and username
         String email = EmailField.getText();
@@ -531,7 +523,7 @@ public class SignUpPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Your password is weak!.\n Please retry", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
             JOptionPane.showMessageDialog(this, "You must have:\n1. 2 Upper case\n2. 3 Lower case\n3. 1 digit", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(addressLine_1.getText().equals("")){
+        else if(addressLine_1.getText().equals("") || addressLine_2.getText().equals("") || addressLine_3.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Address cannot be empty!\nPlease retry!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
@@ -551,13 +543,15 @@ public class SignUpPage extends javax.swing.JFrame {
             else if(address3.equals("")){
                 address3 = "-";
             }
-            else{}
+       
             
             
             
             try{
                 FileWriter writer = new FileWriter("src/uscs33_project/component/CUSTOMER_DATA.txt", true); //true allows append
-                writer.write(email + "***" + username + "***" + password + "***" + address1 + "***" + address2 + "***" + address3 + "\n");
+                writer.write(email + "***" + username + "***" + firstPassword + "***" + 
+                    address1 + "***" + address2 + "***" + address3);
+                writer.write(System.lineSeparator()); // This ensures proper newline regardless of OS
 
                 writer.close();
 
@@ -576,10 +570,12 @@ public class SignUpPage extends javax.swing.JFrame {
                 
                 
                 LogInPage logIn = new LogInPage(); //object for LogInPage class
-                logIn.setVisible(true); //show Log in Page
+                
                 logIn.setLocationRelativeTo(null); //center the window
 
-                this.setVisible(false); //close current window (Sign Up page)
+                dispose();
+                
+                logIn.setVisible(true); //show Log in Page
             }
             catch(IOException e){
                 e.printStackTrace();

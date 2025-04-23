@@ -328,13 +328,13 @@ public class WishList extends javax.swing.JFrame {
                     if (!wl.equals("\\")){
                     String[] line = wl.split("\\|");
                     ArrayList<String> each = new ArrayList<>(Arrays.asList(line));
-                    //System.out.println(each);
+                    System.out.println(each);
                     if (i == 3){
                         i = 0;
                         y += 370;
                         x = 10;
                     }
-                    //System.out.println(each);
+                    System.out.println(each);
                     addWishPanel(each,x,y);
                     x +=  380;
                     i++;
