@@ -101,7 +101,7 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     public void addItem(ModelItem data) {
-        Item item = new Item();
+        Item item = new Item(eventBuy);
         item.setData(data);
         item.addMouseListener(new MouseAdapter() {
             @Override

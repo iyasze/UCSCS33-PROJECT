@@ -11,13 +11,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.SwingUtilities;
+import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.model.ModelItemChoice;
 
 
 public class Item extends javax.swing.JPanel {
     
     private boolean selected;
+    private addToCartBtnClicked eventBuy;
 
     public boolean isSelected() {
         return selected;
@@ -28,14 +33,37 @@ public class Item extends javax.swing.JPanel {
         repaint();
     }
 
-    public Item() {
+    public Item(addToCartBtnClicked listener) {
         initComponents();
         setOpaque(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.eventBuy = listener;
         
         layerCart.setVisible(false);
         
         Toolkit.getDefaultToolkit().addAWTEventListener(new MouseDetector(this, layerCart), AWTEvent.MOUSE_EVENT_MASK);
+        
+        btnAddToCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int quantity = 1;
+                
+                if (quantity < data.getItemStock()) {
+                    
+                    String selectedVariant;
+                    if (data.getOptions().length != 0) {
+                        selectedVariant = (String) data.getOptions()[0];
+                    }
+                    else {
+                        selectedVariant = "";
+                    }
+                    
+                    ModelItemChoice itemBought = new ModelItemChoice(data, quantity, selectedVariant);
+                
+                    eventBuy.buy(itemBought);
+                }
+            }
+        });
     }
     
     private ModelItem data;

@@ -64,8 +64,16 @@ public class PopUp extends javax.swing.JPanel {
                     if (StockWarning.isVisible()) {
                         StockWarning.setVisible(false);
                     }
+                    
+                    String selectedVariant;
+                    if (data.getOptions().length != 0) {
+                        selectedVariant = (String) ComboBoxShade.getSelectedItem();
+                    }
+                    else {
+                        selectedVariant = "";
+                    }
 
-                    String selectedVariant = (String) ComboBoxShade.getSelectedItem();
+                    
                     ModelItemChoice itemBought = new ModelItemChoice(data, quantity, selectedVariant);
                 
                     eventBuy.buy(itemBought);
