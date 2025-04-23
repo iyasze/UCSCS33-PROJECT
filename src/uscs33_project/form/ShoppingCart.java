@@ -5,13 +5,17 @@
 package uscs33_project.form;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
+import java.io.IOException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.model.ModelItemChoice;
+import uscs33_project.form.FormReceipt;
 
 /**
  *
@@ -28,6 +32,7 @@ public class ShoppingCart extends javax.swing.JFrame {
     public double stotal;
     public double stax;
     public double SubTotal;
+    public ArrayList<String> userInfo;
     public addToCartBtnClicked listener;
     
     public ShoppingCart(addToCartBtnClicked listener, ArrayList<ModelItemChoice> product) {
@@ -35,6 +40,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         this.choices = choices;
         this.listener = listener;
         this.QuantitySpinner = new ArrayList<>();
+        this.userInfo = new ArrayList<>();
         initComponents();
         refreshCart();
         Additional();
@@ -306,7 +312,33 @@ public class ShoppingCart extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        try{
+            
+            BufferedReader reader = new BufferedReader(new FileReader("src/uscs33_project/component/REALTIME_CUSTOMER.txt"));
+            int i = 0;
+            String line;
+            while((line = reader.readLine()) != null){
+                userInfo.add(line);                
+                i++;
+            }
+            
+            System.out.println("STORING USER DATA");
+            reader.close();
+            
+            
+        }
+        catch(IOException e){
+            System.out.println("FILE CANT BE READ IYAS");
+        }
+        
+        String[] address = {userInfo.get(3), userInfo.get(4), userInfo.get(5)};
+        String username = userInfo.get(1);
+        
        JOptionPane.showMessageDialog(null, "You Successfully Ordered!");        // TODO add your handling code here:
+       
+       FormReceipt receipt = new FormReceipt(username, product, address);
+       
        product.clear();
        CartPanel.removeAll();
        CartPanel.revalidate();
