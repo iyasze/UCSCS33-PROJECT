@@ -16,7 +16,11 @@ import javax.swing.event.ChangeListener;
 import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.model.ModelItemChoice;
 import uscs33_project.form.FormReceipt;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 /**
  *
  * @author USER
@@ -37,6 +41,7 @@ public class ShoppingCart extends javax.swing.JFrame {
     public String tax;
     public String subtotal;
     public String ztotal;
+    public String paymentMethod;
     
     
     public ShoppingCart(addToCartBtnClicked listener, ArrayList<ModelItemChoice> product) {
@@ -341,7 +346,9 @@ public class ShoppingCart extends javax.swing.JFrame {
         
        JOptionPane.showMessageDialog(null, "You Successfully Ordered!");        // TODO add your handling code here:
        
+
        FormReceipt receipt = new FormReceipt(product, username, address, subtotal);
+
        
        product.clear();
        CartPanel.removeAll();
@@ -385,6 +392,39 @@ public class ShoppingCart extends javax.swing.JFrame {
         ShippingLabel.setFont(new Font("Verdana",Font.PLAIN,12));
         //ShippingLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         ShippingLabel.setText("7.00");
+        
+       
+        String[] payment = {"Google Pay","Visa","MasterCard","Paypal","Touch&Go","American Express"};
+        
+        jPanel7.setLayout(new GridLayout(2,3,5,5));
+        JLabel[] labels = new JLabel[6];
+        for (int i = 0; i < labels.length; i++) {
+            // Create image label (replace with your actual image path)
+            labels[i] = new JLabel();
+            labels[i].setPreferredSize(new Dimension(30,30));
+             ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/uscs33_project/image/payment" + (i+1) + ".png")));
+            Image img1 = icon.getImage();
+            Image img2 = img1.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+            ImageIcon ic = new ImageIcon(img2);
+            
+            labels[i].setIcon(ic);
+            labels[i] = new JLabel(icon);
+            labels[i].setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            final int selected = i;
+            labels[i].addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    // Reset all borders
+                    for (JLabel label : labels) {
+                        label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                    }
+                    // Highlight clicked label
+                    ((JLabel)e.getSource()).setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+                    paymentMethod = payment[selected];
+                }
+            });
+            
+            jPanel7.add(labels[i]);
+        }
         
         
         ProductPanel.add(TaxLabel);
