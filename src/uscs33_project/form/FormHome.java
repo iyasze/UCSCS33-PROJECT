@@ -1,11 +1,12 @@
 package uscs33_project.form;
 
-import java.awt.Color;
 import uscs33_project.model.ModelItem;
 import uscs33_project.component.Item;
 import uscs33_project.component.PopUp;
+import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.event.EventItem;
 import uscs33_project.swing.ScrollBar;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics;
@@ -46,8 +47,12 @@ public class FormHome extends javax.swing.JPanel {
         scroll.setVerticalScrollBar(new ScrollBar());
         
         this.eventBuy = listener;
+
+
+
 //        this.eventFilter = listener2;
 //        layeredPane.setVisible(false);
+
     }
     
     public void filterBy(String attributeName, String keyword) {
@@ -70,6 +75,21 @@ public class FormHome extends javax.swing.JPanel {
                 }
                 else {
                     com.setVisible(true);
+                }
+            }
+        }
+        else if (attributeName.equals("Search")) {
+//            System.out.print(keyword);
+            for (Component com : panelItem.getComponents()) {
+                ModelItem item = ((Item) com).getData();
+                if (item.getItemName().trim().toLowerCase().contains(keyword) 
+                        || item.getBrandName().trim().toLowerCase().contains(keyword) 
+                        || item.getDescription().trim().toLowerCase().contains(keyword)
+                        || item.getCategory().toLowerCase().contains(keyword)) {
+                    com.setVisible(true);
+                }
+                else {
+                    com.setVisible(false);
                 }
             }
         }
@@ -205,16 +225,16 @@ public class FormHome extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
