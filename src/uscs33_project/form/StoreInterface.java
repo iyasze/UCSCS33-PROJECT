@@ -127,6 +127,14 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         leftPanel.add(disabledFilter, "DISABLED");
         
         cardLayout2.show(leftPanel, "FILTER");
+        
+        searchButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(SwingUtilities.isLeftMouseButton(e))
+                    menu.filterBy("Search", searchField.getText().trim().toLowerCase());
+            }
+        });
     }
    
     public JPanel getUpperPanel() {
@@ -598,6 +606,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         });
 
         searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        searchField.setPreferredSize(new java.awt.Dimension(400, 25));
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -623,7 +632,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                 .addContainerGap(10, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(searchField))
+                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();

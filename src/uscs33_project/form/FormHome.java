@@ -78,6 +78,18 @@ public class FormHome extends javax.swing.JPanel {
                 }
             }
         }
+        else if (attributeName.equals("Search")) {
+//            System.out.print(keyword);
+            for (Component com : panelItem.getComponents()) {
+                ModelItem item = ((Item) com).getData();
+                if (item.getItemName().toLowerCase().contains(keyword) || item.getBrandName().toLowerCase().contains(keyword) || item.getDescription().toLowerCase().contains(keyword)) {
+                    com.setVisible(true);
+                }
+                else {
+                    com.setVisible(false);
+                }
+            }
+        }
         
         panelItem.revalidate();
         panelItem.repaint();
