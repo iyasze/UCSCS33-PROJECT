@@ -54,6 +54,7 @@ import uscs33_project.component.WishList;
 import uscs33_project.component.BrowseFilterDisabled;
 import uscs33_project.component.Item;
 import uscs33_project.event.ImageUtils;
+import uscs33_project.form.GuestAddress;
 
 /**
  *
@@ -919,6 +920,15 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     }//GEN-LAST:event_cartIconMouseExited
 
     private void cartIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartIconMouseClicked
+        
+        if(usernameDisplay.getText().equals("GUEST")){
+            JOptionPane.showMessageDialog(this, "You will need to register your address!");
+            
+            GuestAddress guest = new GuestAddress();
+            guest.setLocationRelativeTo(null);
+            guest.setVisible(true);
+        }
+        
         if(jLabel3.getText().equals("CART")){
             cardLayout.show(menuPanel, "CART");
             jLabel3.setText("RETURN");

@@ -335,7 +335,7 @@ public class LogInPage extends javax.swing.JFrame {
         
         MainInterface_NEW MAIN = new MainInterface_NEW();
         
-        JOptionPane.showMessageDialog(this, "You'll browse as a guest.\n You may not have access to some features!");
+        JOptionPane.showMessageDialog(this, "You'll browse as a guest.\n You may not have access to WISHLIST!");
         
         RealTime_User realTime = new RealTime_User(false, "");        
        
@@ -377,7 +377,7 @@ public class LogInPage extends javax.swing.JFrame {
             
             if(userInfos.containsKey(email)){
                 if(!userInfos.get(email).equals(password)){
-                    JOptionPane.showMessageDialog(this, "Password or username might be incorrect.\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Password or email might be incorrect.\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
                     

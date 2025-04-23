@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
+import javax.swing.border.TitledBorder;
 import uscs33_project.model.ModelItemChoice;
+import uscs33_project.form.ShoppingCart;
 
 
 
@@ -17,82 +19,79 @@ import uscs33_project.model.ModelItemChoice;
  * @author iyasnaufalnazlim
  */
 public class FormReceipt extends javax.swing.JFrame {
-
-    /**
-     * Creates new form FormReceipt
-     */
-    public FormReceipt(String username, ArrayList<ModelItemChoice> items, String[] address) {
-        initComponents();
-        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //SETUP titlePanel
-        titlePanel.setLayout(new BorderLayout());
-        JLabel title = new JLabel("MAKLUV", SwingConstants.CENTER);
-        title.setFont(new Font("Arial",Font.BOLD, 24));
-        titlePanel.add(title, BorderLayout.CENTER);
-        
-        //SETUP addressPanel
-        addressPanel.setLayout(new GridLayout(0,1));
-        JLabel displayUser = new JLabel(username);
-        
-        //LOOPING FOR ADDRESS
-        for(String addr : address){
-            addressPanel.add(new JLabel(addr));
-        }
-        //LOOPING FOR ADDRESS
-        
-        //SETUP productsPanel
-        productsPanel.setLayout(new GridLayout(0,2));
-        //LOOPING PRODUCT & PRICE
-        for(int i = 0; i < items.size() ; i++){
-            productsPanel.add(new JLabel(items.get(i).getItemName()));
-            productsPanel.add(new JLabel(Double.toString(items.get(i).getPrice())));
-        }
-        
-        productsPanel.revalidate();
-        productsPanel.repaint();
-        
-        //LOOPING PRODUCTS & PRICE
-        
-        JScrollPane scrollPane = new JScrollPane(productsPanel);
-        add(scrollPane, BorderLayout.CENTER);
-        
-        //SETUP summaryPanel
-        summaryPanel.setLayout(new BorderLayout());
-        JLabel thankyou = new JLabel("THANK YOU!");
-        JLabel total = new JLabel(calculateTotal(items));
-        summaryPanel.add(thankyou, BorderLayout.WEST);
-        summaryPanel.add(total, BorderLayout.EAST);
-        
-        exitPanel.setLayout(new BorderLayout());
-        JButton checkout = new JButton("CHECKOUT!");
-        JButton back = new JButton("X");
-        
-        exitPanel.add(checkout, BorderLayout.CENTER);
-        exitPanel.add(back, BorderLayout.WEST);
-        
-        int productHeight = 30;
-        int baseHeight = 200;
-        int totalHeight = baseHeight + (items.size() * productHeight);
-        setSize(400, totalHeight);
-        
+    
+    private static final double TAX_RATE = 0.06;       // 6% tax
+    private static final double SHIPPING_FEE = 7.00;   // Flat rate
+    
+    public FormReceipt(ArrayList<ModelItemChoice> items, String username, String[] address, String subz){
+        setTitle("Receipt");
+        setSize(500, 600);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout(10, 10));
+
+        // ========== HEADER PANEL ==========
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+        headerPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "MAKLUV", TitledBorder.CENTER, TitledBorder.TOP));
+        headerPanel.add(new JLabel("To:"));
+        headerPanel.add(new JLabel(username));
+        for (String line : address) {
+            headerPanel.add(new JLabel(line));
+        }
+
+        // ========== TEXT AREA FOR ITEMS ==========
+        JTextArea receiptArea = new JTextArea();
+        receiptArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        receiptArea.setEditable(false);
+        receiptArea.setText(buildReceiptContent(items));
+
+        JScrollPane scrollPane = new JScrollPane(receiptArea);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Items"));
+
+        // ========== FOOTER PANEL ==========
+        JPanel footerPanel = new JPanel();
+        footerPanel.setLayout(new BoxLayout(footerPanel, BoxLayout.Y_AXIS));
+        footerPanel.setBorder(BorderFactory.createTitledBorder("Thank You!"));
+        
+        
+        double subtotal = Double.parseDouble(subz);
+        double tax = subtotal * TAX_RATE;
+        double total = subtotal + tax + SHIPPING_FEE;
+        
+        
+        JPanel contentPanel = new JPanel(new GridLayout(0, 1));
+        footerPanel.add(new JLabel(String.format("Subtotal:     $%.2f", subtotal)));
+        footerPanel.add(new JLabel(String.format("Tax (6%%):     $%.2f", tax)));
+        footerPanel.add(new JLabel(String.format("Shipping Fee: $%.2f", SHIPPING_FEE)));
+        footerPanel.add(new JLabel(String.format("TOTAL:        $%.2f", total)));
+        
+        // ========== ADD COMPONENTS TO FRAME ==========
+        add(headerPanel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(footerPanel, BorderLayout.SOUTH);
+
         setVisible(true);
-        
-        
               
         
     }
     
-    private String calculateTotal(ArrayList<ModelItemChoice> items){
-        double total = 0;
-        for(int i = 0; i < items.size() ; i++){
-            total += items.get(i).getPrice();
+    
+    private String buildReceiptContent(ArrayList<ModelItemChoice> items) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%-40s %10s\n", "ITEM", "PRICE"));
+        sb.append("\n");
+
+        for (ModelItemChoice item : items) {
+            String name = item.getItemName();
+            if (name.length() > 40) {
+                name = name.substring(0, 37) + "...";
+            }
+            sb.append(String.format("%-40s %10s\n", name, String.format("$%.2f", item.getPrice())));
         }
-        
-        return String.format("$%.2f", total);
+
+        return sb.toString();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,115 +102,17 @@ public class FormReceipt extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        titlePanel = new javax.swing.JPanel();
-        addressPanel = new javax.swing.JPanel();
-        productsPanel = new javax.swing.JPanel();
-        summaryPanel = new javax.swing.JPanel();
-        exitPanel = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        titlePanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout titlePanelLayout = new javax.swing.GroupLayout(titlePanel);
-        titlePanel.setLayout(titlePanelLayout);
-        titlePanelLayout.setHorizontalGroup(
-            titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        titlePanelLayout.setVerticalGroup(
-            titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 45, Short.MAX_VALUE)
-        );
-
-        addressPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout addressPanelLayout = new javax.swing.GroupLayout(addressPanel);
-        addressPanel.setLayout(addressPanelLayout);
-        addressPanelLayout.setHorizontalGroup(
-            addressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        addressPanelLayout.setVerticalGroup(
-            addressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        productsPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout productsPanelLayout = new javax.swing.GroupLayout(productsPanel);
-        productsPanel.setLayout(productsPanelLayout);
-        productsPanelLayout.setHorizontalGroup(
-            productsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        productsPanelLayout.setVerticalGroup(
-            productsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 211, Short.MAX_VALUE)
-        );
-
-        summaryPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout summaryPanelLayout = new javax.swing.GroupLayout(summaryPanel);
-        summaryPanel.setLayout(summaryPanelLayout);
-        summaryPanelLayout.setHorizontalGroup(
-            summaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        summaryPanelLayout.setVerticalGroup(
-            summaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
-        );
-
-        exitPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout exitPanelLayout = new javax.swing.GroupLayout(exitPanel);
-        exitPanel.setLayout(exitPanelLayout);
-        exitPanelLayout.setHorizontalGroup(
-            exitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        exitPanelLayout.setVerticalGroup(
-            exitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 44, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(addressPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(productsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(summaryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(exitPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(productsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(summaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 439, Short.MAX_VALUE)
         );
 
         pack();
@@ -253,11 +154,5 @@ public class FormReceipt extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel addressPanel;
-    private javax.swing.JPanel exitPanel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel productsPanel;
-    private javax.swing.JPanel summaryPanel;
-    private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }
