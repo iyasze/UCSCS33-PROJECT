@@ -382,55 +382,64 @@ public class LogInPage extends javax.swing.JFrame {
                 else{
                     
                     
-                    
-                    
-                    
-                    while(input2.hasNextLine()){
-                        String line = input2.nextLine();
-                   
-                        
-                        if(line.trim().toLowerCase().startsWith(email.trim().toLowerCase())){ 
-                            
-                            
-                            System.out.println("THE LINE: " + line);
-                            
-                            String[] important = line.trim().split("\\*\\*\\*");
-                            System.out.println("FOUND ITT: " + important.toString()); //NO STRING RETURNED
-                            
-                            try{
-                                                                                                                         
-                                FileWriter writer = new FileWriter("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
-                                for(int i = 0; i < important.length ; ++i){
-                                    System.out.println("LENGTH: " + important.length);
-                                    System.out.println("WRITING: " + important[i]);
-                                    writer.write(important[i] + System.lineSeparator());
-                                }
-                                
-                                writer.close();
-                                
-                            }
-                            catch(Exception e){
-                                System.out.println("HERE IS:" + e);
-                            }
-                                
-                            }
-                            
+                    if(email.trim().equals("ADMIN@MAKLUV.com")){
+                        System.out.println("LOGGING IN AS ADMIN");
+                        this.dispose();
                     }
-                                      
-                                     
-                    RealTime_User realTime = new RealTime_User(true, email);                 
-                    userInfos.clear();
+                    else{
+                        while(input2.hasNextLine()){
+                            String line = input2.nextLine();
+
+
+                            if(line.trim().toLowerCase().startsWith(email.trim().toLowerCase())){ 
+
+
+                                System.out.println("THE LINE: " + line);
+
+                                String[] important = line.trim().split("\\*\\*\\*");
+                                System.out.println("FOUND ITT: " + important.toString()); //NO STRING RETURNED
+
+                                try{
+
+                                    FileWriter writer = new FileWriter("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
+                                    for(int i = 0; i < important.length ; ++i){
+                                        System.out.println("LENGTH: " + important.length);
+                                        System.out.println("WRITING: " + important[i]);
+                                        writer.write(important[i] + System.lineSeparator());
+                                    }
+
+                                    writer.close();
+
+                                }
+                                catch(Exception e){
+                                    System.out.println("HERE IS:" + e);
+                                }
+
+                            }
+                        
+                            
+                        }
+                        
+                        
+                        RealTime_User realTime = new RealTime_User(true, email);                 
+                        userInfos.clear();
+
+
+
+                        JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
+
+                        MainInterface_NEW main = new MainInterface_NEW();
+                        main.setVisible(true);
+                        System.out.println("FLICKER FLICKER");
+                        main.setLocationRelativeTo(this);
+
+                        this.setVisible(false);
+                    }
                     
                     
+                   
+                                                                
                     
-                    JOptionPane.showMessageDialog(this, "Welcome back!\nMAKLUV ensures the best quality of products!");
-                    
-                    MainInterface_NEW main = new MainInterface_NEW();
-                    main.setVisible(true);
-                    System.out.println("FLICKER FLICKER");
-                    main.setLocationRelativeTo(this);
-                    
-                    this.setVisible(false);
                                                                                                                                                       
                     /*new loadingWindow(() -> {
                         MainInterface main = new MainInterface();

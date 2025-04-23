@@ -16,6 +16,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import uscs33_project.event.BackBtnPopUp;
+import uscs33_project.event.LeftPanelFilter;
 import uscs33_project.event.addToCartBtnClicked;
 
 /*
@@ -37,6 +39,7 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     private EventItem eventClick;
+    private LeftPanelFilter eventFilter;
     private addToCartBtnClicked eventBuy;
 
     public FormHome(addToCartBtnClicked listener) {
@@ -44,6 +47,41 @@ public class FormHome extends javax.swing.JPanel {
         scroll.setVerticalScrollBar(new ScrollBar());
         
         this.eventBuy = listener;
+
+
+
+//        this.eventFilter = listener2;
+//        layeredPane.setVisible(false);
+
+    }
+    
+    public void filterBy(String attributeName, String keyword) {
+        if (attributeName.equals("ID")) {
+            for (Component com : panelItem.getComponents()) {
+                ModelItem item = ((Item) com).getData();
+                if (!item.getItemID().toLowerCase().startsWith(keyword)) {
+                    com.setVisible(false);
+                }
+                else {
+                    com.setVisible(true);
+                }
+            }
+        }
+        else if (attributeName.equals("Brand")) {
+            for (Component com : panelItem.getComponents()) {
+                ModelItem item = ((Item) com).getData();
+                if (!item.getBrandName().toLowerCase().startsWith(keyword)) {
+                    com.setVisible(false);
+                }
+                else {
+                    com.setVisible(true);
+                }
+            }
+        }
+        
+        panelItem.revalidate();
+        panelItem.repaint();
+        System.out.println(keyword);
     }
     
     public void addItem(ModelItem data) {
@@ -71,6 +109,8 @@ public class FormHome extends javax.swing.JPanel {
         }
         ((Item)item).setSelected(true);
     }
+    
+    
     
     public void createPopup(ModelItem item) {
         
@@ -160,7 +200,7 @@ public class FormHome extends javax.swing.JPanel {
     private void initComponents() {
 
         scroll = new javax.swing.JScrollPane();
-        panelItem = new com.raven.swing.PanelItem();
+        panelItem = new uscs33_project.swing.PanelItem();
 
         setOpaque(false);
 
@@ -186,7 +226,7 @@ public class FormHome extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.raven.swing.PanelItem panelItem;
+    private uscs33_project.swing.PanelItem panelItem;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 

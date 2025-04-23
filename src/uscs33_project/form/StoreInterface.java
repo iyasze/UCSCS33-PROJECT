@@ -43,6 +43,7 @@ import uscs33_project.component.LogInPage;
 import uscs33_project.component.SignUpPage;
 import uscs33_project.event.EventItem;
 import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.event.LeftPanelFilter;
 import uscs33_project.model.ModelItem;
 import uscs33_project.model.ModelItemChoice;
 import uscs33_project.component.WishList;
@@ -68,6 +69,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private WishList wishlist;
     private ArrayList<ModelItemChoice> itemInCart;
     private int cardPage;
+    private LeftPanelFilter eventFilter;
     
         
     public StoreInterface() {
@@ -95,6 +97,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                 menu.createPopup(item);
             }
         });
+//        menu.filterBy();
         
         //AQIL THINGS
         
@@ -116,7 +119,9 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         menuPanel.add(cartPanel, "CART");
         menuPanel.add(wishPanel, "WISHLIST");
         
-        BrowseFilter filter = new BrowseFilter();
+        BrowseFilter filter = new BrowseFilter((attributeName, keyword) -> {
+            menu.filterBy(attributeName, keyword);
+        });
         BrowseFilterDisabled disabledFilter = new BrowseFilterDisabled();
         leftPanel.add(filter, "FILTER");
         leftPanel.add(disabledFilter, "DISABLED");
@@ -329,7 +334,6 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         catch(Exception e){
             System.out.println("Message 2: " + e);
         }
-        
         
         displayUser();
     }
@@ -593,7 +597,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
             }
         });
 
-        searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -608,17 +612,18 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
                 .addGap(10, 10, 10)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addContainerGap())
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(searchField)
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchField))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -869,10 +874,6 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         //popup.add(label, BorderLayout.CENTER);
         //popup.add(buttonPanel, BorderLayout.SOUTH);
         
-        
-        
-        
-        
         try{
             overlay.setVisible(true);
             //popup.setVisible(true);
@@ -918,4 +919,5 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private javax.swing.JLabel usernameDisplay;
     private javax.swing.JLabel wishIcon;
     // End of variables declaration//GEN-END:variables
+
 }
