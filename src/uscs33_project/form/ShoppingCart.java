@@ -6,6 +6,7 @@ package uscs33_project.form;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -18,16 +19,18 @@ import uscs33_project.model.ModelItemChoice;
 
 public class ShoppingCart extends javax.swing.JFrame {
 
-    public ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
+    public ArrayList<ModelItemChoice> product = new ArrayList<ModelItemChoice>();
     public ArrayList<JSpinner> SpinnerList = new ArrayList<JSpinner>();
+    public String[] choices;
     public JLabel SubTotalLabel = new JLabel();
     public JLabel TaxLabel = new JLabel();
     public double stotal;
     public double stax;
     public double SubTotal;
     
-    public ShoppingCart(ArrayList<ArrayList<String>> product) {
+    public ShoppingCart(ArrayList<ModelItemChoice> product) {
         this.product = product; 
+        this.choices = choices;
         this.QuantitySpinner = new ArrayList<>();
         initComponents();
         int y = 0;
@@ -337,44 +340,56 @@ public class ShoppingCart extends javax.swing.JFrame {
         
 
       private void addProductPanel(int itemIndex,int y){
+          
+         CartPanel.setLayout(new BoxLayout(CartPanel,BoxLayout.Y_AXIS));
+         
         
         JPanel itemPanel = new JPanel();
         itemPanel.setBackground(Color.WHITE);
         itemPanel.setBorder(BorderFactory.createEtchedBorder());
-        //itemPanel.setPreferredSize(new Dimension(300, 600));
+        itemPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE,140));
+       
         itemPanel.setLayout(null); // Use absolute layout for simplicity (or use GroupLayout if preferred)
-        JLabel brandLabel = new JLabel(product.get(itemIndex).get(0));
+        JLabel brandLabel = new JLabel(product.get(itemIndex).getBrandName());
         brandLabel.setBounds(20, 20, 300, 20);
         brandLabel.setFont(new Font("Verdana",Font.BOLD,12));
-        //brandLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        
 
-        JLabel nameLabel = new JLabel(product.get(itemIndex).get(1));
+        JLabel nameLabel = new JLabel(product.get(itemIndex).getItemName());
         nameLabel.setBounds(20, 45, 300, 20);
         nameLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        //nameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        JLabel detailLabel = new JLabel(product.get(itemIndex).get(2));
-        detailLabel.setBounds(20, 70, 300, 20);
-        detailLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        //detailLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        JLabel priceLabel = new JLabel(product.get(itemIndex).get(3));
+        JLabel priceLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
         priceLabel.setBounds(350, 20, 60, 20);
         priceLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        //priceLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+      
 
-        JLabel totalLabel = new JLabel(product.get(itemIndex).get(3));
+        JLabel totalLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
         totalLabel.setBounds(670, 20, 60, 20);
         totalLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        //totalLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+       
+        /*JLabel detailLabel = new JLabel(product.get(itemIndex).get(2));
+        detailLabel.setBounds(20, 70, 300, 20);
+        detailLabel.setFont(new Font("Verdana",Font.PLAIN,12));*/
         
+        
+            JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
+        
+            dropdown.setBounds(20, 70, 100, 25);
+            dropdown.setFont(new Font("Verdana",Font.PLAIN,12));
+            dropdown.addActionListener(e ->{
+            String selected = (String)dropdown.getSelectedItem();
+            
+            
+        });
+           
     
         SpinnerList.add(new JSpinner(new SpinnerNumberModel(1, 1, 100, 1)));
         JSpinner spinner = SpinnerList.get(itemIndex);
         spinner.setBounds(530, 20, 60, 25);
         
         
-        stotal += Double.parseDouble(product.get(itemIndex).get(3));
+        stotal += Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
         SubTotalLabel.setText(String.format("%.2f",stotal));
         
         stax = (0.06 * stotal);
@@ -391,7 +406,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         spinner.addChangeListener(new ChangeListener() {
         public void stateChanged(ChangeEvent e) {
             int quantity = (int) spinner.getValue();
-            double price = Double.parseDouble(product.get(itemIndex).get(3));
+            double price = Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
             double total = quantity * price;
             totalLabel.setText(String.format("%.2f", total));
             
@@ -400,7 +415,7 @@ public class ShoppingCart extends javax.swing.JFrame {
             double Total = 0;
             for(int i = 0; i < product.size();i++){
                 int quantitySub = (Integer) SpinnerList.get(i).getValue();
-                double priceSub = Double.parseDouble(product.get(i).get(3));
+                double priceSub = Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
                 SubTotal += (priceSub*quantitySub);
                 
             }
@@ -418,22 +433,11 @@ public class ShoppingCart extends javax.swing.JFrame {
 
         }
     });
-    itemPanel.setBounds(0, y, 870, 140);
-   
-
-    JButton editButton = new JButton("Edit");
-    editButton.setBounds(750,40,80,25);
-    editButton.addActionListener(e ->{
-        String newDetail = JOptionPane.showInputDialog(itemPanel,"Edit Details: ", detailLabel.getText());
-        if (newDetail != null & !newDetail.trim().isEmpty()){
-            detailLabel.setText(newDetail);
-        }
-   
-    });
+    
     
      
-     JButton deleteButton = new JButton("Delete");
-    deleteButton.setBounds(750,70,80,25);
+    JButton deleteButton = new JButton("Delete");
+    deleteButton.setBounds(750,50,80,25);
     deleteButton.addActionListener(e -> {
         int result = JOptionPane.showConfirmDialog(ItemPanel, "Are you sure to delete the product?", "Delete Item",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -450,15 +454,22 @@ public class ShoppingCart extends javax.swing.JFrame {
             
         }
     });
-    
+    int i;
+    for (i = 0; i < (product.get(itemIndex).getOptions().length); i++){
+        if (product.get(itemIndex).getOptions()[i].equals(product.get(itemIndex).getSelectedVariant())){
+            break;
+        }
+    }
+    if (choices.length != 0){
+        dropdown.setSelectedIndex(i);
+        itemPanel.add(dropdown);
+    }
 
     itemPanel.add(brandLabel);
     itemPanel.add(nameLabel);
-    itemPanel.add(detailLabel);
     itemPanel.add(priceLabel);
     itemPanel.add(spinner);
     itemPanel.add(totalLabel);
-    itemPanel.add(editButton);
     itemPanel.add(deleteButton);
     
     CartPanel.add(itemPanel);
@@ -499,8 +510,9 @@ public class ShoppingCart extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
+                /*ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
                 ArrayList<String> item = new ArrayList<String>();
+                String choices[] = {"Happy","Sad","Grief"};
                 item.add("Fenty Beauty");
                 item.add("Gloss Bomb");
                 item.add("Champ Color");
@@ -517,8 +529,8 @@ public class ShoppingCart extends javax.swing.JFrame {
                 item.add("Lipstick Glaze");
                 item.add("Charmer Nude");
                 item.add("69.00");
-                product.add(new ArrayList<>(item));
-                new ShoppingCart(product).setVisible(true);
+                product.add(new ArrayList<>(item));*/
+                //new ShoppingCart(product,choices).setVisible(true);
                 
                 
             }
@@ -549,7 +561,6 @@ public class ShoppingCart extends javax.swing.JFrame {
     public javax.swing.JLabel BrandText;
     public javax.swing.JButton DeleteButton;
     public javax.swing.JLabel Detailtext;
-    public javax.swing.JButton EditButton;
     public javax.swing.JPanel ItemPanel;
     public javax.swing.JLabel NameText;
     public javax.swing.JLabel PriceText;
