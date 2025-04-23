@@ -6,6 +6,7 @@ package uscs33_project.form;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -18,7 +19,7 @@ import uscs33_project.model.ModelItemChoice;
 
 public class ShoppingCart extends javax.swing.JFrame {
 
-    public ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
+    public ArrayList<ModelItemChoice> product = new ArrayList<ModelItemChoice>();
     public ArrayList<JSpinner> SpinnerList = new ArrayList<JSpinner>();
     public String[] choices;
     public JLabel SubTotalLabel = new JLabel();
@@ -27,7 +28,7 @@ public class ShoppingCart extends javax.swing.JFrame {
     public double stax;
     public double SubTotal;
     
-    public ShoppingCart(ArrayList<ArrayList<String>> product,String[] choices) {
+    public ShoppingCart(ArrayList<ModelItemChoice> product) {
         this.product = product; 
         this.choices = choices;
         this.QuantitySpinner = new ArrayList<>();
@@ -349,21 +350,21 @@ public class ShoppingCart extends javax.swing.JFrame {
         itemPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE,140));
        
         itemPanel.setLayout(null); // Use absolute layout for simplicity (or use GroupLayout if preferred)
-        JLabel brandLabel = new JLabel(product.get(itemIndex).get(0));
+        JLabel brandLabel = new JLabel(product.get(itemIndex).getBrandName());
         brandLabel.setBounds(20, 20, 300, 20);
         brandLabel.setFont(new Font("Verdana",Font.BOLD,12));
         
 
-        JLabel nameLabel = new JLabel(product.get(itemIndex).get(1));
+        JLabel nameLabel = new JLabel(product.get(itemIndex).getItemName());
         nameLabel.setBounds(20, 45, 300, 20);
         nameLabel.setFont(new Font("Verdana",Font.PLAIN,12));
 
-        JLabel priceLabel = new JLabel(product.get(itemIndex).get(3));
+        JLabel priceLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
         priceLabel.setBounds(350, 20, 60, 20);
         priceLabel.setFont(new Font("Verdana",Font.PLAIN,12));
       
 
-        JLabel totalLabel = new JLabel(product.get(itemIndex).get(3));
+        JLabel totalLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
         totalLabel.setBounds(670, 20, 60, 20);
         totalLabel.setFont(new Font("Verdana",Font.PLAIN,12));
        
@@ -372,7 +373,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         detailLabel.setFont(new Font("Verdana",Font.PLAIN,12));*/
         
         
-            JComboBox<String> dropdown = new JComboBox<>(choices);
+            JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
         
             dropdown.setBounds(20, 70, 100, 25);
             dropdown.setFont(new Font("Verdana",Font.PLAIN,12));
@@ -388,7 +389,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         spinner.setBounds(530, 20, 60, 25);
         
         
-        stotal += Double.parseDouble(product.get(itemIndex).get(3));
+        stotal += Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
         SubTotalLabel.setText(String.format("%.2f",stotal));
         
         stax = (0.06 * stotal);
@@ -405,7 +406,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         spinner.addChangeListener(new ChangeListener() {
         public void stateChanged(ChangeEvent e) {
             int quantity = (int) spinner.getValue();
-            double price = Double.parseDouble(product.get(itemIndex).get(3));
+            double price = Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
             double total = quantity * price;
             totalLabel.setText(String.format("%.2f", total));
             
@@ -414,7 +415,7 @@ public class ShoppingCart extends javax.swing.JFrame {
             double Total = 0;
             for(int i = 0; i < product.size();i++){
                 int quantitySub = (Integer) SpinnerList.get(i).getValue();
-                double priceSub = Double.parseDouble(product.get(i).get(3));
+                double priceSub = Double.parseDouble(String.format("%.2f",product.get(itemIndex).getPrice()));
                 SubTotal += (priceSub*quantitySub);
                 
             }
@@ -453,9 +454,14 @@ public class ShoppingCart extends javax.swing.JFrame {
             
         }
     });
-    
+    int i;
+    for (i = 0; i < (product.get(itemIndex).getOptions().length); i++){
+        if (product.get(itemIndex).getOptions()[i].equals(product.get(itemIndex).getSelectedVariant())){
+            break;
+        }
+    }
     if (choices.length != 0){
-        dropdown.setSelectedIndex(0);
+        dropdown.setSelectedIndex(i);
         itemPanel.add(dropdown);
     }
 
@@ -504,7 +510,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
+                /*ArrayList<ArrayList<String>> product = new ArrayList<ArrayList<String>>();
                 ArrayList<String> item = new ArrayList<String>();
                 String choices[] = {"Happy","Sad","Grief"};
                 item.add("Fenty Beauty");
@@ -523,8 +529,8 @@ public class ShoppingCart extends javax.swing.JFrame {
                 item.add("Lipstick Glaze");
                 item.add("Charmer Nude");
                 item.add("69.00");
-                product.add(new ArrayList<>(item));
-                new ShoppingCart(product,choices).setVisible(true);
+                product.add(new ArrayList<>(item));*/
+                //new ShoppingCart(product,choices).setVisible(true);
                 
                 
             }
