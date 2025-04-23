@@ -19,12 +19,15 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.util.Arrays;
 import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.event.EventItem;
+import uscs33_project.event.WishlistListenerFromProduct;
+import uscs33_project.event.WishlistListenerFromWishlist;
 import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.form.FormHome;
 import uscs33_project.model.ModelItem;
@@ -39,24 +42,28 @@ public class WishList extends javax.swing.JFrame {
      */
     public int count;
     private addToCartBtnClicked eventBuy;
+    private WishlistListenerFromWishlist eventUpdate2;
     private EventItem eventClick;
     private ArrayList<ModelItem> itemInWishlist;
     private FormHome menu;
     private JFrame parent;
+    private String username;
     
     public void setClickEvent(EventItem event) {
         this.eventClick = event;
     }
     
-    public WishList(JFrame parent, addToCartBtnClicked listener1, ArrayList<ModelItem> itemInWishlist, String username, FormHome menu) {
+    public WishList(JFrame parent, addToCartBtnClicked listener1, WishlistListenerFromWishlist listener2, ArrayList<ModelItem> itemInWishlist, String username, FormHome menu) {
         initComponents();
         Username();
         this.eventBuy = listener1;
+        this.eventUpdate2 = listener2;
         this.itemInWishlist = itemInWishlist;
         this.parent = parent;
         this.menu = menu;
-        loadItems(username);
-        System.out.println("Current user: " + username);
+        this.username = username;
+        loadItems();
+        System.out.println("Current user: " + this.username);
     }
     
     public WishList() {
@@ -64,7 +71,98 @@ public class WishList extends javax.swing.JFrame {
         Username();
     }
     
-    public void loadItems(String username) {
+    public void add(ModelItem data) {
+        Item item = new Item(eventBuy, eventUpdate2);
+        item.setData(data);
+        
+        item.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(SwingUtilities.isLeftMouseButton(e)) {
+                    eventClick.itemClick(item, data);
+                }
+            }
+        });
+        item.setWishlistButtonText("♥");
+        item.setVisible(true);
+        panelItem.add(item);
+        panelItem.revalidate();
+        panelItem.repaint();
+    }
+    
+    public void delete(ModelItem dataToDelete) {
+        for (Component item : panelItem.getComponents()) {
+            if (item instanceof Item) {
+                ModelItem data = ((Item) item).getData();
+                if (data.getItemID().equals(dataToDelete.getItemID())) {
+                    panelItem.remove(item);
+                    panelItem.revalidate();
+                    panelItem.repaint();
+                    sync(data.getItemID());
+                }
+            }
+        }
+    }
+    
+    public void sync(String itemID) {
+        for (Item item : menu.getItems()) {
+            if (item.getData().getItemID().equals(itemID)) {
+                item.setWishlistButtonText("♡");
+            }
+        }
+    }
+    
+    public void saveItems() {
+        ArrayList<String> newLines = new ArrayList<String>();
+        
+        Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt").toAbsolutePath();
+        try {
+            InputStream input = new BufferedInputStream(Files.newInputStream(file));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            String s = reader.readLine();
+            newLines.add(s);
+            while(!s.equals(username)) {
+                s = reader.readLine();
+                newLines.add(s);
+            }
+            
+            if (!itemInWishlist.isEmpty()) {
+                for (ModelItem data : itemInWishlist) {
+                    newLines.add(data.getItemID());
+                }
+            }
+            
+            while (!s.equals("\\")) {
+                s = reader.readLine();
+            }
+            newLines.add("\\");
+            
+            while((s = reader.readLine())!=null) {
+                newLines.add(s);
+            }
+            
+            reader.close();
+            
+            System.out.println("Need to write " + newLines.size() + " lines");
+            for (String line: newLines) {
+                System.out.println(line);
+            }
+            
+            BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+            for (String line : newLines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            writer.close();
+            
+        }
+        catch (Exception e) {
+            e.getMessage();
+        }
+        
+    }
+    
+    public void loadItems() {
         if (!username.equals("GUEST") || !username.equals("ADMIN")) {
             ArrayList<String> itemID = new ArrayList<String>();
             
@@ -90,12 +188,13 @@ public class WishList extends javax.swing.JFrame {
                     ModelItem data = item.getData();
                     
                     if (itemID.contains(data.getItemID())) {
+                        item.setWishlistButtonText("♥");
                         itemInWishlist.add(data);
                     }
                 }
                 
                 for (ModelItem data : itemInWishlist) {
-                    Item item = new Item(eventBuy);
+                    Item item = new Item(eventBuy, eventUpdate2);
                     item.setData(data);
         
                     item.addMouseListener(new MouseAdapter() {
@@ -106,6 +205,7 @@ public class WishList extends javax.swing.JFrame {
                             }
                         }
                     });
+                    item.setWishlistButtonText("♥");
                     item.setVisible(true);
                     panelItem.add(item);
                     panelItem.revalidate();
