@@ -552,7 +552,6 @@ public class SignUpPage extends javax.swing.JFrame {
                 writer.write(email + "***" + username + "***" + firstPassword + "***" + 
                     address1 + "***" + address2 + "***" + address3);
                 writer.write(System.lineSeparator()); // This ensures proper newline regardless of OS
-                writer.close();
 
                 writer.close();
 
