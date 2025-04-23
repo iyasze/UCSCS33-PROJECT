@@ -168,7 +168,15 @@ public class ShoppingCart extends javax.swing.JFrame {
         CartPanel.setBackground(new java.awt.Color(255, 255, 255));
         CartPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         CartPanel.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        CartPanel.setPreferredSize(new java.awt.Dimension(870, 750));
+        CartPanel.setPreferredSize(new java.awt.Dimension(870, 100000000));
+        CartPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                CartPanelComponentMoved(evt);
+            }
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                CartPanelComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout CartPanelLayout = new javax.swing.GroupLayout(CartPanel);
         CartPanel.setLayout(CartPanelLayout);
@@ -178,7 +186,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         );
         CartPanelLayout.setVerticalGroup(
             CartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
+            .addGap(0, 99999996, 99999996)
         );
 
         jScrollPane1.setViewportView(CartPanel);
@@ -293,8 +301,8 @@ public class ShoppingCart extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(MiddlePanelLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -355,6 +363,14 @@ public class ShoppingCart extends javax.swing.JFrame {
        CartPanel.revalidate();
        CartPanel.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void CartPanelComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_CartPanelComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CartPanelComponentMoved
+
+    private void CartPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_CartPanelComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CartPanelComponentResized
     
     public void refreshCart() {
         CartPanel.removeAll();
@@ -436,6 +452,7 @@ public class ShoppingCart extends javax.swing.JFrame {
 
     private void addProductPanel(int itemIndex,int y){
           
+        //CartPanel.setPreferredSize(new Dimention(Integer.MAX_VALUE,10000));
         CartPanel.setLayout(new BoxLayout(CartPanel,BoxLayout.Y_AXIS));
          
         
@@ -449,9 +466,10 @@ public class ShoppingCart extends javax.swing.JFrame {
         brandLabel.setBounds(20, 20, 300, 20);
         brandLabel.setFont(new Font("Verdana",Font.BOLD,12));
         
-
-        JLabel nameLabel = new JLabel(product.get(itemIndex).getItemName());
-        nameLabel.setBounds(20, 45, 300, 20);
+        int labelWidth = 200;
+        JLabel nameLabel = new JLabel();
+        nameLabel.setText("<html><body style = 'width:" + labelWidth + "px'>" + product.get(itemIndex).getItemName() + "</body></html>");
+        nameLabel.setBounds(20, 35, 300, 50);
         nameLabel.setFont(new Font("Verdana",Font.PLAIN,12));
 
         JLabel priceLabel = new JLabel(String.format("%.2f",product.get(itemIndex).getPrice()));
@@ -465,7 +483,7 @@ public class ShoppingCart extends javax.swing.JFrame {
         
         
         JComboBox<String> dropdown = new JComboBox<>(product.get(itemIndex).getOptions());
-            dropdown.setBounds(20, 70, 100, 25);
+            dropdown.setBounds(20, 80, 150, 25);
             dropdown.setFont(new Font("Verdana",Font.PLAIN,12));
             dropdown.addActionListener(e ->{
             String selected = (String)dropdown.getSelectedItem();
