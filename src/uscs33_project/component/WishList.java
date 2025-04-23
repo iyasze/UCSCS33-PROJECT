@@ -4,9 +4,18 @@
  */
 package uscs33_project.component;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.io.*;
@@ -14,7 +23,11 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.util.Arrays;
-import java.util.Collections;
+import uscs33_project.event.BackBtnPopUp;
+import uscs33_project.event.EventItem;
+import uscs33_project.event.addToCartBtnClicked;
+import uscs33_project.form.FormHome;
+import uscs33_project.model.ModelItem;
 /**
  *
  * @author USER
@@ -25,13 +38,157 @@ public class WishList extends javax.swing.JFrame {
      * Creates new form WishList
      */
     public int count;
+    private addToCartBtnClicked eventBuy;
+    private EventItem eventClick;
+    private ArrayList<ModelItem> itemInWishlist;
+    private FormHome menu;
+    private JFrame parent;
+    
+    public void setClickEvent(EventItem event) {
+        this.eventClick = event;
+    }
+    
+    public WishList(JFrame parent, addToCartBtnClicked listener1, ArrayList<ModelItem> itemInWishlist, String username, FormHome menu) {
+        initComponents();
+        Username();
+        this.eventBuy = listener1;
+        this.itemInWishlist = itemInWishlist;
+        this.parent = parent;
+        this.menu = menu;
+        loadItems(username);
+        System.out.println("Current user: " + username);
+    }
     
     public WishList() {
         initComponents();
         Username();
-        
-        
     }
+    
+    public void loadItems(String username) {
+        if (!username.equals("GUEST") || !username.equals("ADMIN")) {
+            ArrayList<String> itemID = new ArrayList<String>();
+            
+            Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt").toAbsolutePath();
+
+            try {
+                InputStream input = new BufferedInputStream(Files.newInputStream(file));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                String s = reader.readLine();
+
+                while(!s.equals(username)) {
+                    s = reader.readLine();
+                }
+                while(!s.equals("\\")) {
+                    s = reader.readLine();
+                    if (!s.equals("\\")) {
+                        itemID.add(s);
+                    }
+                }
+                input.close();
+                
+                for (Item item : menu.getItems()) {
+                    ModelItem data = item.getData();
+                    
+                    if (itemID.contains(data.getItemID())) {
+                        itemInWishlist.add(data);
+                    }
+                }
+                
+                for (ModelItem data : itemInWishlist) {
+                    Item item = new Item(eventBuy);
+                    item.setData(data);
+        
+                    item.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            if(SwingUtilities.isLeftMouseButton(e)) {
+                                eventClick.itemClick(item, data);
+                            }
+                        }
+                    });
+                    item.setVisible(true);
+                    panelItem.add(item);
+                    panelItem.revalidate();
+                    panelItem.repaint();
+                }
+                
+                
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            
+            
+            
+            
+            
+            
+        }
+    }
+    
+    public void setSelected(Component item) {
+        for(Component com : panelItem.getComponents()) {
+            Item i = (Item) com;
+            if (i.isSelected()) {
+                i.setSelected(false);
+            }
+        }
+        ((Item)item).setSelected(true);
+    }
+    
+    public void createPopup(ModelItem item) {
+        PopUp popup = new PopUp(eventBuy)
+        {
+            @Override
+            protected void paintComponent(Graphics g)
+            {
+                g.setColor( getBackground() );
+                g.fillRect(0, 0, parent.getWidth(), parent.getHeight());
+                super.paintComponent(g);
+            }
+        };
+//        
+        parent.setGlassPane(new JComponent() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(213, 134, 145, 200));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
+//        
+        Container glassPane = (Container) parent.getGlassPane();
+//        
+        glassPane.setVisible(true);
+        glassPane.setBackground(new Color(213, 134, 145, 123));
+        glassPane.setLayout(new GridBagLayout());
+
+        popup.setOpaque(false);
+        popup.setBackground(new Color(0, 0, 0, 0));
+        popup.setData(item);
+        popup.setBounds(0,0, parent.getWidth(), parent.getHeight());
+        
+        // Request focus for the popup
+        popup.setFocusable(true);
+        popup.requestFocusInWindow();
+        
+        glassPane.addMouseListener(new MouseAdapter() {});
+        glassPane.addMouseMotionListener(new MouseMotionAdapter() {});
+        glassPane.addKeyListener(new KeyAdapter() {});
+        glassPane.setFocusTraversalKeysEnabled(false);
+        
+        glassPane.add(popup);
+        
+        popup.setDestroyEvent(new BackBtnPopUp() {
+            @Override
+            public void PopUpDestroy() {
+                glassPane.remove(popup);
+                glassPane.setVisible(false);
+            }
+        });
+    }
+    
+    
+    
     private void Username(){
         Path file = Paths.get("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
         
@@ -49,76 +206,58 @@ public class WishList extends javax.swing.JFrame {
         }catch(IOException e){
             System.out.println(e);
         }
-        Path fileW = Paths.get("src/uscs33_project/component/WishListInfo.txt");
-        InputStream inputW = null;
-        String product = null;
-        try{
-            inputW = Files.newInputStream(fileW);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputW));
-            String line = null;
-            while((line = reader.readLine()) != null){
-            if (line.trim().equals(username)) {
-                    product = reader.readLine();
-                    break;
-                }
-            }        
-        }catch(IOException e){
-            System.out.print(e);
-        }
-        //ystem.out.println(product);
-        FileExtraction(product);
+        FileExtraction(username);
         
     }
     
-    private void FileExtraction(String product_code){
-        String[] itemcode = product_code.split("\\|");
-        ArrayList<String> Code = new ArrayList<>(Arrays.asList(itemcode));
-        Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
+    private void FileExtraction(String username){
+        ArrayList<String> full = new ArrayList<String>();
+        //ArrayList<String> each = new ArrayList<String>();
+        Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt");
         InputStream input = null;
         int x = 10, y = 10,i = 0;
         try{
             input = Files.newInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            String s = reader.readLine();
-            while(s != null) {
-                String parts = s.split("\\|")[0];
-                
-                if (Code.contains(parts)){
+            String wl = null;
+            while(true){
+                wl = reader.readLine();
+                if (wl.equals(username)){
+                while(true){
+                    wl = reader.readLine();
+                    if (!wl.equals("\\")){
+                    String[] line = wl.split("\\|");
+                    ArrayList<String> each = new ArrayList<>(Arrays.asList(line));
+                    //System.out.println(each);
                     if (i == 3){
                         i = 0;
                         y += 370;
                         x = 10;
                     }
-                    addWishPanel(s.split("\\|"),x,y);
+                    //System.out.println(each);
+                    addWishPanel(each,x,y);
                     x +=  380;
                     i++;
+                    }
+                    input.close();
                 }
-                s = reader.readLine();
-              }
-                    
+               
+                }
+                else
+                    break;
                 
-                
-                // File array order
-                // 0 = ItemID,
-                // 1 = Stock,
-                // 2 = Item Name,
-                // 3 = Item Brand, 
-                // 4 = Item Price, 
-                // 5 = Image file name, 
-                // 6 = ShadeOptions
-                // 7 = Category
-                // 8 = Desc
-                
-        }   
+            }
+              
+               
+        }
         catch (IOException e){
             System.out.print(e);
         }       
         
     }
     
-    private void addWishPanel(String[] data,int x, int y){
+    private void addWishPanel(ArrayList<String> data,int x, int y){
         count ++;
-        //System.out.print("Masuk");
         JPanel ItemPanel = new JPanel();
         ItemPanel.setBounds(x,y,370, 348);
         ItemPanel.setBackground(new java.awt.Color(218,223,255));
@@ -128,8 +267,7 @@ public class WishList extends javax.swing.JFrame {
         JLabel imageLabel = new JLabel();
         imageLabel.setBounds(115, 25, 131, 133);
         
-        String imgLink = "/uscs33_project/image/" + data[5];
-        ImageIcon myimage = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imgLink)));
+        ImageIcon myimage = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource(data.get(3))));
         Image img1 = myimage.getImage();
         Image img2 = img1.getScaledInstance(imageLabel.getWidth(),imageLabel.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon i = new ImageIcon(img2);
@@ -137,17 +275,17 @@ public class WishList extends javax.swing.JFrame {
         JLabel BrandLabel = new JLabel();
         BrandLabel.setBounds(34, 180, 250, 20);
         BrandLabel.setFont(new Font("Verdana",Font.BOLD,12));
-        BrandLabel.setText(data[3]);
+        BrandLabel.setText(data.get(1));
         
         JLabel NameLabel = new JLabel();
         NameLabel.setBounds(34, 210, 250, 20);
         NameLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        NameLabel.setText(data[2]);
+        NameLabel.setText(data.get(0));
         
         JLabel ShadeLabel = new JLabel();
         ShadeLabel.setBounds(34, 240, 250, 20);
         ShadeLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        ShadeLabel.setText(data[6]);
+        ShadeLabel.setText(data.get(2));
         
         JButton CartButton = new JButton();
         CartButton.setBounds(80, 280, 250, 50);
@@ -157,20 +295,20 @@ public class WishList extends javax.swing.JFrame {
         JButton deleteButton = new JButton("Remove");
         deleteButton.setBounds(280,25,80,25);
         deleteButton.addActionListener(e -> {
-        int result = JOptionPane.showConfirmDialog(WishPanel, "Are you sure to delete the product?", "Delete Item",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (result == JOptionPane.YES_OPTION){
-            WishPanel.remove(ItemPanel);
-            WishPanel.revalidate();
-            WishPanel.repaint();
-            //int indexToRemove = (int) ((JButton) e.getSource()).getClientProperty("itemIndex");
-            if (count >= 0 && count < data.length) {
-                //data.remove(count);
-                
-                
-            }
-            
-        }
+//        int result = JOptionPane.showConfirmDialog(WishPanel, "Are you sure to delete the product?", "Delete Item",
+//                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//        if (result == JOptionPane.YES_OPTION){
+//            WishPanel.remove(ItemPanel);
+//            WishPanel.revalidate();
+//            WishPanel.repaint();
+//            //int indexToRemove = (int) ((JButton) e.getSource()).getClientProperty("itemIndex");
+//            if (count >= 0 && count < data.size()) {
+//                data.remove(count);
+//                
+//                
+//            }
+//            
+//        }
     });
         
         
@@ -182,7 +320,7 @@ public class WishList extends javax.swing.JFrame {
         ItemPanel.add(ShadeLabel);
         ItemPanel.add(CartButton);
         ItemPanel.add(deleteButton);
-        WishPanel.add(ItemPanel);
+//        WishPanel.add(ItemPanel);
     }
     
     public JPanel getPanel(){
@@ -203,7 +341,7 @@ public class WishList extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        WishPanel = new javax.swing.JPanel();
+        panelItem = new uscs33_project.swing.PanelItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -246,28 +384,14 @@ public class WishList extends javax.swing.JFrame {
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        WishPanel.setBackground(new java.awt.Color(241, 241, 255));
-        WishPanel.setPreferredSize(new java.awt.Dimension(1188, 700));
-
-        javax.swing.GroupLayout WishPanelLayout = new javax.swing.GroupLayout(WishPanel);
-        WishPanel.setLayout(WishPanelLayout);
-        WishPanelLayout.setHorizontalGroup(
-            WishPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1188, Short.MAX_VALUE)
-        );
-        WishPanelLayout.setVerticalGroup(
-            WishPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(WishPanel);
+        jScrollPane1.setViewportView(panelItem);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(540, Short.MAX_VALUE)
+                .addContainerGap(537, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(486, 486, 486))
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -347,11 +471,11 @@ public class WishList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel WishPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private uscs33_project.swing.PanelItem panelItem;
     // End of variables declaration//GEN-END:variables
 }

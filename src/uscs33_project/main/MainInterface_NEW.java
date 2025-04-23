@@ -4,14 +4,12 @@
  */
 package uscs33_project.main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import uscs33_project.event.addToCartBtnClicked;
-import uscs33_project.model.ModelItemChoice;
-import uscs33_project.form.StoreInterface;
+
 
 /**
  *
@@ -31,9 +29,22 @@ public class MainInterface_NEW extends javax.swing.JFrame {
             @Override
             public void componentResized(ComponentEvent e) {
                 storeInterface1.getUpperPanel().setBounds(0, 0, getWidth(), getHeight());
-                System.out.println(getWidth());
+//                System.out.println(getWidth());
                 storeInterface1.revalidate();
                 storeInterface1.repaint();
+            }
+        });
+        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                storeInterface1.exportData();
+                System.out.println("yy");
+                
+                dispose();
+                System.exit(0);
             }
         });
     }
@@ -47,7 +58,7 @@ public class MainInterface_NEW extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        storeInterface1 = new uscs33_project.form.StoreInterface();
+        storeInterface1 = new uscs33_project.form.StoreInterface(this);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().add(storeInterface1, java.awt.BorderLayout.CENTER);
