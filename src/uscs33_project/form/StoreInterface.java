@@ -193,7 +193,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     }
     
     private void setImage() {
-        ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHBUTTON.png"));
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHICON.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_CARTICON.png"));
         ImageIcon icon3 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_WISHICON.png"));
         ImageIcon icon4 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_PANELDECO .png"));
@@ -201,6 +201,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         
         icon2 = circleImages.getCircularIcon(icon2,55);
         icon3 = circleImages.getCircularIcon(icon3,55);
+        icon1 = circleImages.getCircularIcon(icon1, 52);
         
 //        jLabel2.setIcon(icon4);
         searchButton.setIcon(icon1);
@@ -399,8 +400,8 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         cartIcon = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
-        searchButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
+        searchButton = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -599,17 +600,6 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         searchPanel.setBackground(new java.awt.Color(204, 204, 255));
         searchPanel.setOpaque(false);
 
-        searchButton.setBorderPainted(false);
-        searchButton.setMaximumSize(new java.awt.Dimension(72, 52));
-        searchButton.setMinimumSize(new java.awt.Dimension(72, 52));
-        searchButton.setOpaque(true);
-        searchButton.setPreferredSize(new java.awt.Dimension(72, 50));
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
         searchField.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         searchField.setPreferredSize(new java.awt.Dimension(400, 25));
         searchField.addActionListener(new java.awt.event.ActionListener() {
@@ -618,26 +608,32 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
             }
         });
 
+        searchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                searchButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                searchButtonMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addContainerGap())
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+            .addComponent(searchButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -713,7 +709,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 126, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -878,9 +874,17 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchButtonActionPerformed
+    private void searchButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchButtonMouseEntered
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHSELECTED.png"));
+        icon1 = circleImages.getCircularIcon(icon1,52);
+        searchButton.setIcon(icon1);
+    }//GEN-LAST:event_searchButtonMouseEntered
+
+    private void searchButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchButtonMouseExited
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/uscs33_project/image/MAIN_SEARCHICON.png"));
+        icon1 = circleImages.getCircularIcon(icon1,52);
+        searchButton.setIcon(icon1);// TODO add your handling code here:
+    }//GEN-LAST:event_searchButtonMouseExited
 
     private void backtoLogIn(){
         try{
@@ -994,7 +998,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel menuPanel;
-    private javax.swing.JButton searchButton;
+    private javax.swing.JLabel searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel upperPanel;
