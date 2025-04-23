@@ -54,12 +54,14 @@ import uscs33_project.component.WishList;
 import uscs33_project.component.BrowseFilterDisabled;
 import uscs33_project.component.Item;
 import uscs33_project.event.ImageUtils;
+import uscs33_project.event.WishlistListenerFromProduct;
+import uscs33_project.event.WishlistListenerFromWishlist;
 
 /**
  *
  * @author amani
  */
-public class StoreInterface extends javax.swing.JPanel implements addToCartBtnClicked {
+public class StoreInterface extends javax.swing.JPanel implements addToCartBtnClicked, WishlistListenerFromProduct, WishlistListenerFromWishlist {
 
     /**
      * Creates new form StoreInterface
@@ -110,15 +112,12 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         
         wishDisabled();
         
-        menu = new FormHome(this);
+        menu = new FormHome(this, this);
         importData();
         
         
         cart = new ShoppingCart(this, itemInCart);
-        wishlist = new WishList(parentFrame, this, itemInWishlist, usernameDisplay.getText(), menu);
-        
-        
-        
+        wishlist = new WishList(parentFrame, this, this, itemInWishlist, usernameDisplay.getText(), menu);
         
         
         menu.setClickEvent(new EventItem() {
@@ -271,6 +270,10 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void exportWishlistData() {
+        wishlist.saveItems();
     }
     
     private void importData() {
@@ -1129,5 +1132,41 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private javax.swing.JLabel usernameDisplay;
     private javax.swing.JLabel wishIcon;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void AddRemoveFromWishlist1(String action, String itemID) {
+        if (action.equals("add")) {
+            ModelItem data;
+            for (Item item : menu.getItems()) {
+                if (item.getData().getItemID().equals(itemID)) {
+                    data = item.getData();
+                    if (!itemInWishlist.contains(data)) {
+                        itemInWishlist.add(data);
+                        wishlist.add(data);
+                    }
+                }
+            }
+            System.out.println("WIshlist now has " + itemInWishlist.size() + " items");
+        }
+    }
+
+    @Override
+    public void AddRemoveFromWishlist2(String action, String itemID) {
+        if (action.equals("remove")) {
+            ModelItem data;
+            for (Item item : menu.getItems()) {
+                if (item.getData().getItemID().equals(itemID)) {
+                    data = item.getData();
+                    if (itemInWishlist.contains(data)) {
+                        itemInWishlist.remove(data);
+                        wishlist.delete(data);
+                    }
+                }
+            }
+            System.out.println("WIshlist now has " + itemInWishlist.size() + " items");
+        }
+    }
+
+    
 
 }
