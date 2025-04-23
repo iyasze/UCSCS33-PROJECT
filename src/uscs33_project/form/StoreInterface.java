@@ -14,6 +14,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Window;
+import java.awt.Dialog;
 import java.awt.event.*;
 import java.beans.Beans;
 import java.io.BufferedInputStream;
@@ -762,30 +764,13 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
 
-        try{
-            File file = new File("src/uscs33_project/component/REALTIME_CUSTOMER.txt");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write("null@gmail.com\n");
-            writer.write("GUEST\n");
-            writer.write("-\n");
-            writer.write("-\n");
-            writer.write("-\n");
-            writer.write("-\n");
-            writer.flush();
-            writer.close();
+        if(jLabel1.getText().equals("LOG OUT")){
+            System.out.println("ATTEMPT POP UP!!!");
+            setupPopup();
         }
-        catch(Exception e){
-            System.out.println("Message: " + e);
+        else{
+            backtoLogIn();
         }
-        
-
-        LogInPage login = new LogInPage();
-
-        login.setVisible(true);
-        login.setLocationRelativeTo(null);
-
-        JFrame c = (JFrame) this.getRootPane().getParent();
-        c.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -946,10 +931,12 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     private void setupPopup(){
         System.out.println("POP UP IS RUNNING!!!");
         
-        //JDialog popup = new JDialog(this, "MESSAGE", true);
-        //popup.setSize(250,150);
-        //popup.setLocationRelativeTo(this);
-        //popup.setLayout(new BorderLayout());
+        Window parentWindow = SwingUtilities.getWindowAncestor(this);
+        
+        JDialog popup = new JDialog(parentWindow, "MESSAGE", Dialog.ModalityType.APPLICATION_MODAL);
+        popup.setSize(250,150);
+        popup.setLocationRelativeTo(this);
+        popup.setLayout(new BorderLayout());
         
         JPanel overlay = new JPanel(){
             protected void paintComponent(Graphics g){
@@ -972,24 +959,24 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
         proceed.addActionListener(e ->{
             backtoLogIn();
             overlay.setVisible(false);
-            //popup.dispose();
+            popup.dispose();
         });
         
         back.addActionListener(e -> {
             overlay.setVisible(false);
-            //popup.dispose();
+            popup.dispose();
         });
         
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(proceed);
         buttonPanel.add(back);
         
-        //popup.add(label, BorderLayout.CENTER);
-        //popup.add(buttonPanel, BorderLayout.SOUTH);
+        popup.add(label, BorderLayout.CENTER);
+        popup.add(buttonPanel, BorderLayout.SOUTH);
         
         try{
             overlay.setVisible(true);
-            //popup.setVisible(true);
+            popup.setVisible(true);
         }
         catch(Exception e){
             System.out.println("POPUP FAILED TO RUN");
