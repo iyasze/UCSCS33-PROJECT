@@ -1,7 +1,3 @@
-ADMIN
-\
-GUEST
-\
 ainnadia
 E001
 E002

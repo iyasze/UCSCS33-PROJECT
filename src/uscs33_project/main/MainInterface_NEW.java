@@ -41,6 +41,7 @@ public class MainInterface_NEW extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 storeInterface1.exportData();
+                storeInterface1.exportWishlistData();
                 System.out.println("yy");
                 
                 dispose();

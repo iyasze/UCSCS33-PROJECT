@@ -24,7 +24,7 @@ public class StoreFront extends javax.swing.JFrame implements addToCartBtnClicke
     private void init() {
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
-        home = new FormHome(this);
+//        home = new FormHome(this);
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(home);
         importData();

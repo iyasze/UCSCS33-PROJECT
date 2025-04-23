@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.SwingUtilities;
+import uscs33_project.event.WishlistListenerFromProduct;
+import uscs33_project.event.WishlistListenerFromWishlist;
 import uscs33_project.event.addToCartBtnClicked;
 import uscs33_project.model.ModelItemChoice;
 
@@ -23,6 +25,8 @@ public class Item extends javax.swing.JPanel {
     
     private boolean selected;
     private addToCartBtnClicked eventBuy;
+    private WishlistListenerFromWishlist eventUpdate2;
+    private WishlistListenerFromProduct eventUpdate1;
 
     public boolean isSelected() {
         return selected;
@@ -32,12 +36,23 @@ public class Item extends javax.swing.JPanel {
         this.selected = selected;
         repaint();
     }
+    
+    public String getWishlistButtonText() {
+        return btnWishlist.getText();
+    }
+    
+    public void setWishlistButtonText(String heartColor) {
+        btnWishlist.setText(heartColor);
+    }
 
-    public Item(addToCartBtnClicked listener) {
+    public Item(addToCartBtnClicked listener, WishlistListenerFromProduct event) {
+        
         initComponents();
         setOpaque(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.eventBuy = listener;
+        this.eventUpdate1 = event;
+        
         
         layerCart.setVisible(false);
         
@@ -47,7 +62,40 @@ public class Item extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int quantity = 1;
+                if (quantity < data.getItemStock()) {
+                    
+                    String selectedVariant;
+                    if (data.getOptions().length != 0) {
+                        selectedVariant = (String) data.getOptions()[0];
+                    }
+                    else {
+                        selectedVariant = "";
+                    }
+                    
+                    ModelItemChoice itemBought = new ModelItemChoice(data, quantity, selectedVariant);
                 
+                    eventBuy.buy(itemBought);
+                }
+            }
+        });
+    }
+    
+    public Item(addToCartBtnClicked listener, WishlistListenerFromWishlist event) {
+        
+        initComponents();
+        setOpaque(false);
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.eventBuy = listener;
+        this.eventUpdate2 = event;
+        
+        layerCart.setVisible(false);
+        
+        Toolkit.getDefaultToolkit().addAWTEventListener(new MouseDetector(this, layerCart), AWTEvent.MOUSE_EVENT_MASK);
+        
+        btnAddToCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int quantity = 1;
                 if (quantity < data.getItemStock()) {
                     
                     String selectedVariant;
@@ -274,9 +322,15 @@ public class Item extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (btnWishlist.getText().equals("♡")) {
             btnWishlist.setText("♥");
+            if (this.eventUpdate1 != null) {
+                this.eventUpdate1.AddRemoveFromWishlist1("add", data.getItemID());
+            }
         }
         else {
             btnWishlist.setText("♡");
+            if (this.eventUpdate2 != null) {
+                this.eventUpdate2.AddRemoveFromWishlist2("remove", data.getItemID());
+            }
         }
         System.out.println(btnWishlist.getText());
         repaint();

@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import uscs33_project.event.BackBtnPopUp;
 import uscs33_project.event.LeftPanelFilter;
+import uscs33_project.event.WishlistListenerFromProduct;
 import uscs33_project.event.addToCartBtnClicked;
 
 /*
@@ -40,25 +41,26 @@ public class FormHome extends javax.swing.JPanel {
         this.eventClick = event;
     }
     
+    public void setWishlistManagement1(WishlistListenerFromProduct event) {
+        this.eventUpdate1 = event;
+    }
+    
     private EventItem eventClick;
     private LeftPanelFilter eventFilter;
     private addToCartBtnClicked eventBuy;
     private ArrayList<Item> data;
+    private WishlistListenerFromProduct eventUpdate1;
 
     
 
-    public FormHome(addToCartBtnClicked listener) {
+    public FormHome(addToCartBtnClicked listener, WishlistListenerFromProduct listener2) {
         initComponents();
         scroll.setVerticalScrollBar(new ScrollBar());
         
         this.data = new ArrayList<Item>();
         
         this.eventBuy = listener;
-
-
-
-//        this.eventFilter = listener2;
-//        layeredPane.setVisible(false);
+        this.eventUpdate1 = listener2;
 
     }
     
@@ -115,7 +117,8 @@ public class FormHome extends javax.swing.JPanel {
     }
     
     public void addItem(ModelItem data) {
-        Item item = new Item(eventBuy);
+        Item item = new Item(eventBuy, eventUpdate1);
+//        System.out.println(this.eventUpdate1 == null);
         item.setData(data);
         
         item.addMouseListener(new MouseAdapter() {
@@ -130,7 +133,7 @@ public class FormHome extends javax.swing.JPanel {
         
         this.data.add(item);
         panelItem.add(item);
-        System.out.println(item.getData().getItemID());
+//        System.out.println(item.getData().getItemID());
         panelItem.repaint();
         panelItem.revalidate();
     }
