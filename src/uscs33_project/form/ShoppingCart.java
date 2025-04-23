@@ -34,6 +34,10 @@ public class ShoppingCart extends javax.swing.JFrame {
     public double SubTotal;
     public ArrayList<String> userInfo;
     public addToCartBtnClicked listener;
+    public String tax;
+    public String subtotal;
+    public String ztotal;
+    
     
     public ShoppingCart(addToCartBtnClicked listener, ArrayList<ModelItemChoice> product) {
         this.product = product; 
@@ -337,7 +341,39 @@ public class ShoppingCart extends javax.swing.JFrame {
         
        JOptionPane.showMessageDialog(null, "You Successfully Ordered!");        // TODO add your handling code here:
        
-       FormReceipt receipt = new FormReceipt(username, product, address);
+       StringBuilder receipt = new StringBuilder();
+
+        // Header
+        receipt.append("                                MAKLUV\n");
+        receipt.append("-----------------------------------------------\n");
+        receipt.append("To:\n");
+        receipt.append(username + "\n");
+        receipt.append(address[0] + "\n");
+        receipt.append(address[0] + "\n");
+        receipt.append(address[0] + "\n");
+        receipt.append("-----------------------------------------------\n");
+        receipt.append("ITEMS                                                          PRICE\n");
+
+        
+        for(int i = 0 ; i < product.size() ; i++){
+            
+            String itemName = product.get(i).getItemName();
+            if (itemName.length() > 20) {
+                itemName = itemName.substring(0, 17) + "..."; // show only 47 characters + ellipsis
+            }
+            
+            receipt.append(String.format("%-50s %10s\n", itemName, product.get(i).getPrice()));
+        }
+        
+        receipt.append("                                               10% Tax:       " + tax + "\n");
+        receipt.append("                                               Shipping:        7.00\n");
+
+        // Footer
+        receipt.append("-----------------------------------------------\n");
+        receipt.append("THANK YOU!                              TOTAL: RM" + ztotal + "\n");
+        receipt.append("-----------------------------------------------\n");
+        
+        JOptionPane.showMessageDialog(this, receipt);
        
        product.clear();
        CartPanel.removeAll();
@@ -444,6 +480,10 @@ public class ShoppingCart extends javax.swing.JFrame {
         TotalLabel.setText(String.format("%.2f",total));
         
         double Shipping = 7.00;
+        
+        subtotal = SubTotalLabel.getText();
+        tax = TaxLabel.getText();
+        ztotal = TotalLabel.getText();
         
         
         
