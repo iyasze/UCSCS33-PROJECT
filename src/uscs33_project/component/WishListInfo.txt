@@ -3,13 +3,12 @@ ADMIN
 GUEST
 \
 ainnadia
-Easy Bake Loose Powder|Huda Beauty|Cherry Blossom Cake|LPowder.jpg|
-On Til Dawn Setting Spray|One/Size|-|SettingS.jpg|
-Gloss Bomb Heat Lip Luminizer + Plumper|Fenty Beauty|Hot Cherry|glossbomb.jpg|
+E001
+E002
+E003
 \
 iyasnaufal
-Easy Bake Loose Powder|Huda Beauty|Cherry Blossom Cake|LPowder.jpg|
-On Til Dawn Setting Spray|One/Size|-|SettingS.jpg|
-Gloss Bomb Heat Lip Luminizer + Plumper|Fenty Beauty|Hot Cherry|glossbomb.jpg|
-Soft Pinch Liquid Blush|Rare Beauty|Believe|blush.jpg|
+E001
+E002
+E003
 \

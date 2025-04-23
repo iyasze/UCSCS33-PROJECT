@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -42,10 +43,15 @@ public class FormHome extends javax.swing.JPanel {
     private EventItem eventClick;
     private LeftPanelFilter eventFilter;
     private addToCartBtnClicked eventBuy;
+    private ArrayList<Item> data;
+
+    
 
     public FormHome(addToCartBtnClicked listener) {
         initComponents();
         scroll.setVerticalScrollBar(new ScrollBar());
+        
+        this.data = new ArrayList<Item>();
         
         this.eventBuy = listener;
 
@@ -54,6 +60,14 @@ public class FormHome extends javax.swing.JPanel {
 //        this.eventFilter = listener2;
 //        layeredPane.setVisible(false);
 
+    }
+    
+    public ArrayList<Item> getItems() {
+        return data;
+    }
+
+    public void setItems(ArrayList<Item> data) {
+        this.data = data;
     }
     
     public void filterBy(String attributeName, String keyword) {
@@ -86,7 +100,7 @@ public class FormHome extends javax.swing.JPanel {
                 if (item.getItemName().trim().toLowerCase().contains(keyword) 
                         || item.getBrandName().trim().toLowerCase().contains(keyword) 
                         || item.getDescription().trim().toLowerCase().contains(keyword)
-                        || item.getCategory().toLowerCase().contains(keyword)) {
+                        || item.getCategory().trim().toLowerCase().contains(keyword)) {
                     com.setVisible(true);
                 }
                 else {
@@ -103,6 +117,7 @@ public class FormHome extends javax.swing.JPanel {
     public void addItem(ModelItem data) {
         Item item = new Item(eventBuy);
         item.setData(data);
+        
         item.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -111,7 +126,11 @@ public class FormHome extends javax.swing.JPanel {
                 }
             }
         });
+        item.setVisible(true);
+        
+        this.data.add(item);
         panelItem.add(item);
+        System.out.println(item.getData().getItemID());
         panelItem.repaint();
         panelItem.revalidate();
     }
