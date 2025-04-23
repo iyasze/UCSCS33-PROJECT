@@ -547,6 +547,8 @@ public class ShoppingCart extends javax.swing.JFrame {
             TaxLabel.repaint();
             TotalLabel.revalidate();
             TotalLabel.repaint();
+            
+            subtotal = Double.toString(SubTotal);
 
         }
     });
