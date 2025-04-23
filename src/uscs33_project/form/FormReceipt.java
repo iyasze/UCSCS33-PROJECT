@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
-import uscs33_project.form.StoreInterface;
+import uscs33_project.model.ModelItemChoice;
 
 
 
@@ -21,7 +21,7 @@ public class FormReceipt extends javax.swing.JFrame {
     /**
      * Creates new form FormReceipt
      */
-    public FormReceipt(/*String username, ArrayList<ItemInCart> items, String[] address*/) {
+    public FormReceipt(String username, ArrayList<ModelItemChoice> items, String[] address) {
         initComponents();
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,22 +34,34 @@ public class FormReceipt extends javax.swing.JFrame {
         
         //SETUP addressPanel
         addressPanel.setLayout(new GridLayout(0,1));
-        JLabel displayUser = new JLabel(/*username*/);
+        JLabel displayUser = new JLabel(username);
         
         //LOOPING FOR ADDRESS
-        
+        for(String addr : address){
+            addressPanel.add(new JLabel(addr));
+        }
         //LOOPING FOR ADDRESS
         
         //SETUP productsPanel
         productsPanel.setLayout(new GridLayout(0,2));
         //LOOPING PRODUCT & PRICE
+        for(int i = 0; i < items.size() ; i++){
+            productsPanel.add(new JLabel(items.get(i).getItemName()));
+            productsPanel.add(new JLabel(Double.toString(items.get(i).getPrice())));
+        }
+        
+        productsPanel.revalidate();
+        productsPanel.repaint();
         
         //LOOPING PRODUCTS & PRICE
+        
+        JScrollPane scrollPane = new JScrollPane(productsPanel);
+        add(scrollPane, BorderLayout.CENTER);
         
         //SETUP summaryPanel
         summaryPanel.setLayout(new BorderLayout());
         JLabel thankyou = new JLabel("THANK YOU!");
-        JLabel total = new JLabel("");
+        JLabel total = new JLabel(calculateTotal(items));
         summaryPanel.add(thankyou, BorderLayout.WEST);
         summaryPanel.add(total, BorderLayout.EAST);
         
@@ -60,15 +72,26 @@ public class FormReceipt extends javax.swing.JFrame {
         exitPanel.add(checkout, BorderLayout.CENTER);
         exitPanel.add(back, BorderLayout.WEST);
         
+        int productHeight = 30;
+        int baseHeight = 200;
+        int totalHeight = baseHeight + (items.size() * productHeight);
+        setSize(400, totalHeight);
+        
+        setLocationRelativeTo(null);
+        setVisible(true);
         
         
+              
         
+    }
+    
+    private String calculateTotal(ArrayList<ModelItemChoice> items){
+        double total = 0;
+        for(int i = 0; i < items.size() ; i++){
+            total += items.get(i).getPrice();
+        }
         
-        
-        
-        
-        
-        
+        return String.format("$%.2f", total);
     }
 
     /**
@@ -91,7 +114,7 @@ public class FormReceipt extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        titlePanel.setBackground(new java.awt.Color(255, 102, 102));
+        titlePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout titlePanelLayout = new javax.swing.GroupLayout(titlePanel);
         titlePanel.setLayout(titlePanelLayout);
@@ -104,7 +127,7 @@ public class FormReceipt extends javax.swing.JFrame {
             .addGap(0, 45, Short.MAX_VALUE)
         );
 
-        addressPanel.setBackground(new java.awt.Color(204, 255, 204));
+        addressPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout addressPanelLayout = new javax.swing.GroupLayout(addressPanel);
         addressPanel.setLayout(addressPanelLayout);
@@ -114,8 +137,10 @@ public class FormReceipt extends javax.swing.JFrame {
         );
         addressPanelLayout.setVerticalGroup(
             addressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
+
+        productsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout productsPanelLayout = new javax.swing.GroupLayout(productsPanel);
         productsPanel.setLayout(productsPanelLayout);
@@ -125,10 +150,10 @@ public class FormReceipt extends javax.swing.JFrame {
         );
         productsPanelLayout.setVerticalGroup(
             productsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 211, Short.MAX_VALUE)
         );
 
-        summaryPanel.setBackground(new java.awt.Color(204, 204, 255));
+        summaryPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout summaryPanelLayout = new javax.swing.GroupLayout(summaryPanel);
         summaryPanel.setLayout(summaryPanelLayout);
@@ -140,6 +165,8 @@ public class FormReceipt extends javax.swing.JFrame {
             summaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 80, Short.MAX_VALUE)
         );
+
+        exitPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout exitPanelLayout = new javax.swing.GroupLayout(exitPanel);
         exitPanel.setLayout(exitPanelLayout);
@@ -168,9 +195,9 @@ public class FormReceipt extends javax.swing.JFrame {
                 .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(productsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(summaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
