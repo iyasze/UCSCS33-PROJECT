@@ -14,6 +14,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.util.Arrays;
+import java.util.Collections;
 /**
  *
  * @author USER
@@ -48,58 +49,76 @@ public class WishList extends javax.swing.JFrame {
         }catch(IOException e){
             System.out.println(e);
         }
-        FileExtraction(username);
+        Path fileW = Paths.get("src/uscs33_project/component/WishListInfo.txt");
+        InputStream inputW = null;
+        String product = null;
+        try{
+            inputW = Files.newInputStream(fileW);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputW));
+            String line = null;
+            while((line = reader.readLine()) != null){
+            if (line.trim().equals(username)) {
+                    product = reader.readLine();
+                    break;
+                }
+            }        
+        }catch(IOException e){
+            System.out.print(e);
+        }
+        //ystem.out.println(product);
+        FileExtraction(product);
         
     }
     
-    private void FileExtraction(String username){
-        ArrayList<String> full = new ArrayList<String>();
-        //ArrayList<String> each = new ArrayList<String>();
-        Path file = Paths.get("src/uscs33_project/component/WishListInfo.txt");
+    private void FileExtraction(String product_code){
+        String[] itemcode = product_code.split("\\|");
+        ArrayList<String> Code = new ArrayList<>(Arrays.asList(itemcode));
+        Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
         InputStream input = null;
         int x = 10, y = 10,i = 0;
         try{
             input = Files.newInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            String wl = null;
-            while(true){
-                wl = reader.readLine();
-                if (wl.equals(username)){
-                while(true){
-                    wl = reader.readLine();
-                    if (!wl.equals("\\")){
-                    String[] line = wl.split("\\|");
-                    ArrayList<String> each = new ArrayList<>(Arrays.asList(line));
-                    //System.out.println(each);
+            String s = reader.readLine();
+            while(s != null) {
+                String parts = s.split("\\|")[0];
+                
+                if (Code.contains(parts)){
                     if (i == 3){
                         i = 0;
                         y += 370;
                         x = 10;
                     }
-                    //System.out.println(each);
-                    addWishPanel(each,x,y);
+                    addWishPanel(s.split("\\|"),x,y);
                     x +=  380;
                     i++;
-                    }
-                    input.close();
                 }
-               
-                }
-                else
-                    break;
+                s = reader.readLine();
+              }
+                    
                 
-            }
-              
-               
-        }
+                
+                // File array order
+                // 0 = ItemID,
+                // 1 = Stock,
+                // 2 = Item Name,
+                // 3 = Item Brand, 
+                // 4 = Item Price, 
+                // 5 = Image file name, 
+                // 6 = ShadeOptions
+                // 7 = Category
+                // 8 = Desc
+                
+        }   
         catch (IOException e){
             System.out.print(e);
         }       
         
     }
     
-    private void addWishPanel(ArrayList<String> data,int x, int y){
+    private void addWishPanel(String[] data,int x, int y){
         count ++;
+        //System.out.print("Masuk");
         JPanel ItemPanel = new JPanel();
         ItemPanel.setBounds(x,y,370, 348);
         ItemPanel.setBackground(new java.awt.Color(218,223,255));
@@ -109,7 +128,8 @@ public class WishList extends javax.swing.JFrame {
         JLabel imageLabel = new JLabel();
         imageLabel.setBounds(115, 25, 131, 133);
         
-        ImageIcon myimage = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource(data.get(3))));
+        String imgLink = "/uscs33_project/image/" + data[5];
+        ImageIcon myimage = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imgLink)));
         Image img1 = myimage.getImage();
         Image img2 = img1.getScaledInstance(imageLabel.getWidth(),imageLabel.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon i = new ImageIcon(img2);
@@ -117,17 +137,17 @@ public class WishList extends javax.swing.JFrame {
         JLabel BrandLabel = new JLabel();
         BrandLabel.setBounds(34, 180, 250, 20);
         BrandLabel.setFont(new Font("Verdana",Font.BOLD,12));
-        BrandLabel.setText(data.get(1));
+        BrandLabel.setText(data[3]);
         
         JLabel NameLabel = new JLabel();
         NameLabel.setBounds(34, 210, 250, 20);
         NameLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        NameLabel.setText(data.get(0));
+        NameLabel.setText(data[2]);
         
         JLabel ShadeLabel = new JLabel();
         ShadeLabel.setBounds(34, 240, 250, 20);
         ShadeLabel.setFont(new Font("Verdana",Font.PLAIN,12));
-        ShadeLabel.setText(data.get(2));
+        ShadeLabel.setText(data[6]);
         
         JButton CartButton = new JButton();
         CartButton.setBounds(80, 280, 250, 50);
@@ -144,8 +164,8 @@ public class WishList extends javax.swing.JFrame {
             WishPanel.revalidate();
             WishPanel.repaint();
             //int indexToRemove = (int) ((JButton) e.getSource()).getClientProperty("itemIndex");
-            if (count >= 0 && count < data.size()) {
-                data.remove(count);
+            if (count >= 0 && count < data.length) {
+                //data.remove(count);
                 
                 
             }
