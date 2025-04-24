@@ -134,7 +134,6 @@ public class PopUp extends javax.swing.JPanel {
         PERMshade = new javax.swing.JLabel();
         PERMdesc = new javax.swing.JLabel();
         addToCart = new javax.swing.JButton();
-        addToWishlist = new javax.swing.JButton();
         ComboBoxShade = new javax.swing.JComboBox<>();
         btnBack = new javax.swing.JButton();
         ScrollPaneDesc = new javax.swing.JScrollPane();
@@ -174,13 +173,6 @@ public class PopUp extends javax.swing.JPanel {
         addToCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addToCartActionPerformed(evt);
-            }
-        });
-
-        addToWishlist.setText("Add to Wishlist");
-        addToWishlist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addToWishlistActionPerformed(evt);
             }
         });
 
@@ -229,10 +221,7 @@ public class PopUp extends javax.swing.JPanel {
                                 .addGap(30, 30, 30)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbPrice)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(addToCart)
-                                        .addGap(77, 77, 77)
-                                        .addComponent(addToWishlist))
+                                    .addComponent(addToCart)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(62, 62, 62)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,12 +244,10 @@ public class PopUp extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbBrand)
                             .addComponent(btnBack))
@@ -277,9 +264,7 @@ public class PopUp extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(StockWarning)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addToCart)
-                            .addComponent(addToWishlist))))
+                        .addComponent(addToCart)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PERMdesc)
@@ -304,10 +289,6 @@ public class PopUp extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void addToWishlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToWishlistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addToWishlistActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
@@ -335,7 +316,6 @@ public class PopUp extends javax.swing.JPanel {
     private javax.swing.JLabel StockWarning;
     private javax.swing.JTextArea TextAreaDesc;
     private javax.swing.JButton addToCart;
-    private javax.swing.JButton addToWishlist;
     private javax.swing.JButton btnBack;
     private uscs33_project.swing.PictureBox image;
     private javax.swing.JPanel jPanel1;

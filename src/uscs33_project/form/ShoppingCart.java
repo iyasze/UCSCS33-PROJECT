@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import uscs33_project.event.removeStock;
 /**
  *
  * @author USER
@@ -356,6 +357,7 @@ public class ShoppingCart extends javax.swing.JFrame {
        
 
        FormReceipt receipt = new FormReceipt(product, username, address, subtotal);
+       removeStock remove = new removeStock(product);
 
        
        product.clear();

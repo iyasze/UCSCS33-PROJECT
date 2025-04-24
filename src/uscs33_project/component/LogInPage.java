@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import uscs33_project.event.LoginSignupCloseListener;
 import uscs33_project.event.RealTime_User;
 import uscs33_project.main.MainInterface_NEW;
+import uscs33_project.form.adminpage2;
 
 
 /**
@@ -38,7 +39,7 @@ public class LogInPage extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
         
-//        Path path = Paths.get("src/uscs33_project/component/CUSTOMER_DATA.txt");
+
         
         File file = new File("CUSTOMER_DATA.txt");
         System.out.println("Absolute path: " + file.getAbsolutePath());
@@ -383,7 +384,12 @@ public class LogInPage extends javax.swing.JFrame {
                     
                     
                     if(email.trim().equals("ADMIN@MAKLUV.com")){
-                        System.out.println("LOGGING IN AS ADMIN");
+                        JOptionPane.showMessageDialog(null, "LOGGING IN AS ADMIN...");
+                        
+                        adminpage2 admin = new adminpage2();
+                        admin.setLocationRelativeTo(this);
+                        admin.setVisible(true);
+                        
                         this.dispose();
                     }
                     else{
@@ -435,22 +441,7 @@ public class LogInPage extends javax.swing.JFrame {
 
                         this.setVisible(false);
                     }
-                    
-                    
-                   
-                                                                
-                    
-                                                                                                                                                      
-                    /*new loadingWindow(() -> {
-                        MainInterface main = new MainInterface();
-                        main.setVisible(true);
-                        System.out.println("FLICKER FLICKER");
-                        main.setLocationRelativeTo(this);
-                    }).setVisible(true);*/
-                 
-                    
-           
-                    
+      
                     
                 }
             }
@@ -515,7 +506,6 @@ public class LogInPage extends javax.swing.JFrame {
                 logIn.setVisible(true);
                 logIn.setLocationRelativeTo(null);
                 
-                //test
                 
                 
             }
