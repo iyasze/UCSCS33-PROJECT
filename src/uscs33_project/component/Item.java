@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import uscs33_project.event.WishlistListenerFromProduct;
 import uscs33_project.event.WishlistListenerFromWishlist;
@@ -232,7 +233,7 @@ public class Item extends javax.swing.JPanel {
             .addComponent(btnAddToCart, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layerCartLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnWishlist, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnWishlist, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layerCartLayout.setVerticalGroup(
             layerCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +346,7 @@ public class Item extends javax.swing.JPanel {
     }//GEN-LAST:event_layerCartMouseEntered
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "ADDED TO CART!");
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
     private void btnAddToCartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddToCartMouseExited

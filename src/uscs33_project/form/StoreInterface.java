@@ -870,6 +870,9 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
 
         if(jLabel1.getText().equals("LOG OUT")){
             System.out.println("ATTEMPT POP UP!!!");
+            exportData();
+            exportWishlistData();
+
             setupPopup();
         }
         else{

@@ -80,7 +80,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setText("Email:");
+        jLabel5.setText("*Email:");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -104,7 +104,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setText("Password:");
+        jLabel6.setText("*Password:");
 
         PasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +133,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel7.setText("Username:");
+        jLabel7.setText("*Username:");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -157,7 +157,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel8.setText("Re-confirm Password:");
+        jLabel8.setText("*Re-confirm Password:");
 
         RePasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +186,7 @@ public class SignUpPage extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setText("Address:");
+        jLabel9.setText("*Address:");
 
         addressLine_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -452,6 +452,31 @@ public class SignUpPage extends javax.swing.JFrame {
         return true;
     }
     
+    private static boolean checkUsername(String username){
+        try{
+                File readFile = new File("src/uscs33_project/component/CUSTOMER_DATA.txt");
+                Scanner reader = new Scanner(readFile);
+                ArrayList<String> emailList = new ArrayList<>();
+                
+                while(reader.hasNextLine()){
+                    String tempEmail = reader.nextLine().split("\\*\\*\\*")[1];
+                    emailList.add(tempEmail);
+                }
+                
+                if(!(emailList.contains(username))){
+                    return false;
+                }
+                
+                
+                
+            }
+            catch(IOException e){
+                System.out.print("An error has occured");
+            }
+        
+        return true;
+    }
+    
     private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PasswordFieldActionPerformed
@@ -513,6 +538,9 @@ public class SignUpPage extends javax.swing.JFrame {
         else if(checkEmail(email)){
             JOptionPane.showMessageDialog(this, "Email has already been used!\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
         }
+        else if(checkUsername(username)){
+            JOptionPane.showMessageDialog(this, "Username has already been used!\nTry again!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        }
         else if(!firstPassword.equals(secondPassword)){ //check if both password are not the same
             //Display error message
             JOptionPane.showMessageDialog(this, "Your passwords are not the same.\n Please retry", "PASSWORD ERROR", JOptionPane.INFORMATION_MESSAGE);
@@ -549,11 +577,17 @@ public class SignUpPage extends javax.swing.JFrame {
             
             try{
                 FileWriter writer = new FileWriter("src/uscs33_project/component/CUSTOMER_DATA.txt", true); //true allows append
+                FileWriter writer2 = new FileWriter("src/uscs33_project/component/WishListInfo.txt", true);
                 writer.write(email + "***" + username + "***" + firstPassword + "***" + 
                     address1 + "***" + address2 + "***" + address3);
                 writer.write(System.lineSeparator()); // This ensures proper newline regardless of OS
+                
+                writer2.write(username);
+                writer2.write("\n\\");
+                writer2.write(System.lineSeparator());
 
                 writer.close();
+                writer2.close();
 
                 //Empty text fields after successful sign up
                 UsernameField.setText("");

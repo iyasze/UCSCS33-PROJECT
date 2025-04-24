@@ -1,4 +1,4 @@
-E001|999|Tartelette™ Toasted Mini Amazonian Clay Palette|Tarte|125.00|E001.png||Eyes|Tartelette™ Toasted Mini Amazonian Clay Palette from Tarte™ with 6 warm and toasty eyeshadow shades on the go!
+E001|989.0|Tartelette™ Toasted Mini Amazonian Clay Palette|Tarte|125.00|E001.png||Eyes|Tartelette™ Toasted Mini Amazonian Clay Palette from Tarte™ with 6 warm and toasty eyeshadow shades on the go!
 E002|999|Creamy Kohl Longwear Eye Pencil|Huda Beauty|101.00|E002.png|Very Vanta,Very Brown|Eyes|A retractable kohl pencil with a gel-like texture that glides on so smoothly and lasts all day long.
 E003|999|Pro Brow Definer Pencil|MAC Cosmetics|117.00|E003.png|Brunette,Omega|Eyes|A pin-thin 24-hour brow definer that delivers natural, hair-like strokes with a water- and smudge-proof formula.
 E004|999|Tartelette™ XL Tubing Mascara|Tarte|120.00|E004.png||Eyes|Revolutionary XL tubing mascara with a 24-hr flake-free and smudge-proof formula with lengthening “tubes” that wrap lashes for XL length, lift and lash love.
@@ -31,14 +31,14 @@ T003|999|Hair Sleeping Masks|Sephora Collection|24.00|T003.png||Hair Treatment|A
 T004|999|Destined For Density™ Megastrength + Caffeine + Biotin Peptide Density Serum"|Briogeo|295|T004.png||Hair Treatment|A concentrated leave-on daily serum, clinically shown to increase hair density by up to 3 times.
 T005|999|Like A Virgin Miracle Hair Elixir Serum|Coco & Eve|144.00|T005.png||Hair Treatment|A hair serum that delivers instant shine, silkiness and zero frizz, with added heat protection.
 T006|999|Rosemary Scalp Treatment Kit (Limited Edition)|AROMATICA|158.00|T006.png||Hair Treatment|A limited-edition all-in-one ritual essential kit features two products from the Rosemary line and includes the Dual Scalp Care Shampoo Brush, designed to address your hair concerns from root to tip
-P001|999|Cheirosa 62 Perfume Mist|Sol de Janeiro|999.00|P001.png||Fragrance|A warm and delicious perfume mist bursting with an alluring pistachio and salted caramel scent.
+P001|1009|Cheirosa 62 Perfume Mist|Sol de Janeiro|999.00|P001.png||Fragrance|A warm and delicious perfume mist bursting with an alluring pistachio and salted caramel scent.
 P002|999|Y Eau de Parfum|Yves Saint Laurent|260.00|P002.png||Fragrance|Y is a modern fragrance for a modern man.
-P003|999|EA Stronger With You Absolutely Parfum|Armani|485.00|P003.png||Fragrance|An addictive fragrance for men, inspired by the power of absolute love.
+P003|1099|EA Stronger With You Absolutely Parfum|Armani|485.00|P003.png||Fragrance|An addictive fragrance for men, inspired by the power of absolute love.
 P004|999|CK One Eau De Toilette Spray|Calvin Klein|399.00|P004.png||Fragrance|A naturally clean, pure, and contemporary fragrance with a refreshingly new point of view.
-P005|999|Eilish Eau De Parfum|Billie Eilish|295.00|P005.png||Fragrance|The debut fragrance from Billie Eilish, a scent for everyone that exposes you to raw feelings, emotions and memories.
+P005|1008|Eilish Eau De Parfum|Billie Eilish|295.00|P005.png||Fragrance|The debut fragrance from Billie Eilish, a scent for everyone that exposes you to raw feelings, emotions and memories.
 P006|999|Libre Eau De Parfum|Yves Saint Laurent|720.00|P006.png||Fragrance|LIBRE by Yves Saint Laurent represents the freedom to live everything to excess. Your boundless creativity, your complete emancipation, your ever-evolving femininity.
 P007|999|Goddess Eau De Parfum|Burberry Beauty|525.00|P007.png||Fragrance|Burberry Goddess perfume tells a story of self-discovery, following Emma Mackey and a pride of lionesses. Radiating confidence, strength and kindness, Emma embodies the spirit of Burberry Goddess Eau de Parfum.
-P008|999|New Miss Dior Blooming Bouquet Eau De Toilette|DIOR|695.00|P008.png||Fragrance|A fresh and sparkling eau de toilette fashioned like a dress embroidered with flowers.
+P008|1004|New Miss Dior Blooming Bouquet Eau De Toilette|DIOR|695.00|P008.png||Fragrance|A fresh and sparkling eau de toilette fashioned like a dress embroidered with flowers.
 
 
 ItemID|Stock|Name|Brand|Price|Image|ShadeOptions|Category|Description

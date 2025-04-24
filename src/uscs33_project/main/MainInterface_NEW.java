@@ -9,6 +9,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -98,7 +99,16 @@ public class MainInterface_NEW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
+                String message = "                                                Welcome to MAKLUV! 💖\n\n"
+               + "                                               Beauty Within Inclusivity!\n\n"
+               + "🔒 Please note:\n"
+               + "- You must be a registered member to access the Wishlist feature.\n"
+               + "- To ensure your Wishlist items are saved properly, make sure to log out correctly after use.\n\n"
+               + "Enjoy your experience with MAKLUV!";
+                
                 new MainInterface_NEW().setVisible(true);
+                JOptionPane.showMessageDialog(null, message, "MAKLUV WELCOMES YOU", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }

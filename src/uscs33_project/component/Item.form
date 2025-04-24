@@ -96,7 +96,7 @@
                   <Component id="btnAddToCart" pref="148" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="btnWishlist" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnWishlist" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
