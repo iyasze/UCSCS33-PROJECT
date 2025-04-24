@@ -4,10 +4,6 @@ E002
 E003
 \
 iyasnaufal
-E001
-E003
-E004
-F001
 \
 test
 F001

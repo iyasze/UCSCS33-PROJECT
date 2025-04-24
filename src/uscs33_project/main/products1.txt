@@ -39,3 +39,5 @@ P005|999|Eilish Eau De Parfum|Billie Eilish|295.0|P005.png||Fragrance|The debut 
 P006|999|Libre Eau De Parfum|Yves Saint Laurent|720.0|P006.png||Fragrance|LIBRE by Yves Saint Laurent represents the freedom to live everything to excess. Your boundless creativity, your complete emancipation, your ever-evolving femininity.
 P007|999|Goddess Eau De Parfum|Burberry Beauty|525.0|P007.png||Fragrance|Burberry Goddess perfume tells a story of self-discovery, following Emma Mackey and a pride of lionesses. Radiating confidence, strength and kindness, Emma embodies the spirit of Burberry Goddess Eau de Parfum.
 P008|999|New Miss Dior Blooming Bouquet Eau De Toilette|DIOR|695.0|P008.png||Fragrance|A fresh and sparkling eau de toilette fashioned like a dress embroidered with flowers.
+
+ItemID|Stock|Name|Brand|Price|Image|ShadeOptions|Category|Description

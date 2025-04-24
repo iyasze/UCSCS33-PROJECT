@@ -166,7 +166,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Email:"/>
+                    <Property name="text" type="java.lang.String" value="*Email:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="EmailField">
@@ -206,7 +206,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Password:"/>
+                    <Property name="text" type="java.lang.String" value="*Password:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="PasswordField">
@@ -250,7 +250,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Username:"/>
+                    <Property name="text" type="java.lang.String" value="*Username:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="UsernameField">
@@ -290,7 +290,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Re-confirm Password:"/>
+                    <Property name="text" type="java.lang.String" value="*Re-confirm Password:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="RePasswordField">
@@ -344,7 +344,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Address:"/>
+                    <Property name="text" type="java.lang.String" value="*Address:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="addressLine_2">

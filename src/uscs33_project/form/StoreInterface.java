@@ -232,7 +232,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     
     
     public void exportData() {
-        Path file = Paths.get("src/uscs33_project/main/products1.txt").toAbsolutePath();
+        Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
         try{
             
             BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
@@ -279,7 +279,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
     
     private void importData() {
         int ID = 1;
-        Path file = Paths.get("src/uscs33_project/main/products1.txt").toAbsolutePath();
+        Path file = Paths.get("src/uscs33_project/main/products.txt").toAbsolutePath();
 //        System.out.println(file);
         try {
             InputStream input = new BufferedInputStream(Files.newInputStream(file));
