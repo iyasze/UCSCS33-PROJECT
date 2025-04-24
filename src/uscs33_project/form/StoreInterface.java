@@ -927,7 +927,7 @@ public class StoreInterface extends javax.swing.JPanel implements addToCartBtnCl
 
     private void cartIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartIconMouseClicked
         
-        if(usernameDisplay.getText().equals("GUEST") && userInfo.get(3).equals("-")){
+        if(usernameDisplay.getText().equals("GUEST") && userInfo.get(3).equals("-") && !(jLabel3.getText().equals("RETURN"))){
             JOptionPane.showMessageDialog(this, "You will need to register your address!");
             
             GuestAddress guest = new GuestAddress();
